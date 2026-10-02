@@ -1,5 +1,6 @@
 package com.example
 
+import com.example.data.update.UPDATE_MANIFEST_URL
 import com.example.data.update.UpdateManifest
 import com.example.data.update.formatBytes
 import com.squareup.moshi.Moshi
@@ -136,5 +137,31 @@ class UpdateManifestTest {
         assertEquals("2.3 MB", formatBytes(2_375_396))
         assertEquals("unknown size", formatBytes(null))
         assertEquals("unknown size", formatBytes(-1))
+    }
+
+    /**
+     * The manifest is fetched from a hardcoded URL, so this pins the two things
+     * that would silently break it.
+     *
+     * A wrong host is the interesting one: `api.github.com` works but is rate
+     * limited to 60 requests an hour unauthenticated, which turns a per-launch
+     * check into an intermittent failure on exactly the devices least able to
+     * retry. And it must be a fork of this repo - a build that checked someone
+     * else's releases would offer their APK to this app's users.
+     */
+    @Test
+    fun `the manifest url points at this project's raw release manifest`() {
+        assertTrue(
+            "manifest must be served raw from GitHub, not through the API: " +
+                "$UPDATE_MANIFEST_URL",
+            UPDATE_MANIFEST_URL.startsWith("https://raw.githubusercontent.com/")
+        )
+
+        assertTrue(
+            "manifest must live on the main branch of this repository: " +
+                "$UPDATE_MANIFEST_URL",
+            UPDATE_MANIFEST_URL ==
+                    "https://raw.githubusercontent.com/LOST-4EVER/AniSequel/main/update.json"
+        )
     }
 }
