@@ -15,9 +15,16 @@ import java.util.concurrent.TimeUnit
  *
  *  - **One** extra attempt, not a loop. A client that retries until it succeeds
  *    is indistinguishable from the hammering the limiter exists to stop.
- *  - Only when the wait is [MAX_RETRY_AFTER_SECONDS] or less. A 60-second
- *    penalty is not something to hide behind a spinner; it is reported to the
- *    user as a rate-limit error with the wait time so they can decide.
+ *  - Only when the wait is between zero and [MAX_RETRY_AFTER_SECONDS]. A
+ *    60-second penalty is not something to hide behind a spinner; it is
+ *    reported to the user as a rate-limit error with the wait time so they can
+ *    decide.
+ *
+ * It is registered *before* [AuthInterceptor], which makes it the outermost
+ * application interceptor: the retry therefore re-enters `AuthInterceptor` and
+ * re-reads the bearer token. That ordering is the difference between a retry
+ * that works after a token refresh and one that replays a stale `Authorization`
+ * header - see `NetworkClient.createApiService`.
  */
 class RateLimitInterceptor : Interceptor {
 
@@ -25,8 +32,16 @@ class RateLimitInterceptor : Interceptor {
         val response = chain.proceed(chain.request())
         if (response.code != HTTP_TOO_MANY_REQUESTS) return response
 
-        val waitSeconds = response.header("Retry-After")?.toIntOrNull()
-        if (waitSeconds == null || waitSeconds > MAX_RETRY_AFTER_SECONDS) {
+        val waitSeconds = response.header("Retry-After")?.trim()?.toIntOrNull()
+
+        // A non-positive wait is not a wait. `Retry-After` is free text from the
+        // server and a `-1` (or a garbage value that parses as negative) used to
+        // pass the upper-bound check below and reach `Thread.sleep(-1000)`,
+        // which throws `IllegalArgumentException` straight out of `intercept` -
+        // turning a "please slow down" response into a crash on the OkHttp
+        // thread. Anything below zero is treated as "no usable wait" and the 429
+        // is handed back to the caller to report.
+        if (waitSeconds == null || waitSeconds <= 0 || waitSeconds > MAX_RETRY_AFTER_SECONDS) {
             return response
         }
 
