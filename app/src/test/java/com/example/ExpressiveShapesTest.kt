@@ -110,19 +110,19 @@ class ExpressiveShapesTest {
         assertEquals(
             "top-left corner x must be half the height for the ends to be " +
                 "semicircles",
-            22f, rect.topLeft.x, TOLERANCE
+            22f, rect.topLeftCornerRadius.x, TOLERANCE
         )
         assertEquals(
             "top-left corner y must equal its x so the corner is a true circle",
-            22f, rect.topLeft.y, TOLERANCE
+            22f, rect.topLeftCornerRadius.y, TOLERANCE
         )
         assertEquals(
             "bottom-right corner x must be half the height too",
-            22f, rect.bottomRight.x, TOLERANCE
+            22f, rect.bottomRightCornerRadius.x, TOLERANCE
         )
         assertEquals(
             "bottom-right corner y must equal its x",
-            22f, rect.bottomRight.y, TOLERANCE
+            22f, rect.bottomRightCornerRadius.y, TOLERANCE
         )
     }
 
@@ -148,8 +148,8 @@ class ExpressiveShapesTest {
 
         val rect = (outline as Outline.Rounded).roundRect
 
-        assertEquals("capsule radius at 40dp tall", 20f, rect.topLeft.x, TOLERANCE)
-        assertEquals("capsule radius must be circular", 20f, rect.topLeft.y, TOLERANCE)
+        assertEquals("capsule radius at 40dp tall", 20f, rect.topLeftCornerRadius.x, TOLERANCE)
+        assertEquals("capsule radius must be circular", 20f, rect.topLeftCornerRadius.y, TOLERANCE)
     }
 
     private companion object {
