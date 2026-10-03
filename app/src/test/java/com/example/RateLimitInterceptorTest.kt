@@ -60,7 +60,7 @@ class RateLimitInterceptorTest {
     }
 
     @Test
-    fun `a non-positive retry-after is handed back instead of slept on`() {
+    fun `a negative retry-after is handed back instead of slept on`() {
         val chain = FakeChain(mutableListOf(response(429, "-1")))
 
         // The bug: this used to throw IllegalArgumentException out of intercept.

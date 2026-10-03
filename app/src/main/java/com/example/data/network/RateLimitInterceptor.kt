@@ -34,14 +34,16 @@ class RateLimitInterceptor : Interceptor {
 
         val waitSeconds = response.header("Retry-After")?.trim()?.toIntOrNull()
 
-        // A non-positive wait is not a wait. `Retry-After` is free text from the
-        // server and a `-1` (or a garbage value that parses as negative) used to
-        // pass the upper-bound check below and reach `Thread.sleep(-1000)`,
-        // which throws `IllegalArgumentException` straight out of `intercept` -
-        // turning a "please slow down" response into a crash on the OkHttp
-        // thread. Anything below zero is treated as "no usable wait" and the 429
-        // is handed back to the caller to report.
-        if (waitSeconds == null || waitSeconds <= 0 || waitSeconds > MAX_RETRY_AFTER_SECONDS) {
+        // `Retry-After` is free text from the server, so it is not something to
+        // sleep on blindly. A negative value used to pass the upper-bound check
+        // below - -1 is not greater than 5 - and reach `Thread.sleep(-1000)`,
+        // which throws `IllegalArgumentException` straight out of `intercept`,
+        // turning a "please slow down" 429 into a crash on the OkHttp worker.
+        //
+        // A negative wait is treated as "no usable wait" and the 429 is handed
+        // back to the caller to report. Zero is still a usable wait - it costs
+        // nothing to retry once - and an unparseable header is never trusted.
+        if (waitSeconds == null || waitSeconds < 0 || waitSeconds > MAX_RETRY_AFTER_SECONDS) {
             return response
         }
 
