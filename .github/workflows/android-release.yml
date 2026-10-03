@@ -438,7 +438,7 @@ jobs:
 
             *Built with JDK 21 and verified by Android Lint.*
           draft: false
-          prerelease: false
+          prerelease: true
           generate_release_notes: true
           files: release-artifacts/*.apk
 
