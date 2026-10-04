@@ -323,6 +323,10 @@ class AniListLiveResponseClassificationTest {
             AniListErrorKind.INVALID_SESSION,
             error.kind
         )
+        assertTrue(
+            "the paste dialog needs to be able to name the failure",
+            error.message.orEmpty().contains("Session expired")
+        )
     }
 
     @Test
@@ -351,11 +355,18 @@ class AniListLiveResponseClassificationTest {
         // working user out over a typo in a query.
         val error = httpErrorOf(
             400,
-            """{"errors":[{"message":"Cannot query field \\"Nope\\" on type \\"Query\\".",""" +
-                """"status":400}],"data":null}"""
+            // A raw string passes backslashes through verbatim, so the JSON
+            // escape for the embedded quotes is a single backslash each - `\\"`
+            // would be an escaped *backslash* and then a bare quote, which is
+            // not JSON at all.
+            """{"errors":[{"message":"Cannot query field \"Nope\" on type \"Query\".","status":400}],"data":null}"""
         )
 
-        assertEquals(AniListErrorKind.INVALID_REQUEST, error.kind)
+        assertEquals(
+            "a typo in a query must not be reported as a dead session",
+            AniListErrorKind.INVALID_REQUEST,
+            error.kind
+        )
     }
 
     @Test
