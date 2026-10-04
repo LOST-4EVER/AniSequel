@@ -259,7 +259,12 @@ class UpdateManifestPublicationTest {
         assertFalse(
             "the manifest push must not end in '|| echo', which turned a rejected " +
                 "push into a green step and hid four stale releases",
-            workflow.contains("""git push --quiet origin "HEAD:${GITHUB_REF_NAME}" || echo""")
+            // `${'$'}` rather than `$`: a raw string still interpolates, so an
+            // unescaped ${GITHUB_REF_NAME} would be resolved by Kotlin as a
+            // template expression and fail to compile.
+            workflow.contains(
+                """git push --quiet origin "HEAD:${'$'}{GITHUB_REF_NAME}" || echo"""
+            )
         )
 
         assertTrue(
