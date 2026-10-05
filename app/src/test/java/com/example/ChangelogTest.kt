@@ -109,11 +109,12 @@ class ChangelogTest {
         val versions = changelog.versionsWithNotes()
 
         assertTrue("no version has any notes", versions.isNotEmpty())
+        // Components compared as a single integer rather than a list: `List<Int>`
+        // is not itself `Comparable`, and the implicit inference of that
+        // overloaded `sortedByDescending` is what failed to compile here.
         val sorted = versions.map { it.version }
             .filterNotNull()
-            .sortedByDescending { version ->
-                version.split('.').mapNotNull { it.toIntOrNull() }
-            }
+            .sortedByDescending { version -> version.sortKey() }
         assertEquals(
             "assets/changelog.json must list versions newest first. Found $sorted.",
             sorted,
@@ -233,7 +234,20 @@ class ChangelogTest {
         assertTrue(parsed!!.versions!!.isNotEmpty())
     }
 
-    private fun findProjectRoot(): File {
+    /**
+ * `1.0.24` → 10024, so the sort is numeric.
+ *
+ * String comparison is wrong here for the same reason the workflow compares patch
+ * numbers as integers: "1.0.9" sorts above "1.0.10", which would make an older
+ * release look like the newest one — and "newest" is what every consumer renders.
+ */
+private fun String.sortKey(): Long {
+    val parts = split('.').mapNotNull { it.toIntOrNull() }
+    require(parts.isNotEmpty()) { "'$this' has no numeric components" }
+    return parts.fold(0L) { acc, part -> acc * 100L + part }
+}
+
+private fun findProjectRoot(): File {
         val start = File(System.getProperty("user.dir") ?: ".")
         var candidate: File? = start
         while (candidate != null) {
