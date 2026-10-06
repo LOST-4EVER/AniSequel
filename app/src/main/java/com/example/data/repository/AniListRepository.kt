@@ -67,27 +67,46 @@ interface AniListRepository {
         userId: Int,
         page: Int = 1,
         forceRefresh: Boolean = false
-    ): Result<List<ListActivity>>
+    ): Result<List<ListActivity>> = unsupported("getUserActivity")
 
     /** The people who follow this account. Empty list means no followers. */
     suspend fun getUserFollowers(
         userId: Int,
         forceRefresh: Boolean = false
-    ): Result<List<FollowUser>>
+    ): Result<List<FollowUser>> = unsupported("getUserFollowers")
 
     /** The people this account follows. */
     suspend fun getUserFollowing(
         userId: Int,
         forceRefresh: Boolean = false
-    ): Result<List<FollowUser>>
+    ): Result<List<FollowUser>> = unsupported("getUserFollowing")
 
     fun getDemoProfile(): ViewerProfile
     fun getDemoAnimeList(): MediaListCollection
 
-    /** The same shape as the real thing, so the demo profile screen is the real screen. */
-    fun getDemoUserOverview(): UserOverview
-    fun getDemoUserActivity(): List<ListActivity>
-    fun getDemoFollowers(): List<FollowUser>
-    fun getDemoFollowing(): List<FollowUser>
+    /**
+     * The same shape as the real thing, so the demo profile screen is the real
+     * screen - including its failures, which is the point.
+     */
+    fun getDemoUserOverview(): UserOverview = unsupported("getDemoUserOverview")
+    fun getDemoUserActivity(): List<ListActivity> = unsupported("getDemoUserActivity")
+    fun getDemoFollowers(): List<FollowUser> = unsupported("getDemoFollowers")
+    fun getDemoFollowing(): List<FollowUser> = unsupported("getDemoFollowing")
     fun clearDetailCache() {}
 }
+
+/**
+ * The default for a screen an implementation does not serve.
+ *
+ * Thrown rather than returned as an empty list, on purpose. An empty activity
+ * feed and a failed one look identical on screen - both are a blank list - so a
+ * silent default would turn "this repository cannot answer that" into "this
+ * person has not done anything", which is the one claim this screen must never
+ * make about somebody.
+ *
+ * `AniListRepositoryImpl` overrides all six. Only the test doubles that exist to
+ * exercise the dashboard's two calls rely on the default, and none of them opens
+ * a profile.
+ */
+private fun unsupported(operation: String): Nothing =
+    throw UnsupportedOperationException("AniListRepository does not serve $operation")

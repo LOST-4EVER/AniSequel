@@ -383,7 +383,7 @@ class UserActivityJsonTest {
         assertEquals("completed", activity.status)
         assertEquals(8, activity.likeCount)
         assertEquals(0, activity.replyCount)
-        assertEquals(1726929411L, activity.createdAt.toLong())
+        assertEquals(1726929411, activity.createdAt)
         assertEquals("ANIME", activity.media!!.type)
         assertEquals(1, activity.media!!.episodes)
         assertEquals("https://s4.anilist.co/bx100465.png", activity.media!!.coverImage!!.large)

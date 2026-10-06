@@ -363,15 +363,13 @@ class BuildListEntryInsightsUseCaseTest {
 
     @Test
     fun `the episode bands keep their order and are scaled against the largest`() {
+        val entries = (1..10).map { entry(it, episodes = 12) } + entry(11, episodes = 1)
         val insights = useCase(
-            collection(
-                (1..10).map { entry(it, episodes = 12) },
-                entry(11, episodes = 1)
-            ).let { c ->
-                MediaListCollection(
-                    lists = listOf(MediaListGroup(name = "All", status = "COMPLETED", entries = c.lists!!.first().entries!!))
+            MediaListCollection(
+                lists = listOf(
+                    MediaListGroup(name = "All", status = "COMPLETED", entries = entries)
                 )
-            }
+            )
         )
 
         assertEquals(listOf("1", "2-6", "7-16", "17-28", "29+"), insights.episodeBuckets.map { it.label })
