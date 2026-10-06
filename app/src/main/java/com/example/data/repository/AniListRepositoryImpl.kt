@@ -1,10 +1,13 @@
 package com.example.data.repository
 
+import com.example.data.model.FollowUser
 import com.example.data.model.GraphQLRequest
 import com.example.data.model.GraphQLResponse
+import com.example.data.model.ListActivity
 import com.example.data.model.MediaListCollection
 import com.example.data.model.MediaNode
 import com.example.data.model.SimpleMediaListEntry
+import com.example.data.model.UserOverview
 import com.example.data.model.ViewerProfile
 import com.example.data.network.AniListApiService
 import com.example.data.network.AniListErrorKind
@@ -101,6 +104,68 @@ class AniListRepositoryImpl(
     private val listCache = java.util.concurrent.ConcurrentHashMap<String, CachedList>()
 
     private class CachedList(val collection: MediaListCollection, val storedAtMillis: Long)
+
+    /**
+     * Profile responses, on the same window and the same reasoning as
+     * [listCache]: coming back to the profile within the user's chosen refresh
+     * interval should not spend another of AniList's ~30 requests a minute.
+     *
+     * Kept apart from [listCache] rather than folded into it because the two hold
+     * different types, and the dashboard already asks for a list far more often
+     * than anything asks for a profile - sharing one map would mean the profile
+     * fetch evicted the list the dashboard is about to reuse.
+     */
+    private val overviewCache = java.util.concurrent.ConcurrentHashMap<String, CachedOverview>()
+
+    private class CachedOverview(val overview: UserOverview, val storedAtMillis: Long)
+
+    /**
+     * Activity pages and follower lists, keyed by user.
+     *
+     * Kept apart from [overviewCache] for the same reason the profile itself is:
+     * the Social tab is a second request the Overview tab does not make, and
+     * re-fetching fifty avatars because the bio was refetched would spend
+     * AniList's budget for a list that cannot have changed in that window.
+     */
+    private val activityCache = java.util.concurrent.ConcurrentHashMap<String, CachedList<List<ListActivity>>>()
+    private val followersCache = java.util.concurrent.ConcurrentHashMap<String, CachedList<List<FollowUser>>>()
+    private val followingCache = java.util.concurrent.ConcurrentHashMap<String, CachedList<List<FollowUser>>>()
+
+    private class CachedList<T>(val items: List<T>, val storedAtMillis: Long)
+
+    /**
+     * A cached read that is not a media list.
+     *
+     * Same window and same reasoning as [cachedList]; separate because the key
+     * and the payload differ. [ttlSupplier] is read per lookup so a refresh
+     * interval changed in Settings applies to the very next request.
+     */
+    private fun <T> cachedItems(cache: java.util.concurrent.ConcurrentHashMap<String, CachedList<T>>, key: String): List<T>? {
+        val entry = cache[key] ?: return null
+        if (System.currentTimeMillis() - entry.storedAtMillis > listCacheTtlMillis()) {
+            cache.remove(key)
+            return null
+        }
+        return entry.items
+    }
+
+    private fun <T> storeItems(
+        cache: java.util.concurrent.ConcurrentHashMap<String, CachedList<T>>,
+        key: String,
+        items: List<T>
+    ) {
+        cache[key] = CachedList(items, System.currentTimeMillis())
+    }
+
+    private fun cachedOverview(key: String): UserOverview? {
+        val entry = overviewCache[key] ?: return null
+        val ttl = listCacheTtlMillis()
+        if (System.currentTimeMillis() - entry.storedAtMillis > ttl) {
+            overviewCache.remove(key)
+            return null
+        }
+        return entry.overview
+    }
 
     private fun cachedList(key: String): MediaListCollection? {
         val entry = listCache[key] ?: return null
@@ -209,9 +274,113 @@ class AniListRepositoryImpl(
             // added still shows as a missed sequel on the next list recompute.
             .onSuccess { listCache.clear() }
 
+    /**
+     * Keyed on whichever identifier the caller supplied, so the signed-in
+     * profile and a scanned public one get separate entries - and so a
+     * username that has been renamed cannot serve the old account's bio.
+     */
+    private fun overviewCacheKey(userId: Int?, userName: String?): String = when {
+        userId != null -> "user:$userId"
+        else -> "userName:${userName.orEmpty().trim()}"
+    }
+
+    override suspend fun getUserOverview(
+        userId: Int?,
+        userName: String?,
+        forceRefresh: Boolean
+    ): Result<UserOverview> {
+        val key = overviewCacheKey(userId, userName)
+        if (!forceRefresh) cachedOverview(key)?.let { return Result.success(it) }
+
+        return execute(
+            GraphQLRequest(
+                query = GraphQLQueries.GET_USER_OVERVIEW,
+                variables = mapOf(
+                    "userId" to userId,
+                    "userName" to userName?.trim()
+                )
+            ),
+            apiService::getUserOverview
+        ).map { data ->
+            val overview = data.user.require(
+                userName?.let { "No AniList user called \"$it\"." }
+                    ?: "AniList returned no profile for this account."
+            )
+            overviewCache[key] = CachedOverview(overview, System.currentTimeMillis())
+            overview
+        }
+    }
+
     override fun getDemoProfile(): ViewerProfile = DemoDataProvider.getDemoViewer()
 
     override fun getDemoAnimeList(): MediaListCollection = DemoDataProvider.getDemoMediaList()
+
+    override fun getDemoUserOverview(): UserOverview = DemoProfileProvider.getDemoUserOverview()
+
+    override fun getDemoUserActivity(): List<ListActivity> = DemoProfileProvider.getDemoActivity()
+
+    override fun getDemoFollowers(): List<FollowUser> = DemoProfileProvider.getDemoFollowers()
+
+    override fun getDemoFollowing(): List<FollowUser> = DemoProfileProvider.getDemoFollowing()
+
+    override suspend fun getUserActivity(
+        userId: Int,
+        page: Int,
+        forceRefresh: Boolean
+    ): Result<List<ListActivity>> {
+        val key = "user:$userId:page:$page"
+        if (!forceRefresh) cachedItems(activityCache, key)?.let { return Result.success(it) }
+
+        return execute(
+            GraphQLRequest(
+                query = GraphQLQueries.GET_USER_ACTIVITY,
+                variables = mapOf("userId" to userId, "page" to page)
+            ),
+            apiService::getUserActivity
+        ).map { data ->
+            // `isUnrecognised` is the union member this app does not model. The
+            // query filters with `type_in`, so in practice the server only sends
+            // list updates - but the filter is a `type_in` argument, not a
+            // guarantee, and a forum post arriving here would parse into an
+            // activity with no media and no status. Dropping those here means a
+            // blank card is never rendered; see `ListActivity.isUnrecognised`.
+            val activities = data.page?.activities.orEmpty().filterNot { it.isUnrecognised }
+            storeItems(activityCache, key, activities)
+            activities
+        }
+    }
+
+    override suspend fun getUserFollowers(userId: Int, forceRefresh: Boolean): Result<List<FollowUser>> =
+        followList(userId, forceRefresh, followersCache, "followers") { request ->
+            execute(request, apiService::getUserFollowers).map { data ->
+                data.page?.followers.orEmpty()
+            }
+        }
+
+    override suspend fun getUserFollowing(userId: Int, forceRefresh: Boolean): Result<List<FollowUser>> =
+        followList(userId, forceRefresh, followingCache, "following") { request ->
+            execute(request, apiService::getUserFollowing).map { data ->
+                data.page?.following.orEmpty()
+            }
+        }
+
+    private suspend fun followList(
+        userId: Int,
+        forceRefresh: Boolean,
+        cache: java.util.concurrent.ConcurrentHashMap<String, CachedList<List<FollowUser>>>,
+        which: String,
+        fetch: suspend (GraphQLRequest) -> Result<List<FollowUser>>
+    ): Result<List<FollowUser>> {
+        val key = "user:$userId:$which"
+        if (!forceRefresh) cachedItems(cache, key)?.let { return Result.success(it) }
+
+        val query = when (which) {
+            "followers" -> GraphQLQueries.GET_USER_FOLLOWERS
+            else -> GraphQLQueries.GET_USER_FOLLOWING
+        }
+        return fetch(GraphQLRequest(query = query, variables = mapOf("userId" to userId)))
+            .onSuccess { storeItems(cache, key, it) }
+    }
 
     override fun clearDetailCache() {
         detailCache.clear()
@@ -219,6 +388,16 @@ class AniListRepositoryImpl(
         // A TTL alone would leave another person's finished list sitting in
         // memory for up to an hour after sign-out.
         listCache.clear()
+        // Same reasoning for the profile, and it matters more here: the bio and
+        // the favourites are the most identifying thing the app holds about
+        // anyone, and a public-profile scan is exactly how someone else's ends
+        // up in this process.
+        overviewCache.clear()
+        // As are the activity feed and the follower lists, which are just as
+        // personal and are fetched for other people too.
+        activityCache.clear()
+        followersCache.clear()
+        followingCache.clear()
     }
 
     /**
