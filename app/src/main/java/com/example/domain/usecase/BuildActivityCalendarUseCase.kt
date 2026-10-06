@@ -130,7 +130,17 @@ class BuildActivityCalendarUseCase {
             columns = columns,
             monthLabels = monthLabels(columns.size, firstColumnStart),
             weekdayLabels = listOf("M", "W", "F"),
-            totalChanges = byDay.values.sumOf { it.amount },
+            // Summed from the drawn cells rather than from the whole history.
+            //
+            // The header says how much activity this grid covers, so it has to be
+            // the same number the grid is showing: summing the raw history would
+            // count a future-dated entry - a typo in someone's list, or a device
+            // with the wrong clock - that no cell draws, and the card would read
+            // "41 changes in 26 weeks" above a grid with nothing coloured in it.
+            totalChanges = columns.asSequence()
+                .flatMap { it.days.asSequence() }
+                .filter { it.inRange }
+                .sumOf { it.count },
             weeksShown = weekCount
         )
     }
