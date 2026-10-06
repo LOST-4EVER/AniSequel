@@ -54,14 +54,14 @@ class BuildListEntryInsightsUseCase {
 
         val releaseYears = buckets(
             entries.mapNotNull { entry ->
-                entry.media.startDate?.year?.let { BucketTally("'$${it.toString().takeLast(2)}", 1, 0f) }
+                entry.media.startDate?.year?.let { BucketTally(twoDigitYear(it), 1, 0f) }
             },
             countBy = { it.label }
         ).sortedBy { it.yearSortKey }
 
         val watchYears = buckets(
             entries.mapNotNull { entry ->
-                entry.completedAt?.year?.let { BucketTally("'$${it.toString().takeLast(2)}", 1, 0f) }
+                entry.completedAt?.year?.let { BucketTally(twoDigitYear(it), 1, 0f) }
             },
             countBy = { it.label }
         ).sortedBy { it.yearSortKey }
@@ -173,11 +173,25 @@ class BuildListEntryInsightsUseCase {
         val BucketTally.yearSortKey: Int
             // Parenthesised deliberately. `+` binds tighter than `?:`, so the
             // unparenthesised form parses as `(CENTURY + year) ?: 0` and the
-            // sum's nullability leaks out of a getter declared `Int` - an error
-            // about types in an expression that reads as arithmetic.
-            get() = CENTURY + (label.removePrefix("'").toIntOrNull() ?: 0)
+            // sum's nullability leaks out of a getter declared `Int` - a compile
+            // error about types in an expression that reads as arithmetic.
+            get() = CENTURY + (label.removePrefix(YEAR_PREFIX).toIntOrNull() ?: 0)
+
+        /**
+         * A year as the chart shows it: `'19`.
+         *
+         * A function rather than `"'$${...}"` written inline, because that is not
+         * an apostrophe followed by an interpolation. `$` followed by `$` is not a
+         * template expression, so Kotlin reads the first as a literal dollar sign
+         * and interpolates the second - the label came out as `$19`, every year on
+         * both charts, and the tests caught it by expecting `'19`.
+         */
+        fun twoDigitYear(year: Int): String = YEAR_PREFIX + year.toString().takeLast(2)
 
         const val CENTURY = 2000
+
+        /** What [twoDigitYear] puts in front, and what [yearSortKey] strips off. */
+        const val YEAR_PREFIX = "'"
 
         /**
          * Country codes as the countries, not the codes.

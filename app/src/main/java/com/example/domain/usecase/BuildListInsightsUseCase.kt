@@ -134,9 +134,11 @@ class BuildListInsightsUseCase {
     /**
      * The status chips and the strip under them.
      *
-     * AniList sends a status with a count of zero for some accounts, and omits
-     * others. Omitted statuses are not invented - the chart shows what the account
-     * actually has, rather than a strip padded with five rows of nothing.
+     * A status this app has never seen - AniList can add one without telling us -
+     * is labelled by breaking its enum name apart rather than by dropping it.
+     * `SOMETHING_NEW` becomes "Something new", not "Something_new" and not nothing
+     * at all: the label is the only place a person would ever have learnt the
+     * status exists, and an underscore is a database leaking in place of it.
      */
     private fun statusDistribution(distribution: List<StatusAmount>?): StatusDistribution {
         val present = distribution.orEmpty()
@@ -187,7 +189,9 @@ class BuildListInsightsUseCase {
         "DROPPED" -> "Dropped"
         "PLANNING" -> "Planning"
         "REPEATING" -> "Rewatching"
-        else -> lowercase().replaceFirstChar { it.uppercase() }
+        // Underscores are word breaks here, not characters. See the note on
+        // `statusDistribution`.
+        else -> lowercase().replace('_', ' ').replaceFirstChar { it.uppercase() }
     }
 
     /**

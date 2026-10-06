@@ -95,14 +95,17 @@ class BuildActivityCalendarUseCaseTest {
 
     @Test
     fun `a day after today is neither counted nor allowed to colour the ramp`() {
-        val nextSunday = LocalDate.of(2026, 6, 14)
+        // Friday 2026-06-12. Not the Sunday after it: the last column of a
+        // four-week grid ends on Saturday 2026-06-13, so the 14th is not in the
+        // grid at all and looking for it throws rather than testing anything.
+        val laterThisWeek = LocalDate.of(2026, 6, 12)
         val calendar = useCase(
-            listOf(day(nextSunday, amount = 40, level = 7)),
+            listOf(day(laterThisWeek, amount = 40, level = 7)),
             weeks = 4,
             today = today
         )
 
-        val future = calendar.columns.last().days.first { it.epochDay == nextSunday.toEpochDay() }
+        val future = calendar.columns.last().days.first { it.epochDay == laterThisWeek.toEpochDay() }
         assertEquals(false, future.inRange)
         assertEquals(0, future.count)
         assertEquals(0f, future.intensity, 0.0001f)

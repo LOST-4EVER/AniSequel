@@ -416,8 +416,11 @@ class UserActivityJsonTest {
         val activities = parse<ActivityFeedData>(capturedFeed).page!!.activities!!
 
         assertEquals("Completed", activities[0].displayStatus)
+        // The captured item is "current", not "planning" - "Plans to watch" is
+        // PLANNING's label, and asserting it here would have passed for the wrong
+        // reason if the fixture had been changed underneath.
         assertEquals("Watched", activities[1].displayStatus)
-        assertEquals("Plans to watch", activities[1].displayStatusFor(isManga = false))
+        assertEquals("Watched", activities[1].displayStatusFor(isManga = false))
         // The same CURRENT status means something else for manga.
         assertEquals("Read", activities[1].displayStatusFor(isManga = true))
     }

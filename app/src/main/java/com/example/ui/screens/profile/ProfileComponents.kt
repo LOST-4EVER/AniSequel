@@ -472,21 +472,27 @@ internal fun formatMeanScore(meanScore: Double): String {
  *
  * Deliberately a substitution pass, not a parser: it un-does the four things that
  * actually appear in an AniList bio - headings, emphasis, links and bullets - and
- * leaves everything else exactly as the person wrote it. Blank lines collapse to
- * two, so a bio that alternates heading, list and paragraph reads as three
- * paragraphs rather than as fifteen blank-spaced lines.
+ * leaves everything else exactly as the person wrote it.
  *
- * Link text is kept and the URL is dropped, because the destination is already one
- * tap away and a list of raw `anilist.co/...` strings would be noise.
+ * ## Why the line-start patterns match spaces and tabs, not `\s`
+ *
+ * `\s` includes a newline, so a heading pattern written as `#{1,6}\s*` at the head
+ * of a line consumes the blank line *before* it - up to three characters' worth,
+ * which is exactly the run of newlines the later `\n{3,}` pass was supposed to
+ * collapse. The two passes fought each other and the result depended on how many
+ * blank lines the person happened to leave: `### One`, blank, blank, `text`
+ * rendered as "One" and "text" in the same paragraph. `[ \t]*` matches only what
+ * is actually on the heading's own line, so the blank-line pass is the only thing
+ * deciding how paragraphs separate.
  */
 internal fun stripMarkdown(source: String): String = source
     .replace(Regex("""\[([^\]]+)]\([^)]*\)"""), "$1")
     .replace(Regex("""!\[[^\]]*]\([^)]*\)"""), "")
-    .replace(Regex("""^\s{0,3}#{1,6}\s*""", RegexOption.MULTILINE), "")
-    .replace(Regex("""^\s{0,3}>\s?""", RegexOption.MULTILINE), "")
+    .replace(Regex("""^[ \t]{0,3}#{1,6}[ \t]*""", RegexOption.MULTILINE), "")
+    .replace(Regex("""^[ \t]{0,3}>[ \t]?"""), "")
     .replace(Regex("""(\*\*|__)(.+?)\1"""), "$2")
     .replace(Regex("""(\*|_)(.+?)\1"""), "$2")
-    .replace(Regex("""^\s{0,3}[-*+]\s+""", RegexOption.MULTILINE), "")
+    .replace(Regex("""^[ \t]{0,3}[-*+][ \t]+""", RegexOption.MULTILINE), "")
     .replace(Regex("""`([^`]+)`"""), "$1")
     .replace(Regex("""\n{3,}"""), "\n\n")
     .trim()

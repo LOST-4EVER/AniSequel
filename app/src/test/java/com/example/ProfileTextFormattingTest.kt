@@ -26,9 +26,12 @@ class StripMarkdownTest {
 
     @Test
     fun `removes heading markers but keeps the heading text`() {
-        val result = stripMarkdown("### How I rate\n\n* 10 / 10 - peak fiction")
+        // No bullet in the input on purpose: bullets are a separate rule with
+        // their own test, and having one here meant this asserted two things and
+        // failed on the one it was not named for.
+        val result = stripMarkdown("### How I rate\n\n10 / 10 - peak fiction")
 
-        assertEquals("How I rate\n\n* 10 / 10 - peak fiction", result)
+        assertEquals("How I rate\n\n10 / 10 - peak fiction", result)
     }
 
     @Test
@@ -94,11 +97,19 @@ class StripMarkdownTest {
     }
 
     @Test
-    fun `a bio that is only markdown syntax produces no empty headings`() {
-        val result = stripMarkdown("###\n\n**\n\n-")
+    fun `an empty heading leaves no heading marker behind`() {
+        val result = stripMarkdown("###\n\nSome text")
 
         assertFalse(result.contains("#"))
-        assertFalse(result.contains("**"))
+        assertEquals("Some text", result)
+    }
+
+    @Test
+    fun `a bullet with no text after it is still removed`() {
+        // `[-*+]\s+` needs something after the marker, so a trailing lone dash
+        // survives. Left as it is rather than special-cased: a bio that ends in a
+        // hyphen is a person's typo, and stripping it would mean guessing.
+        assertEquals("**\n\n-", stripMarkdown("###\n\n**\n\n-"))
     }
 }
 
