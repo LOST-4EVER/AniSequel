@@ -127,8 +127,8 @@ class AniListRepositoryImpl(
      * re-fetching fifty avatars because the bio was refetched would spend
      * AniList's budget for a list that cannot have changed in that window.
      */
-    private val activityCache = java.util.concurrent.ConcurrentHashMap<String, CachedItems<List<ListActivity>>>()
-    private val followersCache = java.util.concurrent.ConcurrentHashMap<String, CachedItems<List<FollowUser>>>()
+    private val activityCache = java.util.concurrent.ConcurrentHashMap<String, CachedItems<ListActivity>()
+    private val followersCache = java.util.concurrent.ConcurrentHashMap<String, CachedItems<FollowUser>()
     private val followingCache = java.util.concurrent.ConcurrentHashMap<String, CachedItems<List<FollowUser>>>()
 
     private class CachedItems<T>(val items: List<T>, val storedAtMillis: Long)

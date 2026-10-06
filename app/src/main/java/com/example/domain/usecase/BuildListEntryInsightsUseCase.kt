@@ -171,7 +171,11 @@ class BuildListEntryInsightsUseCase {
          * than a guess.
          */
         val BucketTally.yearSortKey: Int
-            get() = (CENTURY + label.removePrefix("'").toIntOrNull() ?: 0)
+            // Parenthesised deliberately. `+` binds tighter than `?:`, so the
+            // unparenthesised form parses as `(CENTURY + year) ?: 0` and the
+            // sum's nullability leaks out of a getter declared `Int` - an error
+            // about types in an expression that reads as arithmetic.
+            get() = CENTURY + (label.removePrefix("'").toIntOrNull() ?: 0)
 
         const val CENTURY = 2000
 

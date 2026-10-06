@@ -162,9 +162,6 @@ object ExpressiveMotion {
             )
         }
 
-    val ListItemFadeOut: FiniteAnimationSpec<Float> get() =
-        effects(stiffness = Spring.StiffnessMedium)
-
     /**
      * Selected-tab and selected-segment scale.
      *

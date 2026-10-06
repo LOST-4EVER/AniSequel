@@ -324,7 +324,8 @@ class BuildListEntryInsightsUseCaseTest {
         )
 
         assertEquals(listOf("1", "2-6", "7-16", "17-28", "29+"), insights.episodeBuckets.map { it.label })
-        assertEquals(listOf(1, 1, 2, 1, 1), insights.episodeBuckets.map { it.count })
+        // 1 -> 1, 6 -> 2-6, 7 and 16 -> 7-16, 17 and 28 -> 17-28, 40 -> 29+.
+        assertEquals(listOf(1, 1, 2, 2, 1), insights.episodeBuckets.map { it.count })
     }
 
     @Test
