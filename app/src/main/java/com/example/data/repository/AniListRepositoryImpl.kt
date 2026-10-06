@@ -20,6 +20,7 @@ import com.example.data.network.toAniListException
 import com.squareup.moshi.JsonDataException
 import retrofit2.HttpException
 import java.io.IOException
+import java.util.concurrent.ConcurrentHashMap
 
 /**
  * Matches the `mutation` keyword of a GraphQL document.
@@ -71,7 +72,7 @@ class AniListRepositoryImpl(
      * never collide.
      */
     private val readCoalescer = RequestCoalescer<String>()
-    private val detailCache = java.util.concurrent.ConcurrentHashMap<Int, MediaNode>()
+    private val detailCache = ConcurrentHashMap<Int, MediaNode>()
 
     /**
      * Completed list responses, kept briefly so re-entering the app does not
@@ -101,7 +102,7 @@ class AniListRepositoryImpl(
      * Keyed on the user, not on the query, so one account's list can never be
      * served to another.
      */
-    private val listCache = java.util.concurrent.ConcurrentHashMap<String, CachedList>()
+    private val listCache = ConcurrentHashMap<String, CachedList>()
 
     private class CachedList(val collection: MediaListCollection, val storedAtMillis: Long)
 
@@ -115,7 +116,7 @@ class AniListRepositoryImpl(
      * than anything asks for a profile - sharing one map would mean the profile
      * fetch evicted the list the dashboard is about to reuse.
      */
-    private val overviewCache = java.util.concurrent.ConcurrentHashMap<String, CachedOverview>()
+    private val overviewCache = ConcurrentHashMap<String, CachedOverview>()
 
     private class CachedOverview(val overview: UserOverview, val storedAtMillis: Long)
 
@@ -127,20 +128,21 @@ class AniListRepositoryImpl(
      * re-fetching fifty avatars because the bio was refetched would spend
      * AniList's budget for a list that cannot have changed in that window.
      */
-    private val activityCache = java.util.concurrent.ConcurrentHashMap<String, CachedItems<ListActivity>()
-    private val followersCache = java.util.concurrent.ConcurrentHashMap<String, CachedItems<FollowUser>()
-    private val followingCache = java.util.concurrent.ConcurrentHashMap<String, CachedItems<List<FollowUser>>>()
+    private val activityCache = ConcurrentHashMap<String, CachedItems<ListActivity>>()
+    private val followersCache = ConcurrentHashMap<String, CachedItems<FollowUser>>()
+    private val followingCache = ConcurrentHashMap<String, CachedItems<FollowUser>>()
 
     private class CachedItems<T>(val items: List<T>, val storedAtMillis: Long)
 
     /**
      * A cached read that is not a media list.
      *
-     * Same window and same reasoning as [cachedList]; separate because the key
-     * and the payload differ. [ttlSupplier] is read per lookup so a refresh
-     * interval changed in Settings applies to the very next request.
+     * Same window and same reasoning as [cachedList]; separate because the key and
+     * the payload differ. `listCacheTtlMillis` is read per lookup, so a refresh
+     * interval changed in Settings applies to the very next request rather than to
+     * whatever was in force when this repository was built.
      */
-    private fun <T> cachedItems(cache: java.util.concurrent.ConcurrentHashMap<String, CachedItems<T>>, key: String): List<T>? {
+    private fun <T> cachedItems(cache: ConcurrentHashMap<String, CachedItems<T>>, key: String): List<T>? {
         val entry = cache[key] ?: return null
         if (System.currentTimeMillis() - entry.storedAtMillis > listCacheTtlMillis()) {
             cache.remove(key)
@@ -150,7 +152,7 @@ class AniListRepositoryImpl(
     }
 
     private fun <T> storeItems(
-        cache: java.util.concurrent.ConcurrentHashMap<String, CachedItems<T>>,
+        cache: ConcurrentHashMap<String, CachedItems<T>>,
         key: String,
         items: List<T>
     ) {
@@ -367,7 +369,7 @@ class AniListRepositoryImpl(
     private suspend fun followList(
         userId: Int,
         forceRefresh: Boolean,
-        cache: java.util.concurrent.ConcurrentHashMap<String, CachedItems<List<FollowUser>>>,
+        cache: ConcurrentHashMap<String, CachedItems<FollowUser>>,
         which: String,
         fetch: suspend (GraphQLRequest) -> Result<List<FollowUser>>
     ): Result<List<FollowUser>> {
