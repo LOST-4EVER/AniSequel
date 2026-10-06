@@ -54,7 +54,7 @@ interface AniListRepository {
         userId: Int?,
         userName: String?,
         forceRefresh: Boolean = false
-    ): Result<UserOverview>
+    ): Result<UserOverview> = unsupported("getUserOverview")
 
     /**
      * One page of the person's list activity, newest first.
