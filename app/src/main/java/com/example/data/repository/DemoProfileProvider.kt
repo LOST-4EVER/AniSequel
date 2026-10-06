@@ -317,7 +317,7 @@ object DemoProfileProvider {
     private fun activityAmountFor(daysBack: Int, dayOfWeek: Int): Int {
         if (daysBack > 300 && daysBack % 3 != 0) return 0
         val weekdayBoost = if (dayOfWeek == 6 || dayOfWeek == 7) 2 else 0
-        return ((daysBack * 7) % 9) + weekdayBoost
+        return (daysBack * 7 % 9) + weekdayBoost
     }
 
     private fun demoScoreDistribution() = listOf(

@@ -93,7 +93,7 @@ class BuildListEntryInsightsUseCase {
         rows.forEach { row ->
             val key = countBy(row)
             val existing = counts[key]
-            counts[key] = key to ((existing?.second ?: 0) + row.count)
+            counts[key] = key to (existing?.second ?: 0) + row.count
         }
         val tallies = counts.map { (_, labelAndCount) ->
             BucketTally(labelAndCount.first, labelAndCount.second, 0f)
