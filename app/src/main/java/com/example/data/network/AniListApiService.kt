@@ -35,7 +35,20 @@ interface AniListApiService {
         @Body request: GraphQLRequest
     ): GraphQLResponse<MediaListCollectionData>
 
-    /** Bio, list statistics and favourites. Only for the profile screen. */
+    @POST("/")
+    @Headers("Content-Type: application/json", "Accept: application/json")
+    suspend fun saveMediaListEntry(
+        @Body request: GraphQLRequest
+    ): GraphQLResponse<SaveMediaListEntryData>
+
+    /** Fetches the fields the list query leaves out, for one entry only. */
+    @POST("/")
+    @Headers("Content-Type: application/json", "Accept: application/json")
+    suspend fun getMediaDetail(
+        @Body request: GraphQLRequest
+    ): GraphQLResponse<MediaDetailData>
+
+    /** Bio, list statistics, favourites and aggregate stats. Profile screen only. */
     @POST("/")
     @Headers("Content-Type: application/json", "Accept: application/json")
     suspend fun getUserOverview(
@@ -52,9 +65,10 @@ interface AniListApiService {
     /**
      * Followers, and [getUserFollowing] separately.
      *
-     * Two methods rather than one with a flag because `Page` accepts a single
-     * data field - asking for `followers` and `following` in one document is a
-     * GraphQL validation error, not a merged result.
+     * Two methods rather than one with a flag because `Page` accepts a single data
+     * field - asking for `followers` and `following` in one document is a GraphQL
+     * validation error ("Page query can only accept 1 child field"), not a merged
+     * result. Checked, not assumed.
      */
     @POST("/")
     @Headers("Content-Type: application/json", "Accept: application/json")
@@ -67,18 +81,4 @@ interface AniListApiService {
     suspend fun getUserFollowing(
         @Body request: GraphQLRequest
     ): GraphQLResponse<FollowingData>
-}
-
-    @POST("/")
-    @Headers("Content-Type: application/json", "Accept: application/json")
-    suspend fun saveMediaListEntry(
-        @Body request: GraphQLRequest
-    ): GraphQLResponse<SaveMediaListEntryData>
-
-    /** Fetches the fields the list query leaves out, for one entry only. */
-    @POST("/")
-    @Headers("Content-Type: application/json", "Accept: application/json")
-    suspend fun getMediaDetail(
-        @Body request: GraphQLRequest
-    ): GraphQLResponse<MediaDetailData>
 }

@@ -86,7 +86,6 @@ fun ProfileSocialTab(
             SocialSelector(
                 selected = (socialState as? UserSocialViewModel.SocialState.Success)?.selected
                     ?: SocialList.FOLLOWERS,
-                enabled = socialState !is UserSocialViewModel.SocialState.Loading,
                 onSelect = onSelectList,
                 modifier = Modifier
                     .widthIn(max = ProfileMaxContentWidth)
@@ -147,7 +146,6 @@ fun ProfileSocialTab(
 @Composable
 private fun SocialSelector(
     selected: SocialList,
-    enabled: Boolean,
     onSelect: (SocialList) -> Unit,
     modifier: Modifier = Modifier
 ) {
