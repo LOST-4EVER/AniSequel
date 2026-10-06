@@ -416,7 +416,3 @@ private const val POSTER_ASPECT = 2f / 3f
  * the status pill is a card nobody can read the pill on.
  */
 private const val COVER_BACKGROUND_ALPHA = 0.18f
-
-/** Kept so the unused-import check on `CircleShape` stays honest. */
-@Suppress("unused")
-private val circleShapeReminder = CircleShape

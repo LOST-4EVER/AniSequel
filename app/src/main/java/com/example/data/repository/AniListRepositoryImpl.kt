@@ -127,11 +127,11 @@ class AniListRepositoryImpl(
      * re-fetching fifty avatars because the bio was refetched would spend
      * AniList's budget for a list that cannot have changed in that window.
      */
-    private val activityCache = java.util.concurrent.ConcurrentHashMap<String, CachedList<List<ListActivity>>>()
-    private val followersCache = java.util.concurrent.ConcurrentHashMap<String, CachedList<List<FollowUser>>>()
-    private val followingCache = java.util.concurrent.ConcurrentHashMap<String, CachedList<List<FollowUser>>>()
+    private val activityCache = java.util.concurrent.ConcurrentHashMap<String, CachedItems<List<ListActivity>>>()
+    private val followersCache = java.util.concurrent.ConcurrentHashMap<String, CachedItems<List<FollowUser>>>()
+    private val followingCache = java.util.concurrent.ConcurrentHashMap<String, CachedItems<List<FollowUser>>>()
 
-    private class CachedList<T>(val items: List<T>, val storedAtMillis: Long)
+    private class CachedItems<T>(val items: List<T>, val storedAtMillis: Long)
 
     /**
      * A cached read that is not a media list.
@@ -140,7 +140,7 @@ class AniListRepositoryImpl(
      * and the payload differ. [ttlSupplier] is read per lookup so a refresh
      * interval changed in Settings applies to the very next request.
      */
-    private fun <T> cachedItems(cache: java.util.concurrent.ConcurrentHashMap<String, CachedList<T>>, key: String): List<T>? {
+    private fun <T> cachedItems(cache: java.util.concurrent.ConcurrentHashMap<String, CachedItems<T>>, key: String): List<T>? {
         val entry = cache[key] ?: return null
         if (System.currentTimeMillis() - entry.storedAtMillis > listCacheTtlMillis()) {
             cache.remove(key)
@@ -150,11 +150,11 @@ class AniListRepositoryImpl(
     }
 
     private fun <T> storeItems(
-        cache: java.util.concurrent.ConcurrentHashMap<String, CachedList<T>>,
+        cache: java.util.concurrent.ConcurrentHashMap<String, CachedItems<T>>,
         key: String,
         items: List<T>
     ) {
-        cache[key] = CachedList(items, System.currentTimeMillis())
+        cache[key] = CachedItems(items, System.currentTimeMillis())
     }
 
     private fun cachedOverview(key: String): UserOverview? {
@@ -367,7 +367,7 @@ class AniListRepositoryImpl(
     private suspend fun followList(
         userId: Int,
         forceRefresh: Boolean,
-        cache: java.util.concurrent.ConcurrentHashMap<String, CachedList<List<FollowUser>>>,
+        cache: java.util.concurrent.ConcurrentHashMap<String, CachedItems<List<FollowUser>>>,
         which: String,
         fetch: suspend (GraphQLRequest) -> Result<List<FollowUser>>
     ): Result<List<FollowUser>> {

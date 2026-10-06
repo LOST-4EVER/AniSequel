@@ -1,5 +1,6 @@
 package com.example.domain.usecase
 
+import com.example.data.model.MediaListCollection
 import com.example.data.model.MediaListEntryItem
 
 /**
@@ -119,21 +120,26 @@ class BuildListEntryInsightsUseCase {
         EPISODE_BANDS.forEach { band -> counts[band.label] = 0 }
 
         entries.forEach { entry ->
-            val episodes = entry.media.episodes
-            when {
-                episodes == null || episodes <= 0 -> withoutEpisodes++
-                else -> {
-                    val band = EPISODE_BANDS.firstOrNull { episodes <= it.until }
-                        // Past the last band rather than dropped.
-                        ?: EPISODE_BANDS.last()
-                    counts[band.label] = (counts[band.label] ?: 0) + 1
-                }
+            // A plain non-null local rather than a smart cast on
+            // `entry.media.episodes`. The cast is legal here but fragile: it
+            // depends on `episodes` being a local `val` rather than a property,
+            // and the failure it would produce is a nullable `Int` reaching
+            // `<=`, which says nothing about what was wrong.
+            val episodes: Int? = entry.media.episodes
+            if (episodes == null || episodes <= 0) {
+                withoutEpisodes++
+            } else {
+                val count = episodes
+                val band = EPISODE_BANDS.firstOrNull { count <= it.until }
+                    // Past the last band rather than dropped.
+                    ?: EPISODE_BANDS.last()
+                counts[band.label] = (counts[band.label] ?: 0) + 1
             }
         }
 
-        // Fixed band order, largest share first within the list as a whole so the
-        // chart is not all one long bar and four stubs. Not re-sorted: the bands
-        // are a scale, not a ranking.
+        // Fixed band order, not by count. The bands are a scale from one episode to
+        // many, and re-ordering them by size would make a chart of them a second,
+        // less useful copy of the Format chart.
         return withShares(EPISODE_BANDS.map { band ->
             BucketTally(band.label, counts[band.label] ?: 0, 0f)
         }) to withoutEpisodes

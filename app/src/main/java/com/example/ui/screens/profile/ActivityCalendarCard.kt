@@ -28,7 +28,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
@@ -181,7 +180,7 @@ private fun MonthHeaderRow(
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 maxLines = 1,
                 textAlign = TextAlign.Start,
-                modifier = Modifier.width(spanColumns * ColumnPitch - CellGap)
+                modifier = Modifier.width(ColumnPitch * spanColumns - CellGap)
             )
         }
     }
@@ -242,9 +241,10 @@ private fun ActivityCell(
             .size(CellSize)
             .clip(RoundedCornerShape(3.dp))
             .background(colorFor(fill))
-            // Days that have not happened take no description at all: they are
-            // not days yet, and announcing them would make TalkBack read a run of
-            // "No activity" before every real one.
+            // Days that have not happened carry no description at all: they are not
+            // days yet, and announcing them would make TalkBack read a run of
+            // "No activity" before every real one. The box is still drawn, so the
+            // grid keeps its weekday rows.
             .semantics {
                 if (visible) {
                     contentDescription = if (count == 0) {
@@ -252,8 +252,6 @@ private fun ActivityCell(
                     } else {
                         "$count ${if (count == 1) "change" else "changes"}"
                     }
-                } else {
-                    clearAndSetSemantics { }
                 }
             }
     )

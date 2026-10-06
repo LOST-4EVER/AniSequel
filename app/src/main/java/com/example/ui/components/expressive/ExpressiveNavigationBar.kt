@@ -10,6 +10,7 @@ import androidx.compose.animation.shrinkHorizontally
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -201,9 +202,9 @@ private fun NavigationItem(
 
         AnimatedVisibility(
             visible = selected,
-            enter = expandHorizontally(animationSpec = ExpressiveMotion.DefaultSpatialOffset) +
+            enter = expandHorizontally(animationSpec = ExpressiveMotion.FastSpatialSize) +
                 fadeIn(ExpressiveMotion.FastEffects),
-            exit = shrinkHorizontally(animationSpec = ExpressiveMotion.DefaultSpatialOffset) +
+            exit = shrinkHorizontally(animationSpec = ExpressiveMotion.FastSpatialSize) +
                 fadeOut(ExpressiveMotion.FastEffects)
         ) {
             Row(verticalAlignment = Alignment.CenterVertically) {

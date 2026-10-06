@@ -212,7 +212,7 @@ private fun SegmentChip(
  * wide as a 40% one.
  */
 @Composable
-private fun SegmentStrip(
+internal fun SegmentStrip(
     segments: List<SegmentTally>,
     modifier: Modifier = Modifier
 ) {

@@ -17,6 +17,7 @@ import com.example.data.model.ListScoreStats
 import com.example.data.model.MangaStats
 import com.example.data.model.MediaCoverImage
 import com.example.data.model.MediaNode
+import com.example.data.model.MediaTag
 import com.example.data.model.MediaTitle
 import com.example.data.model.PersonImage
 import com.example.data.model.PersonName
