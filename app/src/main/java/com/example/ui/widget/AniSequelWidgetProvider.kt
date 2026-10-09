@@ -3,6 +3,7 @@ package com.example.ui.widget
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.widget.RemoteViews
 import androidx.appwidget.AppWidgetManager
 import androidx.appwidget.AppWidgetProvider
 import com.example.MainActivity
@@ -39,7 +40,7 @@ class AniSequelWidgetProvider : AppWidgetProvider() {
             appWidgetManager: AppWidgetManager,
             widgetId: Int
         ) {
-            val views = android.widget.RemoteViews(context.packageName, R.layout.widget_anisequel_preview).apply {
+            val views = RemoteViews(context.packageName, R.layout.widget_anisequel_preview).apply {
                 setTextViewText(R.id.widget_preview_count, demoActivityCount().toString())
                 setOnClickPendingIntent(
                     R.id.widget_preview_root,
