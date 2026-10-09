@@ -13,7 +13,7 @@
         android:padding="16dp">
 
         <TextView
-            android:id="@android:id/text1"
+            android:id="@+id/widget_preview_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="AniSequel"
@@ -22,7 +22,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@android:id/text2"
+            android:id="@+id/widget_preview_subtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Activity"
