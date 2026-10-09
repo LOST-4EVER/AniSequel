@@ -6,17 +6,17 @@ import android.content.Intent
 import android.widget.RemoteViews
 import androidx.appwidget.AppWidgetManager
 import androidx.appwidget.AppWidgetProvider
-import androidx.appwidget.AppWidgetProviderInfo
 import com.example.MainActivity
 import com.example.R
 
 /**
- * Classic AppWidget provider that renders the profile-activity widget with
- * RemoteViews and opens the app on the activity screen when tapped.
+ * Standard AppWidget provider for the profile-activity widget.
  *
- * This intentionally avoids the unreleased Glance APIs that the earlier draft
- * referenced. The widget is small and glanceable: a title, a count of recent
- * list activity, and a tap target that routes to the profile activity screen.
+ * The widget is small and glanceable: a title, a count of recent list activity,
+ * and a tap target that routes the app to the profile activity screen.
+ *
+ * This uses the stable androidx.appwidget APIs instead of the unreleased Glance
+ * widget APIs, so it compiles against the app’s current dependency set.
  */
 class AniSequelWidgetProvider : AppWidgetProvider() {
 
@@ -35,8 +35,6 @@ class AniSequelWidgetProvider : AppWidgetProvider() {
     }
 
     companion object {
-        private const val ACTION_WIDGET_TAP = "com.example.ui.widget.ACTION_WIDGET_TAP"
-
         fun updateWidget(
             context: Context,
             appWidgetManager: AppWidgetManager,

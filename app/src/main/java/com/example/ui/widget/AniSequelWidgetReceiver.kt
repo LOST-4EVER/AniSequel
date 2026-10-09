@@ -9,9 +9,9 @@ import com.example.ui.widget.AniSequelWidgetProvider.Companion.updateWidget
 /**
  * Broadcast receiver for the profile-activity widget.
  *
- * The appwidget-provider XML registers this as the widget's configuration and
- * lifecycle entry point. On the system update broadcast, this seeds each
- * instance with the demo activity count until the app's updater runs again.
+ * The appwidget-provider XML registers this as the widget's lifecycle entry point.
+ * On the system update broadcast, this seeds each instance with the demo activity
+ * count until the app's updater runs again.
  */
 class AniSequelWidgetReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {

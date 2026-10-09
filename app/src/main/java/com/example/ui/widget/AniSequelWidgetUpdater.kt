@@ -2,6 +2,7 @@ package com.example.ui.widget
 
 import android.content.Context
 import androidx.appwidget.AppWidgetManager
+import com.example.ui.widget.AniSequelWidgetProvider
 
 /**
  * Background updater for the profile-activity widget.
