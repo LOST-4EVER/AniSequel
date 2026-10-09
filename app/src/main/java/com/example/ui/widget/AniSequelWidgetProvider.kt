@@ -4,8 +4,8 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.widget.RemoteViews
-import androidx.appwidget.AppWidgetManager
-import androidx.appwidget.AppWidgetProvider
+import android.appwidget.AppWidgetManager
+import android.appwidget.AppWidgetProvider
 import com.example.MainActivity
 import com.example.R
 
@@ -15,8 +15,9 @@ import com.example.R
  * The widget is small and glanceable: a title, a count of recent list activity,
  * and a tap target that routes the app to the profile activity screen.
  *
- * This uses the stable androidx.appwidget APIs instead of the unreleased Glance
- * widget APIs, so it compiles against the app’s current dependency set.
+ * This uses the stable android.appwidget framework APIs instead of the
+ * unreleased Glance widget APIs, so it compiles against the app's current
+ * dependency set.
  */
 class AniSequelWidgetProvider : AppWidgetProvider() {
 

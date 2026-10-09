@@ -3,7 +3,7 @@ package com.example.ui.widget
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import androidx.appwidget.AppWidgetManager
+import android.appwidget.AppWidgetManager
 import com.example.ui.widget.AniSequelWidgetProvider.Companion.updateWidget
 
 /**

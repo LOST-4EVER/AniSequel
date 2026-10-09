@@ -1,7 +1,7 @@
 package com.example.ui.widget
 
 import android.content.Context
-import androidx.appwidget.AppWidgetManager
+import android.appwidget.AppWidgetManager
 import com.example.ui.widget.AniSequelWidgetProvider
 
 /**
