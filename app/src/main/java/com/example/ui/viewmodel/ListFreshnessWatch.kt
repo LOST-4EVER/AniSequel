@@ -124,19 +124,20 @@ class ListFreshnessWatch(
 
                 delay(maxOf(wait, MIN_RETRY_GAP_MILLIS))
 
-                // Re-check at fire time, not the loop start. `onRefresh` is
-                // fire-and-forget, so when the resume check above woke an exact
-                // on-time refresh the wait below was computed against the
-                // *pre-*refresh timestamp while the fetch was still in flight -
-                // which made the very first "interval later" fire a second fetch
-                // on top of the one that had just landed. If anything replaced
-                // the list while we slept (that refresh, a manual one) the
-                // loaded value changed and there is nothing left to fetch; a
-                // failed fetch leaves it unchanged and still overdue, so the
-                // retry goes ahead exactly as the floor intends.
-                val stillOverdue = lastLoadedAtMillis == loaded &&
-                    isRefreshDue(nowMillis(), lastLoadedAtMillis, interval())
-                if (stillOverdue) {
+                // Fire unless a newer load replaced the one this wait was
+                // computed against. `onRefresh` is fire-and-forget, so when the
+                // resume check above woke an exact on-time refresh the wait was
+                // read against the *pre-*refresh timestamp while that fetch was
+                // still in flight - firing again after sleeping it out used to
+                // put a second, identical fetch on top of the one that had just
+                // landed. The comparison is the whole check, by construction:
+                // the delay was derived from "how long until this load is due",
+                // so once it expires the timestamp can only have changed because
+                // another load succeeded. Re-reading the clock here would add a
+                // second, decoupled clock next to the sleep (the tests drive the
+                // delay with `advanceTimeBy` while `nowMillis` stays pinned, and
+                // the wait is the only value that carries the schedule).
+                if (lastLoadedAtMillis == loaded) {
                     onRefresh()
                 }
             }
