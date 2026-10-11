@@ -123,7 +123,22 @@ class ListFreshnessWatch(
                 }
 
                 delay(maxOf(wait, MIN_RETRY_GAP_MILLIS))
-                onRefresh()
+
+                // Re-check at fire time, not the loop start. `onRefresh` is
+                // fire-and-forget, so when the resume check above woke an exact
+                // on-time refresh the wait below was computed against the
+                // *pre-*refresh timestamp while the fetch was still in flight -
+                // which made the very first "interval later" fire a second fetch
+                // on top of the one that had just landed. If anything replaced
+                // the list while we slept (that refresh, a manual one) the
+                // loaded value changed and there is nothing left to fetch; a
+                // failed fetch leaves it unchanged and still overdue, so the
+                // retry goes ahead exactly as the floor intends.
+                val stillOverdue = lastLoadedAtMillis == loaded &&
+                    isRefreshDue(nowMillis(), lastLoadedAtMillis, interval())
+                if (stillOverdue) {
+                    onRefresh()
+                }
             }
         }
     }

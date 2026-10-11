@@ -154,10 +154,22 @@ class UserActivityViewModel(
                     )
                 },
                 onFailure = { error ->
-                    _state.value = ActivityState.Error(
-                        message = error.message ?: "Couldn't load recent activity.",
-                        isAuthError = (error as? AniListException)?.kind == AniListErrorKind.INVALID_SESSION
-                    )
+                    if (appending) {
+                        // A failed *extra* page must not wipe the pages already
+                        // read. It used to replace the whole state with an error
+                        // screen, so one transient failure while scrolling threw
+                        // away twenty-five loaded rows and showed a retry button
+                        // where the feed had been. Keep the feed and just clear
+                        // the footer spinner; the next scroll retries the page.
+                        (_state.value as? ActivityState.Success)?.let { current ->
+                            _state.value = current.copy(isLoadingMore = false)
+                        }
+                    } else {
+                        _state.value = ActivityState.Error(
+                            message = error.message ?: "Couldn't load recent activity.",
+                            isAuthError = (error as? AniListException)?.kind == AniListErrorKind.INVALID_SESSION
+                        )
+                    }
                 }
             )
         }

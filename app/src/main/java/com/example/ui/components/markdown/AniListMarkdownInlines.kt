@@ -30,7 +30,7 @@ fun buildInlineAnnotatedString(
     val spoilerBackground = MaterialTheme.colorScheme.surfaceContainerHighest.copy(alpha = 0.85f)
     val spoilerColor = MaterialTheme.colorScheme.onSurfaceVariant
 
-    return remember(inlines, primaryColor, codeBackground, spoilerBackground) {
+    return remember(inlines, primaryColor, codeBackground, spoilerBackground, spoilerColor) {
         buildAnnotatedString {
             inlines.forEach { token ->
                 when (token) {
