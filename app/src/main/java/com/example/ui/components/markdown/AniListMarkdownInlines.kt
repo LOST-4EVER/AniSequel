@@ -92,6 +92,22 @@ fun buildInlineAnnotatedString(
                             append("@${token.username}")
                         }
                     }
+                    // The fallback for an inline image. `RenderParagraph` embeds the
+                    // real image when it can; everywhere else (a header, a list
+                    // item, a truncated bio) an annotation cannot hold a bitmap, so
+                    // the image becomes a link to itself labelled by its alt text.
+                    is InlineToken.Image -> {
+                        val imageStyle = TextLinkStyles(
+                            style = SpanStyle(
+                                color = primaryColor,
+                                textDecoration = TextDecoration.Underline,
+                                fontWeight = FontWeight.SemiBold
+                            )
+                        )
+                        withLink(LinkAnnotation.Url(token.url, styles = imageStyle)) {
+                            append(token.alt ?: "Image")
+                        }
+                    }
                     is InlineToken.Spoiler -> withStyle(
                         SpanStyle(
                             background = spoilerBackground,
