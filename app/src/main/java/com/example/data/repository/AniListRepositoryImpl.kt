@@ -1,5 +1,7 @@
 package com.example.data.repository
 
+import com.example.data.model.ActivityLikeState
+import com.example.data.model.ActivityReply
 import com.example.data.model.FollowUser
 import com.example.data.model.GraphQLRequest
 import com.example.data.model.GraphQLResponse
@@ -485,6 +487,55 @@ class AniListRepositoryImpl(
         return fetch(GraphQLRequest(query = query, variables = mapOf("userId" to userId)))
             .onSuccess { storeItems(cache, key, it) }
     }
+
+    override suspend fun getActivityReplies(activityId: Int): Result<List<ActivityReply>> =
+        execute(
+            GraphQLRequest(
+                query = GraphQLQueries.GET_ACTIVITY_REPLIES,
+                variables = mapOf("activityId" to activityId)
+            ),
+            apiService::getActivityReplies
+        ).map { data ->
+            // A member the fragment did not match comes back with no selected
+            // fields, and an id that no longer exists as null. Both are an empty
+            // thread: the sheet opens and says there are no comments, rather than
+            // refusing to open at all.
+            data.activity?.replies.orEmpty()
+        }
+
+    override suspend fun toggleActivityLike(activityId: Int): Result<ActivityLikeState> =
+        execute(
+            GraphQLRequest(
+                query = GraphQLQueries.TOGGLE_ACTIVITY_LIKE,
+                variables = mapOf("activityId" to activityId)
+            ),
+            apiService::toggleActivityLike
+        ).map { data ->
+            val likeable = data.likeable.require("No response from the like mutation")
+            ActivityLikeState(
+                isLiked = likeable.isLiked == true,
+                likeCount = likeable.likeCount ?: 0
+            )
+        }.onSuccess {
+            // The cached feed pages still carry the pre-toggle like state and
+            // count. Dropping them is cheaper than patching each page in place,
+            // and it is what stops a re-entry showing a like the user has undone.
+            activityCache.clear()
+        }
+
+    override suspend fun postActivityReply(activityId: Int, text: String): Result<ActivityReply> =
+        execute(
+            GraphQLRequest(
+                query = GraphQLQueries.SAVE_ACTIVITY_REPLY,
+                variables = mapOf("activityId" to activityId, "text" to text)
+            ),
+            apiService::saveActivityReply
+        ).map { it.reply.require("No response from the reply mutation") }
+            .onSuccess {
+                // The feed's `replyCount` is now one short of the truth, so the
+                // same cache drop the like does applies here.
+                activityCache.clear()
+            }
 
     override fun clearDetailCache() {
         detailCache.clear()

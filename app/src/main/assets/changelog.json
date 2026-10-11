@@ -4,6 +4,18 @@
       "version": "1.0.51",
       "entries": [
         {
+          "title": "GIFs and images in bios and comments",
+          "detail": "A bare image or GIF link on its own line now shows the picture itself instead of a blue link, and images mixed into a sentence — like a GIF between two words — are embedded in the flow and animate inline."
+        },
+        {
+          "title": "AniList links get a preview card",
+          "detail": "Pasting an anime, manga, character, staff or studio link now previews it as a card, including links with a www. host or a trailing slash that previously fell through as plain text."
+        },
+        {
+          "title": "Like and comment on activity",
+          "detail": "The Activity feed's like and reply counts are now buttons. Tap the heart to like or un-like a post, or open a thread to read and post a comment without leaving the app."
+        },
+        {
           "title": "Theme screen, reorganised",
           "detail": "Settings > Theme is now grouped into clear sections — appearance, accent colour, anime colour matching, background and motion. The custom palette and custom hue live in a single accent card, true black and canvas colour share a background card, and reverting an anime colour match back to \"Immediately\" works again."
         },
