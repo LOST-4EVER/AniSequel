@@ -107,6 +107,19 @@ class AniListRepositoryImpl(
     private class CachedList(val collection: MediaListCollection, val storedAtMillis: Long)
 
     /**
+     * Bumped whenever a mutation invalidates [listCache].
+     *
+     * A non-forced fetch that starts before a mutation can finish after it and
+     * would otherwise write its pre-mutation copy straight back over the cleared
+     * cache - so the very next `getUserAnimeList` no longer sees the entry the
+     * mutation just added, and the dashboard's "already planned" gap reappears.
+     * A fetch captures this value before it starts and only stores when it is
+     * unchanged, which turns the racing write into a miss instead of a stale hit.
+     */
+    @Volatile
+    private var listEpoch = 0
+
+    /**
      * Profile responses, on the same window and the same reasoning as
      * [listCache]: coming back to the profile within the user's chosen refresh
      * interval should not spend another of AniList's ~30 requests a minute.
@@ -205,8 +218,9 @@ class AniListRepositoryImpl(
         val key = "user:$userId"
         if (!forceRefresh) cachedList(key)?.let { return Result.success(it) }
 
+        val epoch = listEpoch
         return fetchFullMediaListCollection(userId = userId, userName = null)
-            .onSuccess { storeList(key, it) }
+            .onSuccess { if (epoch == listEpoch) storeList(key, it) }
     }
 
     override suspend fun getUserAnimeListByUsername(
@@ -216,8 +230,9 @@ class AniListRepositoryImpl(
         val key = "userName:${userName.trim().lowercase()}"
         if (!forceRefresh) cachedList(key)?.let { return Result.success(it) }
 
+        val epoch = listEpoch
         return fetchFullMediaListCollection(userId = null, userName = userName.trim())
-            .onSuccess { storeList(key, it) }
+            .onSuccess { if (epoch == listEpoch) storeList(key, it) }
     }
 
     /**
@@ -265,13 +280,24 @@ class AniListRepositoryImpl(
                 apiService::getMediaListCollection
             ).map { it.collection.require("Media list collection chunk $currentChunk is empty") }
 
-            val nextCollection = nextResult.getOrNull() ?: break
+            // A later chunk that fails must fail the whole walk. Swallowing it
+            // (`?: break`) merged whatever arrived before the failure into a
+            // shorter list and returned it as `Result.success`, so both callers
+            // cached a silently truncated account as if it were complete. The
+            // first chunk already refuses to degrade; this is the same contract
+            // for every chunk after it.
+            val nextCollection = nextResult.getOrElse { return Result.failure(it) }
             val nextLists = nextCollection.lists.orEmpty()
 
             nextLists.forEach { nextGroup ->
+                // AniList splits one list across chunk boundaries, so the merge
+                // key is the list's name. The old condition also matched on
+                // status, which was the wrong axis: two different *custom* lists
+                // sharing a status (for example both pointing at the same
+                // standard status) got their entries welded together here,
+                // silently renumbering both every fetch.
                 val existingGroupIndex = allLists.indexOfFirst {
-                    it.name.equals(nextGroup.name, ignoreCase = true) ||
-                        (it.status != null && it.status.equals(nextGroup.status, ignoreCase = true))
+                    it.name != null && it.name.equals(nextGroup.name, ignoreCase = true)
                 }
                 if (existingGroupIndex >= 0) {
                     val existingGroup = allLists[existingGroupIndex]
@@ -331,7 +357,12 @@ class AniListRepositoryImpl(
             // same franchise's entry as "missed", so the safest correct move
             // is dropping them rather than discovering the gap entry it
             // added still shows as a missed sequel on the next list recompute.
-            .onSuccess { listCache.clear() }
+            // Bumping the epoch first also invalidates any fetch already in
+            // flight, so it cannot repopulate the cache with the pre-add list.
+            .onSuccess {
+                listEpoch++
+                listCache.clear()
+            }
 
     override suspend fun addToWatching(mediaId: Int): Result<SimpleMediaListEntry> =
         execute(
@@ -341,7 +372,10 @@ class AniListRepositoryImpl(
             ),
             apiService::saveMediaListEntry
         ).map { it.entry.require("No response from watching mutation") }
-            .onSuccess { listCache.clear() }
+            .onSuccess {
+                listEpoch++
+                listCache.clear()
+            }
 
     /**
      * Keyed on whichever identifier the caller supplied, so the signed-in
@@ -457,6 +491,11 @@ class AniListRepositoryImpl(
         // The list is per-person data, so it has to go when the session does.
         // A TTL alone would leave another person's finished list sitting in
         // memory for up to an hour after sign-out.
+        //
+        // The epoch bump invalidates any fetch already in flight, so a request
+        // that started before sign-out cannot write the previous person's list
+        // back into the now-cleared cache.
+        listEpoch++
         listCache.clear()
         // Same reasoning for the profile, and it matters more here: the bio and
         // the favourites are the most identifying thing the app holds about

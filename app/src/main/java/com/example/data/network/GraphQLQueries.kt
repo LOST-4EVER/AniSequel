@@ -181,7 +181,7 @@ object GraphQLQueries {
                   siteUrl
                 }
               }
-              studios(perPage: 12) { nodes { id name isAnimationStudio siteUrl } }
+              studios(perPage: 12) { nodes { id name isAnimationStudio } }
             }
           }
         }
