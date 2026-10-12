@@ -33,6 +33,7 @@ import com.example.data.model.nativeName
 import com.example.data.model.romajiName
 import com.example.data.model.seasonLabel
 import com.example.data.model.sourceLabel
+import com.example.data.model.statusLabel
 import com.example.data.model.studioName
 import com.example.ui.components.AppVectorIcons
 
