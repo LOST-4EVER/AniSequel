@@ -776,7 +776,7 @@ private fun TierBoard(
                             // every row, and a null tier id is exactly how
                             // `moveTo` un-files a title. This is the only route to
                             // an empty row that does not delete the row too.
-                            onMove(mediaId, hoveredTierId)
+                            onMove(mediaId, hoveredTierId.value)
                         }
                         draggingId = null
                         dragTravel.value = Offset.Zero
@@ -793,7 +793,7 @@ private fun TierBoard(
             options = options,
             zoom = zoom,
             candidateById = candidateById,
-            hoveredTierId = hoveredTierId,
+            hoveredTierId = hoveredTierId.value,
             skipMediaId = draggingId,
             onItemTap = onItemTap
         )
