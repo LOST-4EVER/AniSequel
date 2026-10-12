@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.MaterialTheme
@@ -55,6 +56,16 @@ fun ProfileActivityTab(
     onRetry: () -> Unit = onLoadFirstPage,
     contentPadding: PaddingValues,
     modifier: Modifier = Modifier,
+    /**
+     * The feed's scroll state, hoisted by the screen.
+     *
+     * Parameterised rather than created here because `AnimatedContent` disposes
+     * the outgoing tab once its transition finishes: a state created inside this
+     * composable died with it, so switching to Stats and back dropped the reader
+     * at the top of the feed they had scrolled a long way down. Every tab on the
+     * screen keeps one of these for the same reason.
+     */
+    state: LazyListState = rememberLazyListState(),
     calendar: ActivityCalendar? = null,
     commentsState: UserActivityViewModel.CommentsState? = null,
     canPostComment: Boolean = false,
@@ -76,14 +87,12 @@ fun ProfileActivityTab(
         }
     }
 
-    val listState = rememberLazyListState()
-
     // Six rows from the end is far enough that the fetch has usually landed before
     // the user gets there, and near enough that a short list does not spin.
     val shouldPage by remember {
         derivedStateOf {
-            val lastVisible = listState.layoutInfo.visibleItemsInfo.lastOrNull()?.index ?: 0
-            val total = listState.layoutInfo.totalItemsCount
+            val lastVisible = state.layoutInfo.visibleItemsInfo.lastOrNull()?.index ?: 0
+            val total = state.layoutInfo.totalItemsCount
             total > 0 && lastVisible >= total - PAGE_TRIGGER_ROWS
         }
     }
@@ -98,7 +107,7 @@ fun ProfileActivityTab(
         contentPadding = profileListPadding(contentPadding),
         verticalArrangement = Arrangement.spacedBy(14.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
-        state = listState
+        state = state
     ) {
         if (calendar != null && calendar.columns.isNotEmpty()) {
             item(key = "activity_calendar_section") {
