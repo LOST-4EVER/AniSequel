@@ -9,6 +9,7 @@ import com.example.data.model.GraphQLRequest
 import com.example.data.model.GraphQLResponse
 import com.example.data.model.MediaListCollectionData
 import com.example.data.model.MediaDetailData
+import com.example.data.model.MediaNode
 import com.example.data.model.SaveActivityReplyData
 import com.example.data.model.SaveMediaListEntryData
 import com.example.data.model.ToggleLikeData

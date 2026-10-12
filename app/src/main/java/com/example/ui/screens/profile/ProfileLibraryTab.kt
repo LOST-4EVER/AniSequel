@@ -91,9 +91,15 @@ enum class LibrarySort(val label: String) {
 internal fun toggleSort(current: LibrarySort, currentAscending: Boolean): Pair<LibrarySort, Boolean> =
     when (current) {
         LibrarySort.TITLE -> current to !currentAscending
-        // A score list that starts highest-first is useless - the interesting
-        // entries are at the bottom, out of sight - so it starts the other way.
-        LibrarySort.SCORE -> if (currentAscending) SCORE to true else RECENT to false
+        // Cycling score -> recent rather than score-descending -> score-ascending:
+        // a score list that starts highest-first is useless, because the entries
+        // you are actually hunting for are at the bottom, out of sight.
+        LibrarySort.SCORE ->
+            if (currentAscending) {
+                LibrarySort.SCORE to true
+            } else {
+                LibrarySort.RECENT to false
+            }
         LibrarySort.RECENT -> current to !currentAscending
     }
 
@@ -360,6 +366,12 @@ fun ProfileLibraryTab(
                 counts = counts,
                 scopeSize = scoped.size,
                 scopeIsManga = type == LibraryType.MANGA,
+                sort = sort,
+                sortAscending = sortAscending,
+                onSortChange = { nextSort, nextAscending ->
+                    sort = nextSort
+                    sortAscending = nextAscending
+                },
                 isLoadingManga = isLoadingManga,
                 query = query,
                 onType = {
@@ -411,6 +423,9 @@ private fun LibraryControls(
      * manga row above it.
      */
     scopeIsManga: Boolean,
+    sort: LibrarySort,
+    sortAscending: Boolean,
+    onSortChange: (LibrarySort, Boolean) -> Unit,
     isLoadingManga: Boolean,
     query: String,
     onType: (LibraryType) -> Unit,
@@ -489,8 +504,7 @@ private fun LibraryControls(
                         selected = active,
                         onClick = {
                             val next = toggleSort(sort, sortAscending)
-                            sort = next.first
-                            sortAscending = next.second
+                            onSortChange(next.first, next.second)
                         },
                         minTouchTargetHeight = 40.dp,
                         modifier = Modifier.testTag("library_sort_${option.name.lowercase()}")

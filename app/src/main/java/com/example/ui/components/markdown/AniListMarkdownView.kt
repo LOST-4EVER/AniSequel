@@ -79,7 +79,7 @@ fun AniListMarkdownView(
                 }
                 is MarkdownNode.AniListPreviewBlock -> RenderAniListPreview(
                     node,
-                    coverUrl = preview.mediaIdOrNull()?.let { mediaCovers[it] }
+                    coverUrl = node.mediaIdOrNull()?.let { mediaCovers[it] }
                 )
                 is MarkdownNode.Divider -> HorizontalDivider(
                     color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f),
