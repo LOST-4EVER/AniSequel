@@ -146,28 +146,42 @@ internal fun sortLibrary(
 ): List<MediaListEntryItem> {
     val comparator: Comparator<MediaListEntryItem> = when (sort) {
         LibrarySort.LIST_ORDER ->
-            // Stable, so reversing is still meaningful and the direction chips
-            // stay honest. `sortedWith` on an already-ordered list is a no-op
-            // when the comparator returns 0, which is what "no opinion" means.
+            // Deliberately untouched. This is the order AniList returned, and
+            // the label says so - there is no date on an entry to reorder by,
+            // so reversing it would only swap two status groups for two others.
             return entries
         LibrarySort.TITLE -> compareBy { it.media.title?.displayTitle?.lowercase(Locale.ROOT) ?: "" }
-        // `null` sorts last in *both* directions. An unrated title has no score to
-        // rank, so it belongs at the bottom either way rather than pretending to
-        // be zero - which in a descending list would put it at the very top.
-        LibrarySort.SCORE -> compareBy(
-            { it.media.averageScore == null },
-            { it.media.averageScore ?: 0 }
-        )
-        // `seasonYear` is the airing year and is absent for a film or for
-        // anything AniList has not dated; `startDate.year` covers some of those.
-        // Either is null for a title with no date at all, and those sink to the
-        // bottom whichever way the list is sorted.
-        LibrarySort.RELEASE_YEAR -> compareBy(
-            { releaseYearOf(it) == null },
-            { releaseYearOf(it) ?: 0 }
-        )
+        LibrarySort.SCORE -> return rankedBlanksLast(entries, { it.media.averageScore }, ascending)
+        LibrarySort.RELEASE_YEAR -> return rankedBlanksLast(entries, ::releaseYearOf, ascending)
     }
     return entries.sortedWith(if (ascending) comparator else comparator.reversed())
+}
+
+/**
+ * Sorts by a number some entries may not have, putting those entries at the
+ * bottom in *both* directions.
+ *
+ * The obvious spelling is `compareBy { it.value == null }` followed by
+ * `.reversed()` for descending, and it is wrong in the way that reads as
+ * right: reversing the comparator reverses the flag along with the value, so
+ * descending puts every blank at the **top**. A library sorted by score then
+ * opens on its unrated titles, which is indistinguishable from a list of
+ * favourites - the exact failure the flag was added to prevent.
+ *
+ * So the flag leaves the comparator. Partitioning keeps the direction's reach
+ * over the value and nothing else, and the unrankable are appended afterwards
+ * where no direction can reach them.
+ */
+private fun rankedBlanksLast(
+    entries: List<MediaListEntryItem>,
+    value: (MediaListEntryItem) -> Int?,
+    ascending: Boolean
+): List<MediaListEntryItem> {
+    val (rankable, blank) = entries.partition { value(it) != null }
+    // `Int.MIN_VALUE` is unreachable - every element here has a value - and
+    // exists only to give the selector a non-null return type.
+    val byValue = compareBy<MediaListEntryItem> { value(it) ?: Int.MIN_VALUE }
+    return rankable.sortedWith(if (ascending) byValue else byValue.reversed()) + blank
 }
 
 /**

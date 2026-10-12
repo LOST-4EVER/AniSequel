@@ -246,11 +246,16 @@ class TierScreenLogicTest {
 
     @Test
     fun `a fully saturated long is masked rather than shifted off the end`() {
-        // Shifting 64 bits up by 32 without masking first would drop the top half
-        // entirely. `-1L` is the shape a white written as an Int constant takes
-        // on the way back from a signed store, and it has to come out opaque
-        // white rather than transparent black.
-        assertEquals(0xFFFFFFFFFFFFFFFFuL, tierRowColor(-1L).value)
+        // The mask is what lets a signed store round-trip. `-1L` is the shape
+        // a white written as an Int constant takes on the way back out of one,
+        // and it has to come out opaque white rather than transparent black.
+        //
+        // `0xFFFFFFFF00000000`, not `0xFFFFFFFFFFFFFFFF`. `Color` packs
+        // `0xAARRGGBB` into the *top* 32 bits and ignores the bottom half, so
+        // the two would draw identically - but only the masked form is the
+        // packed colour every other `Color` in the app holds, and asserting the
+        // unmasked one would pin a value Compose never builds by itself.
+        assertEquals(0xFFFFFFFF00000000uL, tierRowColor(-1L).value)
         assertEquals(0xFFFFFFFF00000000uL, tierRowColor(0xFFFFFFFF.toLong()).value)
     }
 

@@ -212,14 +212,23 @@ class LibraryFilterTest {
             entry(id = 3, score = 90)
         )
 
+        // Both directions check `.last()`. An earlier version of this asserted
+        // `.first()` while the message demanded it not be first - so the test
+        // passed on the very behaviour it was written to catch, because it was
+        // asserting the ordering was wrong rather than that it was right.
         assertEquals(
             "descending must not put an unrated title first",
             2,
-            sortLibrary(entries, LibrarySort.SCORE, ascending = false).first().media.id
+            sortLibrary(entries, LibrarySort.SCORE, ascending = false).last().media.id
         )
         assertEquals(
             2,
             sortLibrary(entries, LibrarySort.SCORE, ascending = true).last().media.id
+        )
+        assertEquals(
+            "descending still orders the rated titles among themselves",
+            listOf(3, 1, 2),
+            sortLibrary(entries, LibrarySort.SCORE, ascending = false).map { it.media.id }
         )
     }
 
