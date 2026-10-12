@@ -66,7 +66,15 @@ data class TierLayoutOptions(
     /** Height of the heading, above the first row. */
     val headerHeight: Float = 76f,
     /** Shortest a row may be, when it holds nothing. Empty rows still have to read as rows. */
-    val minRowHeight: Float = 56f
+    val minRowHeight: Float = 56f,
+    /**
+     * Floor for the whole drawing, whatever the rows add up to.
+     *
+     * A list with no tiers, or one with a single short row, would otherwise lay
+     * out to a few dozen units of height - and an exporter hands that to a
+     * viewer as a sliver, or as `0x0` when there is nothing at all.
+     */
+    val minCanvasHeight: Float = 480f
 ) {
     /** AniList covers are 2:3, so the poster is one and a half times its width tall. */
     val posterHeight: Float get() = itemWidth * 1.5f
@@ -135,10 +143,10 @@ fun layoutTierList(
         cursorY += rowHeight + o.rowGap
     }
 
-    val totalHeight = if (tiers.isEmpty()) o.height else cursorY - o.rowGap + o.padding
+    val totalHeight = if (tiers.isEmpty()) o.minCanvasHeight else cursorY - o.rowGap + o.padding
     // A list with no tiers still has to produce a page-sized drawing rather than
     // a zero-height one, or an exporter hands the file to a viewer as 0x0.
-    val height = maxOf(totalHeight, o.height * 0.5f)
+    val height = maxOf(totalHeight, o.minCanvasHeight)
 
     return TierListLayout(
         width = o.width,

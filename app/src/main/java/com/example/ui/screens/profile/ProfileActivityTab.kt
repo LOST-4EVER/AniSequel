@@ -64,8 +64,12 @@ fun ProfileActivityTab(
      * composable died with it, so switching to Stats and back dropped the reader
      * at the top of the feed they had scrolled a long way down. Every tab on the
      * screen keeps one of these for the same reason.
+     *
+     * Named `listState` to match the other tabs even though this one also has an
+     * `activityState`; a bare `state` next to that read as the tab's data rather
+     * than its scroll position.
      */
-    state: LazyListState = rememberLazyListState(),
+    listState: LazyListState = rememberLazyListState(),
     calendar: ActivityCalendar? = null,
     commentsState: UserActivityViewModel.CommentsState? = null,
     canPostComment: Boolean = false,
@@ -91,8 +95,8 @@ fun ProfileActivityTab(
     // the user gets there, and near enough that a short list does not spin.
     val shouldPage by remember {
         derivedStateOf {
-            val lastVisible = state.layoutInfo.visibleItemsInfo.lastOrNull()?.index ?: 0
-            val total = state.layoutInfo.totalItemsCount
+            val lastVisible = listState.layoutInfo.visibleItemsInfo.lastOrNull()?.index ?: 0
+            val total = listState.layoutInfo.totalItemsCount
             total > 0 && lastVisible >= total - PAGE_TRIGGER_ROWS
         }
     }
@@ -107,7 +111,7 @@ fun ProfileActivityTab(
         contentPadding = profileListPadding(contentPadding),
         verticalArrangement = Arrangement.spacedBy(14.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
-        state = state
+        state = listState
     ) {
         if (calendar != null && calendar.columns.isNotEmpty()) {
             item(key = "activity_calendar_section") {

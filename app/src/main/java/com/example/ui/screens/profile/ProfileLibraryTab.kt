@@ -273,6 +273,7 @@ fun ProfileLibraryTab(
                 type = type,
                 filter = filter,
                 counts = counts,
+                scopeSize = scoped.size,
                 isLoadingManga = isLoadingManga,
                 query = query,
                 onType = {
@@ -315,6 +316,8 @@ private fun LibraryControls(
     type: LibraryType,
     filter: LibraryFilter,
     counts: Map<LibraryFilter, Int>,
+    /** Size of the current type scope, so the search row can decide for itself. */
+    scopeSize: Int,
     isLoadingManga: Boolean,
     query: String,
     onType: (LibraryType) -> Unit,
@@ -348,7 +351,7 @@ private fun LibraryControls(
 
         // Search only earns its row on a list long enough to need one. It is the
         // fastest route to a half-remembered title, and useless on nine entries.
-        if (scoped.size > SEARCH_THRESHOLD) {
+        if (scopeSize > SEARCH_THRESHOLD) {
             LibrarySearchField(query = query, onQueryChange = onQueryChange)
         }
 

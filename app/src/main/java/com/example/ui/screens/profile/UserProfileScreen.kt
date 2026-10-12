@@ -19,7 +19,7 @@ import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.windowInsetsPadding
-import androidx.compose.foundation.lazy.rememberLazyGridState
+import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -236,6 +236,7 @@ fun UserProfileScreen(
                         socialViewModel = socialViewModel,
                         mangaLibrary = mangaLibrary,
                         isLoadingManga = isLoadingManga,
+                        onLoadManga = { overviewViewModel.loadMangaLibrary() },
                         onOpenUser = onOpenUser,
                         onOpenDetail = { selectedMedia = it }
                     )
@@ -291,6 +292,16 @@ private fun ProfileTabsContent(
     socialViewModel: UserSocialViewModel,
     mangaLibrary: List<MediaListEntryItem>?,
     isLoadingManga: Boolean,
+    /**
+     * Passed rather than the ViewModel itself.
+     *
+     * [ProfileTabsContent] is a private composable that exists to keep the tab
+     * switch in one place; handing it the overview ViewModel would widen its
+     * surface to the whole profile loader when all it needs is one action. It is
+     * a lambda rather than the ViewModel so the dependency stays visible at the
+     * call site.
+     */
+    onLoadManga: () -> Unit,
     onOpenUser: (FollowUser) -> Unit,
     onOpenDetail: (MediaNode) -> Unit
 ) {
@@ -373,7 +384,7 @@ private fun ProfileTabsContent(
                     mangaEntries = mangaLibrary,
                     favouriteIds = favouriteIds,
                     isLoadingManga = isLoadingManga,
-                    onLoadManga = { overviewViewModel.loadMangaLibrary() },
+                    onLoadManga = onLoadManga,
                     contentPadding = padding,
                     onOpenDetail = onOpenDetail,
                     gridState = libraryGridState
