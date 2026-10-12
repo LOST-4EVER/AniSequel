@@ -1,6 +1,31 @@
 {
   "versions": [
     {
+      "version": "1.1.1",
+      "entries": [
+        {
+          "title": "Anime and manga links in a bio now show their cover",
+          "detail": "An AniList link in someone's bio - the 'hall of fame' line most profiles are built around - now renders as a card with the title's actual poster art, at its real proportions rather than cropped. All the links in one bio are fetched in a single batched request rather than one each, so opening a profile with a dozen of them stays within AniList's request budget instead of spending a dozen of it."
+        },
+        {
+          "title": "Spoilers in a bio are actually hidden",
+          "detail": "A spoiler written inline inside a paragraph was being printed in full, in brackets, to anyone reading the bio - the exact opposite of hiding one. Inline spoilers are now obscured until the surrounding text is expanded, and the ones on their own line keep their existing tap-to-reveal."
+        },
+        {
+          "title": "Animated images everywhere, not just GIFs",
+          "detail": "Animated WebP and APNG images were decoding to a single first frame with nothing to indicate anything was missing, which reads as a broken image rather than a still one. Bios use these heavily. The platform image decoder is now used on Android 9 and above, with GIF support retained for older devices."
+        },
+        {
+          "title": "Manga lists no longer say you are watching them",
+          "detail": "Filtering a manga list by status offered 'Watching' and 'Rewatching', because the filter labels were shared with anime. They now read 'Reading' and 'Rereading' when the list is filtered to manga."
+        },
+        {
+          "title": "Sort your library",
+          "detail": "The Library tab now sorts by newest added, A-Z, or score, with a tap on the active sort reversing its direction. Titles nobody has scored sort last either way, rather than floating to the top of a descending list as zeroes next to a perfect score. The sort row appears once a list is long enough to need it."
+        }
+      ]
+    },
+    {
       "version": "1.1.0",
       "entries": [
         {
