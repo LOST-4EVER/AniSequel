@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.data.model.MediaListEntryItem
+import com.example.data.repository.AniListRepository
 import com.example.data.repository.StoredTierList
 import com.example.data.repository.TierListPreferences
 import com.example.domain.tier.StandardTiers
@@ -42,8 +43,42 @@ import kotlinx.coroutines.launch
  * UI can say "12 titles have no score yet" rather than silently ranking them.
  */
 class TierListViewModel(
-    private val preferences: TierListPreferences
+    private val preferences: TierListPreferences,
+    private val aniListRepository: AniListRepository,
+    /** Whose list this is the tier list of. Null for a signed-out viewer. */
+    private val userId: Int? = null,
+    private val isDemo: Boolean = false
 ) : ViewModel() {
+
+    /**
+     * Reads the viewer's own list, then hands it to [setLibrary].
+     *
+     * The repository caches the list under `user:<id>`, so this is a **cache
+     * hit** for anyone who has already opened their profile in this session and
+     * costs no request at all. Fetching it again anyway would spend one of
+     * AniList's 30-a-minute budget to re-read a list the app is looking at.
+     *
+     * Loading here rather than being handed the profile screen's entries is not a
+     * convenience: this is its own route, so there is no profile screen to hand
+     * them over from.
+     */
+    fun loadLibrary() {
+        val id = userId
+        if (id == null && !isDemo) return
+        if (_candidates.value.isNotEmpty()) return
+        viewModelScope.launch {
+            val result = if (isDemo) {
+                Result.success(aniListRepository.getDemoAnimeList())
+            } else {
+                aniListRepository.getUserAnimeList(id!!, forceRefresh = false)
+            }
+            result.onSuccess { collection ->
+                setLibrary(
+                    collection.lists.orEmpty().flatMap { it.entries.orEmpty() }
+                )
+            }
+        }
+    }
 
     val stored: StateFlow<StoredTierList> = preferences.state
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(STOP_TIMEOUT_MS), StoredTierList())
@@ -194,11 +229,14 @@ class TierListViewModel(
     }
 
     class Factory(
-        private val preferences: TierListPreferences
+        private val preferences: TierListPreferences,
+        private val aniListRepository: AniListRepository,
+        private val userId: Int? = null,
+        private val isDemo: Boolean = false
     ) : ViewModelProvider.Factory {
         @Suppress("UNCHECKED_CAST")
         override fun <T : ViewModel> create(modelClass: Class<T>): T =
-            TierListViewModel(preferences) as T
+            TierListViewModel(preferences, aniListRepository, userId, isDemo) as T
     }
 
     private companion object {

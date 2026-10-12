@@ -144,6 +144,7 @@ fun ProfileDestination(
             navController.navigate(ProfileRoutes.byId(person.id))
         },
         onNavigateBack = { navController.popBackStack() },
+        onOpenTierList = { navController.navigate(AppRoutes.TIER_LIST) },
         onSignInAgain = onSignInAgain,
         initialTab = initialTab
     )

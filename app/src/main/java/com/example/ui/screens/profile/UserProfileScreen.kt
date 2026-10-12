@@ -10,6 +10,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
@@ -141,6 +142,24 @@ fun UserProfileScreen(
     socialViewModel: UserSocialViewModel,
     onOpenUser: (FollowUser) -> Unit,
     onNavigateBack: () -> Unit,
+    /**
+     * Opens the tier list for this library.
+     *
+     * A callback rather than a navigation call so the screen keeps no reference to
+     * the `NavController`, which is the same split `ProfileDestination` already
+     * makes: every route decision lives in one place, and the screen only says
+     * what it wants to happen.
+     *
+     * ## Whose tier list this opens
+     *
+     * `TierListPreferences` stores *one* personal ranking, keyed on the signed-in
+     * viewer's AniList id - it is a judgement about the reader's own library, not
+     * about whoever this profile happens to be about. So reaching this from a
+     * scanned or followed profile opens the viewer's own list, not that person's.
+     * That is the stored format's rule rather than this button's, and the screen
+     * cannot widen it from here.
+     */
+    onOpenTierList: () -> Unit = {},
     onSignInAgain: () -> Unit = {},
     /**
      * The tab the screen opens on.
@@ -190,14 +209,39 @@ fun UserProfileScreen(
         topBar = {
             TopAppBar(
                 title = {
-                    Text(
-                        text = (uiState as? UserOverviewUiState.Success)
-                            ?.username
-                            ?.let { "@$it" }
-                            ?: "AniList",
-                        fontWeight = FontWeight.SemiBold,
-                        maxLines = 1
-                    )
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Text(
+                            text = (uiState as? UserOverviewUiState.Success)
+                                ?.username
+                                ?.let { "@$it" }
+                                ?: "AniList",
+                            fontWeight = FontWeight.SemiBold,
+                            maxLines = 1
+                        )
+                        // Beside the name rather than in `actions`, because the
+                        // tier list ranks the library this profile is showing and
+                        // is worth reaching while looking at that library. In the
+                        // actions slot it would sit among the links and read as
+                        // another place this profile goes, rather than as a way of
+                        // ordering what is on it.
+                        IconButton(
+                            onClick = onOpenTierList,
+                            modifier = Modifier
+                                .testTag("profile_open_tier_list_button")
+                                .bouncyPress(pressedScale = 0.9f)
+                        ) {
+                            // The glyph is a shade under the bar's 24dp rather
+                            // than shrunk to match: it keeps the full 48dp touch
+                            // target, so the button stays easy to hit while
+                            // reading as lighter than the back arrow and the
+                            // AniList link beside it.
+                            Icon(
+                                imageVector = AppVectorIcons.Trophy,
+                                contentDescription = "Open tier list",
+                                modifier = Modifier.size(20.dp)
+                            )
+                        }
+                    }
                 },
                 navigationIcon = {
                     IconButton(
