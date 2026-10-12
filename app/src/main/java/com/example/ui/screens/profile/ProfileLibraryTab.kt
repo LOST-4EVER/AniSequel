@@ -461,14 +461,14 @@ var filter by rememberSaveable { mutableStateOf(LibraryFilter.ALL) }
                 },
                 isLoadingManga = isLoadingManga,
                 query = query,
-                onType = {
-                    type = it
+                onType = { chosen ->
+                    type = chosen
                     // Recorded on the tap, not on a save button: the memory is
                     // there so they are not asked again, and asking them to
                     // confirm the choice would defeat it.
                     typeChosen = true
-                    scope.launch { libraryPreferences.setType(it.name) }
                     query = ""
+                    scope.launch { libraryPreferences.setType(chosen.name) }
                 },
                 onFilter = { filter = it },
                 onQueryChange = { query = it }

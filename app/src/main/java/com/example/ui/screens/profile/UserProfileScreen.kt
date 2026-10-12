@@ -341,6 +341,7 @@ fun UserProfileScreen(
                         socialViewModel = socialViewModel,
                         mangaLibrary = mangaLibrary,
                         isLoadingManga = isLoadingManga,
+                        libraryPreferences = libraryPreferences,
                         mediaCovers = mediaCovers,
                         onLoadManga = { overviewViewModel.loadMangaLibrary() },
                         onOpenUser = onOpenUser,
@@ -398,6 +399,8 @@ private fun ProfileTabsContent(
     socialViewModel: UserSocialViewModel,
     mangaLibrary: List<MediaListEntryItem>?,
     isLoadingManga: Boolean,
+    /** Forwarded to the Library tab, which owns the remembered media type. */
+    libraryPreferences: LibraryPreferences,
     /** Media id to cover URL, for the AniList preview cards in the bio. */
     mediaCovers: Map<Int, String>,
     /**
