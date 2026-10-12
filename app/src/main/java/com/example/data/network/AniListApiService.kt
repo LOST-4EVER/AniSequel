@@ -52,6 +52,19 @@ interface AniListApiService {
         @Body request: GraphQLRequest
     ): GraphQLResponse<MediaDetailData>
 
+    /**
+     * Cover art for many media in one round trip.
+     *
+     * `Map<String, MediaNode>` rather than a generated class because the response
+     * keys are aliases the query builds at runtime (`m0`, `m1`, ...), so the
+     * shape of the answer is not known until the request is written.
+     */
+    @POST("/")
+    @Headers("Content-Type: application/json", "Accept: application/json")
+    suspend fun getMediaCovers(
+        @Body request: GraphQLRequest
+    ): GraphQLResponse<Map<String, MediaNode>>
+
     /** Bio, list statistics, favourites and aggregate stats. Profile screen only. */
     @POST("/")
     @Headers("Content-Type: application/json", "Accept: application/json")
