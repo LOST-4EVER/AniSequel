@@ -74,8 +74,9 @@ class TierListTest {
 
     @Test
     fun `a tier with no floor is never used`() {
-        // A tier the person added but has not given a meaning to stays empty
-        // rather than collecting everything that failed to match.
+        // A tier the person added but has not given a band to stays empty rather
+        // than collecting everything that failed to match elsewhere. It used to
+        // inherit one, because the floors were positional.
         val tiers = listOf(
             TierDefinition("top", "Favourite", 0xFFE5484D),
             TierDefinition("rest", "Rest", 0xFF8E8E93)
@@ -86,7 +87,7 @@ class TierListTest {
     }
 
     @Test
-    fun `seeding into a custom tier list uses its own order`() {
+    fun `seeding into a custom tier list uses its own bands`() {
         val tiers = listOf(
             TierDefinition("mid", "Mid", 0xFF30A46C),
             TierDefinition("high", "High", 0xFFE5484D)
@@ -94,11 +95,25 @@ class TierListTest {
         val assignment = seedFromScores(
             candidates = listOf(candidate(1, 95), candidate(2, 20)),
             tiers = tiers,
-            floors = listOf(80, 40)
+            floors = mapOf("high" to 80, "mid" to 10)
         )
 
         assertEquals("high", assignment.tierOf(1))
         assertEquals("mid", assignment.tierOf(2))
+    }
+
+    @Test
+    fun `a deleted tier stops collecting titles rather than passing them down`() {
+        // The standard list's bands are keyed by id, so deleting "F" means a
+        // title that would have been F is now unfiled. Handing it to "D" would
+        // assert a judgement nobody made.
+        val withoutF = StandardTiers.filter { it.id != "f" }
+        val assignment = seedFromScores(
+            candidates = listOf(candidate(1, 10)),
+            tiers = withoutF
+        )
+
+        assertNull(assignment.tierOf(1))
     }
 
     @Test
@@ -313,9 +328,22 @@ class TierListTest {
             candidates = listOf(candidate(1))
         )
 
-        val attributeValues = Regex("=\"([^\"]*)\"").findAll(svg).map { it.groupValues[1] }
-        attributeValues.forEach { value ->
-            assertFalse("comma in an attribute value: $value", value.contains(","))
+        // Numeric attributes only. A comma in an attribute *value* is only fatal
+        // where the value is a number; `font-family` is a comma-separated fallback
+        // list by definition, and asserting on every attribute failed on the one
+        // string in this document that is supposed to contain commas.
+        val numericAttribute = Regex("""\b(x|y|x1|x2|y1|y2|width|height|rx|ry|font-size)="([^"]*)"""")
+        numericAttribute.findAll(svg).forEach { match ->
+            val value = match.groupValues[2]
+            assertFalse(
+                "'${match.groupValues[1]}' carries a locale comma: $value",
+                value.contains(",")
+            )
+        }
+        // The viewBox is two numbers and is the other place a locale leaks in.
+        val viewBox = Regex("""viewBox="([^"]*)"""").find(svg)?.groupValues?.get(1)
+        if (viewBox != null) {
+            assertFalse("viewBox carries a locale comma: $viewBox", viewBox.contains(","))
         }
     }
 }

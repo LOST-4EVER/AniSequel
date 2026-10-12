@@ -88,14 +88,22 @@ data class TierAssignment(
 }
 
 /**
- * The score at which a title earns the tier at [index], highest tier first.
+ * The AniList score at which a title earns each standard tier.
  *
- * Expressed as a *floor* per tier rather than a band, and cut against the tiers
- * actually in use rather than the standard six. A person who deleted "F" must not
- * have its titles silently land in "D", and a person who added a tier above "S"
- * should be able to set what it takes without this file knowing.
+ * Keyed by tier id rather than being a positional list, because the two are not
+ * the same thing once the tiers are customisable. A positional list paired with
+ * whatever tiers it was handed silently gave a person's brand-new tier the "S"
+ * band's meaning, which is not what adding a tier means. Keyed by id, a tier that
+ * is not in this map simply has no band, and a custom tier starts empty.
  */
-private val DEFAULT_SCORE_FLOORS = listOf(85, 75, 65, 55, 45, 0)
+private val DEFAULT_SCORE_FLOORS = mapOf(
+    "s" to 85,
+    "a" to 75,
+    "b" to 65,
+    "c" to 55,
+    "d" to 45,
+    "f" to 0
+)
 
 /**
  * Files candidates into tiers by their AniList score.
@@ -113,22 +121,23 @@ private val DEFAULT_SCORE_FLOORS = listOf(85, 75, 65, 55, 45, 0)
 fun seedFromScores(
     candidates: List<TierCandidate>,
     tiers: List<TierDefinition> = StandardTiers,
-    floors: List<Int> = DEFAULT_SCORE_FLOORS
+    floors: Map<String, Int> = DEFAULT_SCORE_FLOORS
 ): TierAssignment {
     if (tiers.isEmpty()) return TierAssignment()
 
-    // Highest tier first, because the first floor a score clears is the tier it
-    // belongs to. `reversed()` on the list order also means a person who puts a
-    // custom tier at the top gets the highest band, which is what putting a tier
-    // at the top means.
-    val ordered = tiers.mapIndexed { index, tier -> tier to floors.getOrNull(index) }
-    val bands = ordered.filter { it.second != null }.sortedByDescending { it.second!! }
+    // Highest floor first, because the first floor a score clears is the tier it
+    // belongs to. Sorting by floor rather than by position in [tiers] means the
+    // person's tier *order* is presentation - they can put "Favourite" at the top
+    // without it inheriting somebody else's band.
+    val bands = tiers
+        .mapNotNull { tier -> floors[tier.id]?.let { tier to it } }
+        .sortedByDescending { it.second }
 
     val assignment = LinkedHashMap<Int, String>()
     candidates.forEach { candidate ->
         val score = candidate.averageScore ?: 0
         if (score <= 0) return@forEach
-        val match = bands.firstOrNull { score >= it.second!! } ?: return@forEach
+        val match = bands.firstOrNull { score >= it.second } ?: return@forEach
         assignment[candidate.mediaId] = match.first.id
     }
     return TierAssignment(assignment)
