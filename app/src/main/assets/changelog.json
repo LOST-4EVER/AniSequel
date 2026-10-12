@@ -4,6 +4,14 @@
       "version": "1.1.1",
       "entries": [
         {
+          "title": "The Info tab stops printing API jargon",
+          "detail": "A title's status was being shown exactly as AniList names it, so an airing show read RELEASING, an unreleased one read NOT_YET_RELEASED, and an unrecognised one read UNKNOWN - in the same typeface as '24 episodes - Winter 2023' directly beside it. Those now read Airing, Upcoming, On hiatus and Cancelled. A status the app has never seen is shown as it arrives rather than rewritten into 'Unknown', so a new one from AniList is not silently mislabelled."
+        },
+        {
+          "title": "Status and Score on every title",
+          "detail": "The detail sheet now carries a Status and Score pair alongside studio, format and dates - whether a show has finished and whether it is any good are the two facts a detail page is opened for, and neither was on it. The score is AniList's own out of 100 rather than rescaled, so it agrees with the score chart on the Stats tab."
+        },
+        {
           "title": "Anime and manga links in a bio now show their cover",
           "detail": "An AniList link in someone's bio - the 'hall of fame' line most profiles are built around - now renders as a card with the title's actual poster art, at its real proportions rather than cropped. All the links in one bio are fetched in a single batched request rather than one each, so opening a profile with a dozen of them stays within AniList's request budget instead of spending a dozen of it."
         },
