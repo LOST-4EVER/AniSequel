@@ -57,6 +57,7 @@ import com.example.data.model.FollowUser
 import com.example.data.model.MediaListEntryItem
 import com.example.data.model.MediaNode
 import com.example.data.model.withSummaryProgress
+import com.example.data.repository.LibraryPreferences
 import com.example.ui.components.AppVectorIcons
 import com.example.ui.components.SequelDetailSheet
 import com.example.ui.components.detail.AnimeDetailSubject
@@ -142,6 +143,15 @@ fun UserProfileScreen(
     socialViewModel: UserSocialViewModel,
     onOpenUser: (FollowUser) -> Unit,
     onNavigateBack: () -> Unit,
+    /**
+     * The Library tab's remembered media type.
+     *
+     * Threaded to the tab rather than built there so there is one DataStore
+     * reader per process. Defaulted because every other screen parameter here
+     * is, and the tab treats a missing store as "ask me again" rather than
+     * failing.
+     */
+    libraryPreferences: LibraryPreferences = LibraryPreferences(LocalContext.current),
     /**
      * Opens the tier list for this library.
      *
@@ -485,7 +495,8 @@ private fun ProfileTabsContent(
                     onLoadManga = onLoadManga,
                     contentPadding = padding,
                     onOpenDetail = onOpenDetail,
-                    gridState = libraryGridState
+                    gridState = libraryGridState,
+                    libraryPreferences = libraryPreferences
                 )
 
                 4 -> ProfileSocialTab(

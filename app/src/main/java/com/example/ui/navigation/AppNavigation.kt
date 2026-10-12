@@ -151,6 +151,13 @@ fun AppNavigation(
         com.example.data.repository.QuickAddPreferences(context.applicationContext)
     }
 
+    // The Library tab's remembered media type. Application-scoped and built here
+    // for the same reason as the rest: one DataStore reader per process, so the
+    // tab cannot disagree with itself about what was last chosen.
+    val libraryPreferences = remember(context) {
+        com.example.data.repository.LibraryPreferences(context.applicationContext)
+    }
+
     // Application-scoped for the same reason as the rest: the tier list is the
     // reader's own saved work, and a tier list built one visit and thrown away on
     // the next is worse than no feature at all. `remember` keyed on `context` is
@@ -521,6 +528,7 @@ fun AppNavigation(
                 isDemo = signedInViewer == null,
                 navController = navController,
                 onSignInAgain = authViewModel::logout,
+                libraryPreferences = libraryPreferences,
                 initialTab = if (requestedTab == ProfileRoutes.TAB_ACTIVITY) {
                     ProfileRoutes.ACTIVITY_TAB_INDEX
                 } else {
@@ -545,7 +553,8 @@ fun AppNavigation(
                 userId = null,
                 isDemo = false,
                 navController = navController,
-                onSignInAgain = authViewModel::logout
+                onSignInAgain = authViewModel::logout,
+                libraryPreferences = libraryPreferences
             )
         }
 
@@ -563,7 +572,8 @@ fun AppNavigation(
                 userId = userId,
                 isDemo = false,
                 navController = navController,
-                onSignInAgain = authViewModel::logout
+                onSignInAgain = authViewModel::logout,
+                libraryPreferences = libraryPreferences
             )
         }
 
