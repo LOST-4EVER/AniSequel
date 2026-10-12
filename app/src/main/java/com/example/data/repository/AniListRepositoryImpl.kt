@@ -444,8 +444,9 @@ class AniListRepositoryImpl(
                 variables = variables
             ),
             apiService::getMediaCovers
-        ).map { response ->
-            val byAlias = response.data.orEmpty()
+        ).map { byAlias ->
+            // `execute` already unwrapped GraphQLResponse.data, so what arrives
+            // here *is* the alias map - there is no `.data` on it to reach for.
             missing.forEachIndexed { index, id ->
                 val node = byAlias[GraphQLQueries.mediaCoverAlias(index)]
                 val cover = node?.coverImage?.bestUrl
