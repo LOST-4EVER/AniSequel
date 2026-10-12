@@ -723,8 +723,8 @@ private fun TierBoard(
     // only when the tier *under the finger* changes, so dragging across one row is
     // a draw invalidation (the ghost's `graphicsLayer` already reads the travel in
     // the draw phase) instead of a full recomposition of every row and poster.
-    val hoveredTierId by remember(draggingId, arrangement, zoom, density) {
-        derivedStateOf {
+    val hoveredTierId = remember(draggingId, arrangement, zoom, density) {
+        derivedStateOf<String?> {
             if (draggingId == null) {
                 null
             } else {
