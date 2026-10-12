@@ -29,7 +29,13 @@ import org.junit.Test
  */
 class TierListTest {
 
-    private fun candidate(id: Int, score: Int?, title: String = "Title $id") =
+    /**
+     * Defaulted to null so a test that is about layout does not have to state a
+     * score it does not care about. Every call that omitted it was written
+     * assuming the parameter had a default, which is the kind of assumption the
+     * compiler is there to catch.
+     */
+    private fun candidate(id: Int, score: Int? = null, title: String = "Title $id") =
         TierCandidate(mediaId = id, title = title, averageScore = score)
 
     // ---- Seeding -----------------------------------------------------------

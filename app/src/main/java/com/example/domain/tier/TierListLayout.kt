@@ -30,7 +30,13 @@ data class TierRowBox(
     val y: Float,
     val width: Float,
     val height: Float
-)
+) {
+    // The same two derived edges as [TierItemBox], and for the same reason: the
+    // tests assert that rows stack without overlapping, which is a question
+    // about an edge rather than about y and height separately.
+    val right: Float get() = x + width
+    val bottom: Float get() = y + height
+}
 
 /** A whole laid-out list. */
 data class TierListLayout(
