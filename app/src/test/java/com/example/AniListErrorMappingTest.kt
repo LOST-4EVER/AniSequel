@@ -267,7 +267,6 @@ class RequestCoalescingPolicyTest {
         override suspend fun getMediaCovers(
             request: GraphQLRequest
         ): GraphQLResponse<Map<String, MediaNode>> = GraphQLResponse(emptyMap())
-            GraphQLResponse(null)
 
         // The profile screen's four endpoints. Thrown rather than returned as an
         // empty response on purpose: if a test ever starts calling one, that is a
