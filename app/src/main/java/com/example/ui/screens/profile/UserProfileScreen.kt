@@ -234,6 +234,10 @@ fun UserProfileScreen(
             )
         }
     ) { paddingValues ->
+        // Read once and passed to both, rather than read twice at the call site:
+        // a CompositionLocal read is a dependency, and taking it in the same
+        // lambda that consumes it keeps this to one.
+        val layoutDirection = LocalLayoutDirection.current
         Box(
             modifier = Modifier
                 .fillMaxSize()
@@ -250,8 +254,8 @@ fun UserProfileScreen(
                 // cutout - it looked like the layout was simply using more of
                 // the screen than it should.
                 .padding(
-                    start = paddingValues.calculateStartPadding(LocalLayoutDirection),
-                    end = paddingValues.calculateEndPadding(LocalLayoutDirection),
+                    start = paddingValues.calculateStartPadding(layoutDirection),
+                    end = paddingValues.calculateEndPadding(layoutDirection),
                     top = paddingValues.calculateTopPadding()
                 )
                 .background(MaterialTheme.colorScheme.background),
