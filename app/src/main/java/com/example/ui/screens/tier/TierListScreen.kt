@@ -826,7 +826,7 @@ private fun TierBoard(
             ) {
                 Text(
                     text = if (hoveredTierId != null) {
-                        "Release to file under ${tierLabel(tiers, hoveredTierId)}"
+                        "Release to file under ${tierLabel(tiers, hoveredTierId.value)}"
                     } else {
                         "Release here to take it out of the list"
                     },
