@@ -699,7 +699,7 @@ object AniListMarkdownParser {
      * read `**#1 Cowboy Bebop**` with visible markup in it.
      */
     private fun mediaLinkTitle(label: String, slug: String, type: String, id: String): String {
-        val plain = parseInlines(label).joinToString("") { it.runText() }.trim()
+        val plain = parseInlines(label).flatText().trim()
         return plain.ifEmpty { anilistTitleFromSlug(slug, type, id) }
     }
 
@@ -709,22 +709,34 @@ object AniListMarkdownParser {
      * The nested expression is preferred over [InlineToken]'s flat `text` where
      * one exists, because the flat field still holds the markup source for a run
      * whose label was itself a link.
+     *
+     * ## Why every emphasis run has its own branch
+     *
+     * They all carry the same two fields, so the obvious grouping -
+     * `is Bold, is Italic, ... ->` on one line - is what this was written as first,
+     * and it does not compile. A multi-condition branch smart-casts only to the
+     * common supertype of the listed types, which is `InlineToken`, so `children`
+     * and `text` do not resolve on it. Five near-identical lines is the price of
+     * the cast, and `nestedTokens()` and `childrenOrText()` in this file pay the
+     * same one for the same reason.
      */
     private fun InlineToken.runText(): String = when (this) {
         is InlineToken.Plain -> text
-        is InlineToken.Bold,
-        is InlineToken.Italic,
-        is InlineToken.BoldItalic,
-        is InlineToken.Underline,
-        is InlineToken.Strikethrough ->
-            children.joinToString("") { it.runText() }.ifEmpty { text }
-        is InlineToken.Link -> children.joinToString("") { it.runText() }.ifEmpty { label }
+        is InlineToken.Bold -> children.flatText().ifEmpty { text }
+        is InlineToken.Italic -> children.flatText().ifEmpty { text }
+        is InlineToken.BoldItalic -> children.flatText().ifEmpty { text }
+        is InlineToken.Underline -> children.flatText().ifEmpty { text }
+        is InlineToken.Strikethrough -> children.flatText().ifEmpty { text }
+        is InlineToken.Link -> children.flatText().ifEmpty { label }
         is InlineToken.Code -> code
         is InlineToken.MediaLink -> label
         is InlineToken.Mention -> "@$username"
         is InlineToken.Spoiler -> text
         is InlineToken.Image -> alt.orEmpty()
     }
+
+    /** The flattened text of a nested expression. */
+    private fun List<InlineToken>.flatText(): String = joinToString("") { it.runText() }
 
     /**
      * Parses inline tokens: links, inline images/GIFs, spoilers, bold/italic,
