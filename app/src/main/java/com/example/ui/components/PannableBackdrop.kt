@@ -161,7 +161,7 @@ fun PannableBackdrop(
                 // `FitBounds` because the transform above owns the fit. Crop here
                 // would fight the scale and the two would disagree about what is on
                 // screen the moment the picture was panned or zoomed.
-                contentScale = ContentScale.FitBounds,
+                contentScale = ContentScale.FillBounds,
                 colorFilter = colorFilter
             )
         }
