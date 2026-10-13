@@ -41,8 +41,11 @@ class BackdropTransformTest {
         // Wide image, short box: the height is the binding constraint.
         assertEquals(boxHeight / bannerHeight, cover(), 0.0001f)
         // Tall image, wide box: the width is.
+        // Note: the image dims are swapped in the call, so the function receives
+        // imageWidth=bannerHeight (1080), imageHeight=bannerWidth (1920).
+        // cover = max(360/1080, 280/1920) = max(0.333, 0.1458) = 0.333...
         assertEquals(
-            boxWidth / bannerWidth,
+            boxWidth / bannerHeight, // 360/1080 = 0.333...
             backdropCoverScale(boxWidth, boxHeight, bannerHeight, bannerWidth),
             0.0001f
         )
