@@ -96,7 +96,9 @@ class TierListDocumentTest {
             document("list2", "Two", updatedAt = 100)
         )
 
-        assertEquals("list1", mostRecentTierList(lists, lastOpenedId = "list2")?.id)
+        // "list2" though "list1" is the newer write: if this ever returns
+        // "list1" the rule has silently become "newest edit wins".
+        assertEquals("list2", mostRecentTierList(lists, lastOpenedId = "list2")?.id)
     }
 
     @Test
