@@ -449,8 +449,7 @@ class AniListMarkdownTest {
 
     @Test
     fun `an equals sign underline makes a heading and is consumed`() {
-        val nodes = AniListMarkdownParser.parse("My ratings\n===\n
-text")
+        val nodes = AniListMarkdownParser.parse("My ratings\n===\n\ntext")
 
         assertEquals(2, nodes.size)
         val header = nodes[0] as MarkdownNode.Header
