@@ -112,13 +112,15 @@ class UserOverviewLoadOrderTest {
     fun `a bio's cover batch is requested while the list download is still in flight`() =
         runTest(testDispatcher) {
             val listGate = CompletableDeferred<Unit>()
-            val viewModel = UserOverviewViewModel(
-                GatedListRepository(
-                    listGate = listGate,
-                    bio = "**Favourites**\n\nhttps://anilist.co/anime/128893"
-                ),
-                userId = 1
+            // Named so the assertion can read what the *repository* was asked for.
+            // The ViewModel exposes the answer (`mediaCovers`) but not the question,
+            // and this test is about the question - the batch had to be issued while
+            // the list was still suspended, not merely have landed by the end.
+            val repository = GatedListRepository(
+                listGate = listGate,
+                bio = "**Favourites**\n\nhttps://anilist.co/anime/128893"
             )
+            val viewModel = UserOverviewViewModel(repository, userId = 1)
 
             // Idles with the list still suspended: `gate.await()` never completes,
             // so the scheduler reaches idle with the download in flight, which is
@@ -131,7 +133,7 @@ class UserOverviewLoadOrderTest {
             assertEquals(
                 "covers must be requested without waiting for the list download",
                 listOf(MediaCoverKey("ANIME", 128893)),
-                requestedCoverKeys
+                repository.requestedCoverKeys
             )
 
             listGate.complete(Unit)
