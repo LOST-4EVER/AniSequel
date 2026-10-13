@@ -277,8 +277,12 @@ private fun TierBoard(
             // Where this board sits in the window, refreshed on every frame it
             // moves. The pointer's position *on screen* is this plus the drag's own
             // offset, and that is what the edge test is about.
+            // `localToWindow(Offset.Zero)`, not `positionInWindow()`: the latter was
+            // deprecated and has now been removed from Compose UI entirely, so it
+            // compiles against nothing. This is its documented equivalent - the
+            // window position of this node's top-left corner.
             .onGloballyPositioned { coordinates ->
-                viewport.boardTop = coordinates.positionInWindow().y
+                viewport.boardTop = coordinates.localToWindow(Offset.Zero).y
             }
             .transformable(state = transformState)
             .pointerInput(arrangement, zoom) {

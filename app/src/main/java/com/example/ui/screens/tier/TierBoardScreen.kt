@@ -35,6 +35,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
@@ -167,8 +168,10 @@ internal fun TierBoardScreen(
                 // answers with the content - which is exactly the wrong number here,
                 // because the edge test is about the screen. A pointer's position on
                 // screen is this box's top plus the drag's own offset.
+                // `localToWindow(Offset.Zero)` is the current spelling of
+                // `positionInWindow()`, which Compose UI has removed.
                 .onGloballyPositioned { coordinates ->
-                    viewport.viewportTop = coordinates.positionInWindow().y
+                    viewport.viewportTop = coordinates.localToWindow(Offset.Zero).y
                     viewport.viewportHeight = coordinates.size.height.toFloat()
                 }
         ) {
