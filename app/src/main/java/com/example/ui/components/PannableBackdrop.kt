@@ -1,6 +1,7 @@
 package com.example.ui.components
 
-import androidx.compose.foundation.gestures.detectTransformGestures
+import androidx.compose.foundation.gestures.rememberTransformableState
+import androidx.compose.foundation.gestures.transformable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.fillMaxSize
@@ -82,6 +83,37 @@ fun PannableBackdrop(
         offsetY = offsetY
     )
 
+    // `transformable` rather than a `pointerInput` with
+    // `detectTransformGestures`, for one reason: the gesture detector consumes
+    // single-pointer drags unconditionally, so a finger dragged on the hero panned
+    // the picture instead of scrolling the sheet it sits in. Every media detail is
+    // a `ModalBottomSheet` over a scrolling column, and the hero is the first thing
+    // under the finger.
+    //
+    // `canPan` is what settles it: the gesture declines to take a pan when there is
+    // nowhere to pan to, so at zoom-out the sheet scrolls normally, and only a
+    // picture that is genuinely off-frame takes the drag. A pinch is always
+    // consumed, because two fingers on a hero mean zoom and nothing else.
+    val transformState = rememberTransformableState { zoomChange, panChange, _ ->
+        val nextZoom = (zoom * zoomChange).coerceIn(BACKDROP_MIN_ZOOM, BACKDROP_MAX_ZOOM)
+        zoom = nextZoom
+
+        // Applied raw, then clamped against the bounds the *new* zoom implies.
+        // Clamping first would use the old scale's bounds and strand the picture
+        // when zooming back out to fit.
+        val next = backdropTransform(
+            containerWidth = containerWidth,
+            containerHeight = containerHeight,
+            imageWidth = imageSize.width,
+            imageHeight = imageSize.height,
+            zoom = nextZoom,
+            offsetX = offsetX + panChange.x,
+            offsetY = offsetY + panChange.y
+        )
+        offsetX = next.offsetX
+        offsetY = next.offsetY
+    }
+
     Box(
         modifier = modifier
             .fillMaxSize()
@@ -121,31 +153,11 @@ fun PannableBackdrop(
                         translationX = transform.offsetX
                         translationY = transform.offsetY
                     }
-                    .pointerInput(Unit) {
-                        detectTransformGestures { _, pan, zoomChange, _ ->
-                            val nextZoom = (zoom * zoomChange)
-                                .coerceIn(BACKDROP_MIN_ZOOM, BACKDROP_MAX_ZOOM)
-                            zoom = nextZoom
-
-                            // Raw first, then clamped against the bounds the *new*
-                            // zoom implies. Clamping before the zoom change would
-                            // use the old scale's bounds and strand the picture when
-                            // zooming back out to fit.
-                            val rawX = offsetX + pan.x
-                            val rawY = offsetY + pan.y
-                            val next = backdropTransform(
-                                containerWidth = containerWidth,
-                                containerHeight = containerHeight,
-                                imageWidth = imageSize.width,
-                                imageHeight = imageSize.height,
-                                zoom = nextZoom,
-                                offsetX = rawX,
-                                offsetY = rawY
-                            )
-                            offsetX = next.offsetX
-                            offsetY = next.offsetY
-                        }
-                    },
+                    .transformable(
+                        state = transformState,
+                        canPan = { hasOverflow(containerWidth, containerHeight, imageSize, zoom) },
+                        lockRotationOnZoomPan = true
+                    ),
                 // `FitBounds` because the transform above owns the fit. Crop here
                 // would fight the scale and the two would disagree about what is on
                 // screen the moment the picture was panned or zoomed.
@@ -170,6 +182,28 @@ internal data class BackdropTransform(
     val offsetX: Float,
     val offsetY: Float
 )
+
+/**
+ * Whether the picture has anywhere to be dragged to right now.
+ *
+ * The gate on the pan gesture. False at zoom-out on an axis the cover fit already
+ * fills, and the sheet's own vertical scroll takes the drag instead - which is what
+ * a hero in a scrolling sheet has to do, or the sheet cannot be scrolled by
+ * dragging the one thing at the top of it.
+ */
+internal fun hasOverflow(
+    containerWidth: Float,
+    containerHeight: Float,
+    imageSize: Size,
+    zoom: Float
+): Boolean {
+    if (containerWidth <= 0f || containerHeight <= 0f) return false
+    if (imageSize.width <= 0f || imageSize.height <= 0f) return false
+    val scale = backdropCoverScale(containerWidth, containerHeight, imageSize.width, imageSize.height) *
+        zoom.coerceIn(BACKDROP_MIN_ZOOM, BACKDROP_MAX_ZOOM)
+    return imageSize.width * scale > containerWidth + 0.5f ||
+        imageSize.height * scale > containerHeight + 0.5f
+}
 
 /**
  * The scale that makes the picture cover its box on both axes.
