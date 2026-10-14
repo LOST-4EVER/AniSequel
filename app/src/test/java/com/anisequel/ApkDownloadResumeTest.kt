@@ -27,7 +27,7 @@ import org.junit.Test
  * The third case is also why "resume when there is something to resume" cannot
  * be decided by the caller: it depends on the response as well as the disk.
  *
- * @see ApkDownloader for the transfer this drives.
+ * The transfer this drives lives in `com.anisequel.data.update.ApkDownloader`.
  */
 class ApkDownloadResumeTest {
 

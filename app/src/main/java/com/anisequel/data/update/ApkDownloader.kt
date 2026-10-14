@@ -16,6 +16,18 @@ internal sealed interface TransferResult {
 }
 
 /**
+ * 206: the server answered with the range that was asked for.
+ *
+ * Top level rather than in [ApkDownloader]'s companion because [planResume] is
+ * top level too, and a top-level function cannot see a private companion's
+ * members - which the compiler says out loud, once.
+ */
+private const val HTTP_PARTIAL_CONTENT = 206
+
+/** 416: the bytes on disk run past the end of the file. */
+private const val HTTP_RANGE_NOT_SATISFIABLE = 416
+
+/**
  * How a response lines up with the bytes already on disk.
  *
  * Pure, and separated from the transfer, because this is the part of resuming
@@ -308,9 +320,6 @@ internal class ApkDownloader(private val client: OkHttpClient) {
          * smoothly, against three hundred for an unthrottled per-read callback.
          */
         const val PROGRESS_STEP_BYTES = 32L * 1024
-
-        const val HTTP_PARTIAL_CONTENT = 206
-        const val HTTP_RANGE_NOT_SATISFIABLE = 416
 
         /** [copy]'s way of saying the body outgrew the size limit. */
         const val OVERSIZED = -1L
