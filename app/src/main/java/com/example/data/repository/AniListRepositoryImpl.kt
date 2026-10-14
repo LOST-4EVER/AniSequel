@@ -945,8 +945,17 @@ class AniListRepositoryImpl(
  *    the server's value. Sending it as null made every save on an *anime* fail,
  *    because an anime entry has no volume count at all.
  *
- * The dates and the private flag are always sent: a null date is how AniList
- * clears one, and those two do accept it.
+ * The dates are always sent, and that is the one place a null is meaningful:
+ * it is how AniList clears a date, and the row's X depends on it.
+ *
+ * The private flag is sent as a boolean, never as null. It is not a *clearing*
+ * control the way the dates are - the toggle always holds a value the user can
+ * see and change - so an unset flag is an entry that is not private, and `false`
+ * is the truth about it. The editor cannot actually build a null here
+ * (`EntryDraft.isPrivate` is a plain `Boolean`), but this function is the thing
+ * that encodes which arguments may be absent, and an explicit null for a boolean
+ * argument is the same class of 400 that used to drop every anime save. Defaulting
+ * it here means the next caller cannot reintroduce that by forgetting the field.
  */
 internal fun MediaEntryEdit.toSaveVariables(): Map<String, Any?> = buildMap {
     put("mediaId", mediaId)
@@ -956,7 +965,7 @@ internal fun MediaEntryEdit.toSaveVariables(): Map<String, Any?> = buildMap {
     put("score", score ?: 0.0)
     put("startedAt", startedAt?.toVariables())
     put("completedAt", completedAt?.toVariables())
-    put("private", isPrivate)
+    put("private", isPrivate ?: false)
 }
 
 /**
