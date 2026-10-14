@@ -209,11 +209,17 @@ open class UpdateManager(private val context: Context) {
                                 }
                             }
 
+                            // The last update is emitted unconditionally, so a body that
+                            // stops short of the next 32 KB step cannot leave
+                            // the bar showing 97%.
+                            if (read >= lastReported) {
+                                lastReported = read
+                                onProgress(read, read)
+                            }
+
                             output.flush()
                         }
                     }
-
-                    if (read >= lastReported) onProgress(read, read)
 
                     // A 200 response is not proof the body is an APK. A redirect
                     // that lands on an HTML error page, or a rate-limit notice,

@@ -61,27 +61,34 @@ class UpdateController(
         state = UpdateUiState.Checking
 
         scope.launch {
-            state = when (val result = updateManager.checkForUpdate()) {
+            when (val result = updateManager.checkForUpdate()) {
                 is UpdateCheckResult.UpToDate ->
-                    UpdateUiState.UpToDate(result.installedVersion)
+                    state = UpdateUiState.UpToDate(result.installedVersion)
 
                 // Rehydrate before offering the download. This process may have
                 // no memory of a download this device already made - the app was
-                // killed, or the user force-stopped it, or the APK was fetched
-                // on a previous launch that never got as far as installing. The
-                // file is still on disk and still valid, so showing
-                // "Download & install" would be a lie: the user presses it, and
-                // the button quietly returns without transferring anything,
-                // which reads as the app having downloaded the file all over
-                // again. Asking `downloadedApkFor` here is what makes the app
-                // remember where it saved it.
-                is UpdateCheckResult.Available ->
-                    updateManager.downloadedApkFor(result.manifest)
-                        ?.let { settleDownloaded(it, result.manifest, sentToSettings = false) }
-                        ?: UpdateUiState.Available(result.manifest)
+                // killed, or the user force-stopped it, or the APK was fetched on
+                // a launch that never got as far as installing. The file is still
+                // on disk and still valid, so showing "Download & install" would
+                // be a lie: the user presses it, and the button quietly returns
+                // without transferring anything, which reads as the app having
+                // downloaded the file all over again.
+                //
+                // Not an `elvis` on the result: `settleDownloaded` assigns the
+                // state itself and returns Unit, so folding it into an
+                // expression would lose the branch and then overwrite whatever
+                // it had set.
+                is UpdateCheckResult.Available -> {
+                    val onDisk = updateManager.downloadedApkFor(result.manifest)
+                    if (onDisk != null) {
+                        settleDownloaded(onDisk, result.manifest, sentToSettings = false)
+                    } else {
+                        state = UpdateUiState.Available(result.manifest)
+                    }
+                }
 
                 is UpdateCheckResult.Failed ->
-                    UpdateUiState.Failed(result.reason)
+                    state = UpdateUiState.Failed(result.reason)
             }
         }
     }
