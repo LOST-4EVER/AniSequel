@@ -1,7 +1,7 @@
 {
   "versions": [
     {
-      "version": "1.2.2",
+      "version": "1.2.4",
       "entries": [
         {
           "title": "AniSequel no longer asks an unaired show how many episodes you have watched",
