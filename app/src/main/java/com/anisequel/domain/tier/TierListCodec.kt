@@ -1,4 +1,4 @@
-package com.example.domain.tier
+package com.anisequel.domain.tier
 
 /**
  * The tier list's on-disk format, as pure functions.

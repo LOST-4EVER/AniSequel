@@ -1,4 +1,4 @@
-package com.example.data.model
+package com.anisequel.data.model
 
 /**
  * How long until an AniList `airingAt`, as a short human string.

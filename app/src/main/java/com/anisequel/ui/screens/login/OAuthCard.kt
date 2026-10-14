@@ -1,4 +1,4 @@
-package com.example.ui.screens.login
+package com.anisequel.ui.screens.login
 
 import android.content.Context
 import android.net.Uri
@@ -36,11 +36,11 @@ import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.example.ui.components.AppVectorIcons
-import com.example.ui.components.expressive.ExpressiveMotion
-import com.example.ui.components.expressive.bouncyPress
-import com.example.ui.components.RedirectUrlHint
-import com.example.ui.viewmodel.AuthUiState
+import com.anisequel.ui.components.AppVectorIcons
+import com.anisequel.ui.components.expressive.ExpressiveMotion
+import com.anisequel.ui.components.expressive.bouncyPress
+import com.anisequel.ui.components.RedirectUrlHint
+import com.anisequel.ui.viewmodel.AuthUiState
 
 @Composable
 fun OAuthCard(

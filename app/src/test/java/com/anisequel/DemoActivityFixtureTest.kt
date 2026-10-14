@@ -1,6 +1,6 @@
-package com.example
+package com.anisequel
 
-import com.example.data.repository.DemoProfileProvider
+import com.anisequel.data.repository.DemoProfileProvider
 import org.junit.Assert.assertTrue
 import org.junit.Test
 

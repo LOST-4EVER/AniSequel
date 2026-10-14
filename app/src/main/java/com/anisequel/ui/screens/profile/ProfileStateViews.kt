@@ -1,4 +1,4 @@
-package com.example.ui.screens.profile
+package com.anisequel.ui.screens.profile
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -24,9 +24,9 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.example.ui.components.AppVectorIcons
-import com.example.ui.components.expressive.ExpressiveLoadingIndicator
-import com.example.ui.components.expressive.bouncyPress
+import com.anisequel.ui.components.AppVectorIcons
+import com.anisequel.ui.components.expressive.ExpressiveLoadingIndicator
+import com.anisequel.ui.components.expressive.bouncyPress
 
 /**
  * The profile screen's waiting state.

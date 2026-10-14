@@ -1,4 +1,4 @@
-package com.example.ui.screens.profile
+package com.anisequel.ui.screens.profile
 
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.background
@@ -33,14 +33,14 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.example.data.model.MediaCover
-import com.example.data.model.MediaCoverKey
-import com.example.ui.components.AppVectorIcons
-import com.example.ui.components.expressive.ExpressiveMotion
-import com.example.ui.components.expressive.bouncyPress
-import com.example.ui.components.markdown.AniListMarkdownParser
-import com.example.ui.components.markdown.AniListMarkdownView
-import com.example.ui.components.markdown.MARKDOWN_COLLAPSED_BLOCK_LIMIT
+import com.anisequel.data.model.MediaCover
+import com.anisequel.data.model.MediaCoverKey
+import com.anisequel.ui.components.AppVectorIcons
+import com.anisequel.ui.components.expressive.ExpressiveMotion
+import com.anisequel.ui.components.expressive.bouncyPress
+import com.anisequel.ui.components.markdown.AniListMarkdownParser
+import com.anisequel.ui.components.markdown.AniListMarkdownView
+import com.anisequel.ui.components.markdown.MARKDOWN_COLLAPSED_BLOCK_LIMIT
 
 /**
  * How many lines a collapsed bio shows before the fade takes over.

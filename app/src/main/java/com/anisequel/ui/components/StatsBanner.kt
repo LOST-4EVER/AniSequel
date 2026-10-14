@@ -1,4 +1,4 @@
-package com.example.ui.components
+package com.anisequel.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -24,8 +24,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
-import com.example.ui.components.expressive.AnimatedCounterText
-import com.example.ui.theme.AniSequelTheme
+import com.anisequel.ui.components.expressive.AnimatedCounterText
+import com.anisequel.ui.theme.AniSequelTheme
 
 @Composable
 fun StatsBanner(

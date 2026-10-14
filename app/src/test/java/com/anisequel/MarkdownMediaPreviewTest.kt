@@ -1,9 +1,9 @@
-package com.example
+package com.anisequel
 
-import com.example.data.model.MediaCoverKey
-import com.example.ui.components.markdown.AniListMarkdownParser
-import com.example.ui.components.markdown.MarkdownNode
-import com.example.ui.components.markdown.mediaCoverKeysIn
+import com.anisequel.data.model.MediaCoverKey
+import com.anisequel.ui.components.markdown.AniListMarkdownParser
+import com.anisequel.ui.components.markdown.MarkdownNode
+import com.anisequel.ui.components.markdown.mediaCoverKeysIn
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test

@@ -1,4 +1,4 @@
-package com.example.data.repository
+package com.anisequel.data.repository
 
 import android.content.Context
 import androidx.datastore.core.DataStore
@@ -6,16 +6,16 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
-import com.example.domain.tier.StandardTiers
-import com.example.domain.tier.TierDefinition
-import com.example.domain.tier.TierListDocument
-import com.example.domain.tier.decodeDocumentIds
-import com.example.domain.tier.decodeTierListDocument
-import com.example.domain.tier.encodeDocumentIds
-import com.example.domain.tier.encodeTierListDocument
-import com.example.domain.tier.legacyTierListDocument
-import com.example.domain.tier.mostRecentTierList
-import com.example.domain.tier.newTierListId
+import com.anisequel.domain.tier.StandardTiers
+import com.anisequel.domain.tier.TierDefinition
+import com.anisequel.domain.tier.TierListDocument
+import com.anisequel.domain.tier.decodeDocumentIds
+import com.anisequel.domain.tier.decodeTierListDocument
+import com.anisequel.domain.tier.encodeDocumentIds
+import com.anisequel.domain.tier.encodeTierListDocument
+import com.anisequel.domain.tier.legacyTierListDocument
+import com.anisequel.domain.tier.mostRecentTierList
+import com.anisequel.domain.tier.newTierListId
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 

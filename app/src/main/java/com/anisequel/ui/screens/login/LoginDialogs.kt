@@ -1,4 +1,4 @@
-package com.example.ui.screens.login
+package com.anisequel.ui.screens.login
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -18,7 +18,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
-import com.example.ui.components.expressive.bouncyPress
+import com.anisequel.ui.components.expressive.bouncyPress
 
 @Composable
 fun ClientIdDialog(

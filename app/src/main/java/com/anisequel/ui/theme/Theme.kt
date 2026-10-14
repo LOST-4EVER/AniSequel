@@ -1,4 +1,4 @@
-package com.example.ui.theme
+package com.anisequel.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
@@ -17,7 +17,7 @@ import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import com.example.data.repository.ThemeMode
+import com.anisequel.data.repository.ThemeMode
 
 internal val DarkColorScheme = darkColorScheme(
     primary = AniBlueLight,
@@ -183,7 +183,7 @@ fun AniSequelTheme(
      */
     palette: ThemePalette = ThemePalette.ANISDK,
     /** Which compiled motion scheme the app animates with. */
-    motionStyle: com.example.data.repository.MotionStyle = com.example.data.repository.MotionStyle.DEFAULT,
+    motionStyle: com.anisequel.data.repository.MotionStyle = com.anisequel.data.repository.MotionStyle.DEFAULT,
     /**
      * Swap the dark theme surfaces to true black. Useful on OLED panels
      * where [Color.Black] draws zero light instead of a dark navy.
@@ -221,7 +221,7 @@ fun AniSequelTheme(
     // They are the same property by different key: theme tokens animate M3
     // components, the ExpressiveMotion tokens animate everything we write, and
     // both have to agree on what happens after the curve (and on what that is).
-    com.example.ui.components.expressive.ExpressiveMotion.speed = motionStyle
+    com.anisequel.ui.components.expressive.ExpressiveMotion.speed = motionStyle
 
     // Dynamic colour used to be `dynamicColor && supportsDynamicColor`. The
     // second half was a runtime SDK_INT check against `S`, and the floor is now
@@ -308,7 +308,7 @@ fun AniSequelTheme(
  * just with the duration set to zero.
  *
  * The app's own springs and fades do not go through MaterialExpressiveTheme;
- * they read [com.example.ui.components.expressive.ExpressiveMotion.speed],
+ * they read [com.anisequel.ui.components.expressive.ExpressiveMotion.speed],
  * which the same preference drives.
  */
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
@@ -325,15 +325,15 @@ private object InstantMotionScheme : MotionScheme {
 @Composable
 private fun ExpressiveThemeHost(
     colorScheme: androidx.compose.material3.ColorScheme,
-    motionStyle: com.example.data.repository.MotionStyle,
+    motionStyle: com.anisequel.data.repository.MotionStyle,
     content: @Composable () -> Unit
 ) {
     MaterialExpressiveTheme(
         colorScheme = colorScheme,
         motionScheme = when (motionStyle) {
-            com.example.data.repository.MotionStyle.INSTANT -> InstantMotionScheme
-            com.example.data.repository.MotionStyle.SMOOTH -> MotionScheme.standard()
-            com.example.data.repository.MotionStyle.CHILL -> MotionScheme.expressive()
+            com.anisequel.data.repository.MotionStyle.INSTANT -> InstantMotionScheme
+            com.anisequel.data.repository.MotionStyle.SMOOTH -> MotionScheme.standard()
+            com.anisequel.data.repository.MotionStyle.CHILL -> MotionScheme.expressive()
         },
         shapes = ExpressiveShapes,
         typography = AniSequelTypography,

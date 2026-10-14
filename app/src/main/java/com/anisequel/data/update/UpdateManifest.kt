@@ -1,4 +1,4 @@
-package com.example.data.update
+package com.anisequel.data.update
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass

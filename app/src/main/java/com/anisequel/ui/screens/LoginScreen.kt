@@ -1,4 +1,4 @@
-package com.example.ui.screens
+package com.anisequel.ui.screens
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.fadeIn
@@ -38,17 +38,17 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.example.ui.components.AppVectorIcons
-import com.example.ui.components.expressive.ExpressiveTabBar
-import com.example.ui.components.expressive.ExpressiveMotion
-import com.example.ui.components.expressive.bouncyPress
-import com.example.ui.screens.login.ClientIdDialog
-import com.example.ui.screens.login.LoginHero
-import com.example.ui.screens.login.ManualTokenDialog
-import com.example.ui.screens.login.OAuthCard
-import com.example.ui.screens.login.UsernameScanCard
-import com.example.ui.viewmodel.AuthUiState
-import com.example.ui.viewmodel.AuthViewModel
+import com.anisequel.ui.components.AppVectorIcons
+import com.anisequel.ui.components.expressive.ExpressiveTabBar
+import com.anisequel.ui.components.expressive.ExpressiveMotion
+import com.anisequel.ui.components.expressive.bouncyPress
+import com.anisequel.ui.screens.login.ClientIdDialog
+import com.anisequel.ui.screens.login.LoginHero
+import com.anisequel.ui.screens.login.ManualTokenDialog
+import com.anisequel.ui.screens.login.OAuthCard
+import com.anisequel.ui.screens.login.UsernameScanCard
+import com.anisequel.ui.viewmodel.AuthUiState
+import com.anisequel.ui.viewmodel.AuthViewModel
 
 @Composable
 fun LoginScreen(

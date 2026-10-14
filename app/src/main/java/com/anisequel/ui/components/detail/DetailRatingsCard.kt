@@ -1,4 +1,4 @@
-package com.example.ui.components.detail
+package com.anisequel.ui.components.detail
 
 import android.content.Intent
 import android.net.Uri
@@ -26,9 +26,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.example.data.model.MissedSequel
-import com.example.ui.components.AppVectorIcons
-import com.example.ui.theme.AniSequelTheme
+import com.anisequel.data.model.MissedSequel
+import com.anisequel.ui.components.AppVectorIcons
+import com.anisequel.ui.theme.AniSequelTheme
 
 /**
  * Community scores, popularity rank, top ranking award, and trailer action.

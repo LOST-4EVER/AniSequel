@@ -1,4 +1,4 @@
-package com.example.ui.components
+package com.anisequel.ui.components
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
@@ -63,8 +63,8 @@ import androidx.compose.material.icons.outlined.LightMode
 import androidx.compose.material.icons.outlined.NewReleases
 import androidx.compose.material.icons.outlined.RestartAlt
 import androidx.compose.material.icons.outlined.Tune
-import com.example.ui.components.icons.AppCustomVectors
-import com.example.ui.components.icons.AppExtraVectors
+import com.anisequel.ui.components.icons.AppCustomVectors
+import com.anisequel.ui.components.icons.AppExtraVectors
 
 /**
  * Central vector icon repository for AniSequel to avoid emoji usage

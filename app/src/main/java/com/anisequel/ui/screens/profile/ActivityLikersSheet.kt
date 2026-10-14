@@ -1,4 +1,4 @@
-package com.example.ui.screens.profile
+package com.anisequel.ui.screens.profile
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -29,10 +29,10 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.example.data.model.FollowUser
-import com.example.ui.components.AppVectorIcons
-import com.example.ui.components.expressive.ExpressiveLoadingIndicator
-import com.example.ui.viewmodel.UserActivityViewModel
+import com.anisequel.data.model.FollowUser
+import com.anisequel.ui.components.AppVectorIcons
+import com.anisequel.ui.components.expressive.ExpressiveLoadingIndicator
+import com.anisequel.ui.viewmodel.UserActivityViewModel
 
 /**
  * The people who liked one activity.

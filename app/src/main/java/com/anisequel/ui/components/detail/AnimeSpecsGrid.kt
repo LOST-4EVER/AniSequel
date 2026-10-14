@@ -1,4 +1,4 @@
-package com.example.ui.components.detail
+package com.anisequel.ui.components.detail
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -24,18 +24,18 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.example.data.model.MediaNode
-import com.example.data.model.durationLabel
-import com.example.data.model.englishName
-import com.example.data.model.formatLabel
-import com.example.data.model.isManga
-import com.example.data.model.nativeName
-import com.example.data.model.romajiName
-import com.example.data.model.seasonLabel
-import com.example.data.model.sourceLabel
-import com.example.data.model.statusLabel
-import com.example.data.model.studioName
-import com.example.ui.components.AppVectorIcons
+import com.anisequel.data.model.MediaNode
+import com.anisequel.data.model.durationLabel
+import com.anisequel.data.model.englishName
+import com.anisequel.data.model.formatLabel
+import com.anisequel.data.model.isManga
+import com.anisequel.data.model.nativeName
+import com.anisequel.data.model.romajiName
+import com.anisequel.data.model.seasonLabel
+import com.anisequel.data.model.sourceLabel
+import com.anisequel.data.model.statusLabel
+import com.anisequel.data.model.studioName
+import com.anisequel.ui.components.AppVectorIcons
 
 /**
  * Grid of core anime production, schedule, and title transliteration specifications.

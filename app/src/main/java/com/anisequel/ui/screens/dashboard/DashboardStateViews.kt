@@ -1,4 +1,4 @@
-package com.example.ui.screens.dashboard
+package com.anisequel.ui.screens.dashboard
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -25,12 +25,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.example.ui.components.AppVectorIcons
-import com.example.ui.components.ShimmerCard
-import com.example.ui.components.rememberShimmerPhase
-import com.example.ui.components.expressive.ExpressiveLoadingIndicator
-import com.example.ui.components.expressive.bouncyPress
-import com.example.ui.viewmodel.DashboardUiState
+import com.anisequel.ui.components.AppVectorIcons
+import com.anisequel.ui.components.ShimmerCard
+import com.anisequel.ui.components.rememberShimmerPhase
+import com.anisequel.ui.components.expressive.ExpressiveLoadingIndicator
+import com.anisequel.ui.components.expressive.bouncyPress
+import com.anisequel.ui.viewmodel.DashboardUiState
 
 @Composable
 fun DashboardLoadingView(

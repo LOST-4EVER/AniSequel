@@ -1,7 +1,7 @@
-package com.example.domain.usecase
+package com.anisequel.domain.usecase
 
-import com.example.data.model.MediaListCollection
-import com.example.data.model.MediaListEntryItem
+import com.anisequel.data.model.MediaListCollection
+import com.anisequel.data.model.MediaListEntryItem
 
 /**
  * The Stats tab's three charts that AniList's aggregate statistics do not cover.

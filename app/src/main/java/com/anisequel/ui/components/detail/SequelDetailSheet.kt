@@ -1,4 +1,4 @@
-package com.example.ui.components.detail
+package com.anisequel.ui.components.detail
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.fadeIn
@@ -47,17 +47,17 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.example.data.model.MissedSequel
-import com.example.data.model.genreList
-import com.example.data.model.posterColor
-import com.example.data.model.synopsis
-import com.example.data.repository.ThemeMode
-import com.example.data.repository.ThemePreferences
-import com.example.ui.components.AppVectorIcons
-import com.example.ui.components.cards.toCoverColorOrNull
-import com.example.ui.components.expressive.ExpressiveMotion
-import com.example.ui.components.expressive.ExpressiveTabBar
-import com.example.ui.theme.AniSequelTheme
+import com.anisequel.data.model.MissedSequel
+import com.anisequel.data.model.genreList
+import com.anisequel.data.model.posterColor
+import com.anisequel.data.model.synopsis
+import com.anisequel.data.repository.ThemeMode
+import com.anisequel.data.repository.ThemePreferences
+import com.anisequel.ui.components.AppVectorIcons
+import com.anisequel.ui.components.cards.toCoverColorOrNull
+import com.anisequel.ui.components.expressive.ExpressiveMotion
+import com.anisequel.ui.components.expressive.ExpressiveTabBar
+import com.anisequel.ui.theme.AniSequelTheme
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)

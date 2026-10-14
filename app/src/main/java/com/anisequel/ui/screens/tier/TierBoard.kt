@@ -1,4 +1,4 @@
-package com.example.ui.screens.tier
+package com.anisequel.ui.screens.tier
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateFloatAsState
@@ -58,18 +58,18 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.example.domain.tier.TierAssignment
-import com.example.domain.tier.TierCandidate
-import com.example.domain.tier.TierDefinition
-import com.example.domain.tier.TierItemBox
-import com.example.domain.tier.TierLayoutOptions
-import com.example.domain.tier.TierListLayout
-import com.example.domain.tier.TierRowBox
-import com.example.domain.tier.layoutTierList
-import com.example.ui.components.AppVectorIcons
-import com.example.ui.components.expressive.ExpressiveMotion
-import com.example.ui.components.expressive.ExpressiveShapes
-import com.example.ui.components.expressive.bouncyPress
+import com.anisequel.domain.tier.TierAssignment
+import com.anisequel.domain.tier.TierCandidate
+import com.anisequel.domain.tier.TierDefinition
+import com.anisequel.domain.tier.TierItemBox
+import com.anisequel.domain.tier.TierLayoutOptions
+import com.anisequel.domain.tier.TierListLayout
+import com.anisequel.domain.tier.TierRowBox
+import com.anisequel.domain.tier.layoutTierList
+import com.anisequel.ui.components.AppVectorIcons
+import com.anisequel.ui.components.expressive.ExpressiveMotion
+import com.anisequel.ui.components.expressive.ExpressiveShapes
+import com.anisequel.ui.components.expressive.bouncyPress
 import kotlinx.coroutines.isActive
 import kotlin.math.roundToInt
 

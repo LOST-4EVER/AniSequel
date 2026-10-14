@@ -1,4 +1,4 @@
-package com.example.data.repository
+package com.anisequel.data.repository
 
 import android.content.Context
 import androidx.datastore.core.DataStore
@@ -46,7 +46,7 @@ enum class ThemeMode(val storageValue: String, val displayName: String) {
  *
  * Maps to the two compiled Material MotionSchemes the app knows about - but
  * also records the user's preference for *this app's* hand-tuned tokens in
- * [com.example.ui.components.expressive.ExpressiveMotion], so the fades and
+ * [com.anisequel.ui.components.expressive.ExpressiveMotion], so the fades and
  * springs written against those tokens can honour it too.
  *
  *  - **Instant** - no fade, no bounce, no morph. The user has their data; a

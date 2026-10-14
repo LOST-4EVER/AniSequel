@@ -1,4 +1,4 @@
-package com.example.ui.screens.tier
+package com.anisequel.ui.screens.tier
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -43,15 +43,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.example.domain.tier.TierAssignment
-import com.example.domain.tier.TierCandidate
-import com.example.domain.tier.TierListDocument
-import com.example.domain.tier.unseedableCount
-import com.example.ui.components.AppVectorIcons
-import com.example.ui.components.expressive.ExpressiveEmptyOrb
-import com.example.ui.components.expressive.ExpressivePrimaryButton
-import com.example.ui.components.expressive.ExpressiveStateChip
-import com.example.ui.theme.AniSequelTheme
+import com.anisequel.domain.tier.TierAssignment
+import com.anisequel.domain.tier.TierCandidate
+import com.anisequel.domain.tier.TierListDocument
+import com.anisequel.domain.tier.unseedableCount
+import com.anisequel.ui.components.AppVectorIcons
+import com.anisequel.ui.components.expressive.ExpressiveEmptyOrb
+import com.anisequel.ui.components.expressive.ExpressivePrimaryButton
+import com.anisequel.ui.components.expressive.ExpressiveStateChip
+import com.anisequel.ui.theme.AniSequelTheme
 
 /**
  * The open list: its rows, its posters, and the edits to both.

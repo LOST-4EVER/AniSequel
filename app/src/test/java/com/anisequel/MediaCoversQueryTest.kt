@@ -1,7 +1,7 @@
-package com.example
+package com.anisequel
 
-import com.example.data.model.MediaCoverKey
-import com.example.data.network.GraphQLQueries
+import com.anisequel.data.model.MediaCoverKey
+import com.anisequel.data.network.GraphQLQueries
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue

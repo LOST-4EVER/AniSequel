@@ -1,4 +1,4 @@
-package com.example.ui.components.detail
+package com.anisequel.ui.components.detail
 
 import android.content.Context
 import android.content.Intent
@@ -33,8 +33,8 @@ import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.example.ui.components.AppVectorIcons
-import com.example.ui.components.expressive.bouncyPress
+import com.anisequel.ui.components.AppVectorIcons
+import com.anisequel.ui.components.expressive.bouncyPress
 
 /**
  * Material 3 Expressive trailer preview banner.

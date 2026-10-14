@@ -1,6 +1,6 @@
-package com.example
+package com.anisequel
 
-import com.example.data.network.RequestCoalescer
+import com.anisequel.data.network.RequestCoalescer
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitCancellation

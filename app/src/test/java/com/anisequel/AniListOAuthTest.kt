@@ -1,12 +1,12 @@
-package com.example
+package com.anisequel
 
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import androidx.test.core.app.ApplicationProvider
-import com.example.data.network.AniListOAuth
-import com.example.data.network.RedirectResult
-import com.example.data.repository.AuthRepositoryImpl
+import com.anisequel.data.network.AniListOAuth
+import com.anisequel.data.network.RedirectResult
+import com.anisequel.data.repository.AuthRepositoryImpl
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull

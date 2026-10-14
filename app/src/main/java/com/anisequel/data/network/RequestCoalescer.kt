@@ -1,4 +1,4 @@
-package com.example.data.network
+package com.anisequel.data.network
 
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CancellationException

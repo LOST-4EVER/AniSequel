@@ -1,4 +1,4 @@
-package com.example.ui.components.markdown
+package com.anisequel.ui.components.markdown
 
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.background
@@ -40,12 +40,12 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
-import com.example.data.model.MediaCover
-import com.example.ui.components.AppVectorIcons
-import com.example.ui.components.expressive.ExpressiveMotion
-import com.example.ui.components.expressive.ExpressiveShapes
-import com.example.ui.components.expressive.bouncyPress
-import com.example.ui.components.openExternalUrl
+import com.anisequel.data.model.MediaCover
+import com.anisequel.ui.components.AppVectorIcons
+import com.anisequel.ui.components.expressive.ExpressiveMotion
+import com.anisequel.ui.components.expressive.ExpressiveShapes
+import com.anisequel.ui.components.expressive.bouncyPress
+import com.anisequel.ui.components.openExternalUrl
 
 @Composable
 fun RenderHeader(header: MarkdownNode.Header) {

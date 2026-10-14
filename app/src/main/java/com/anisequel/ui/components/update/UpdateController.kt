@@ -1,4 +1,4 @@
-package com.example.ui.components.update
+package com.anisequel.ui.components.update
 
 import android.content.Context
 import androidx.compose.runtime.Composable
@@ -7,10 +7,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
-import com.example.data.update.UpdateCheckResult
-import com.example.data.update.UpdateDownloadResult
-import com.example.data.update.UpdateManager
-import com.example.data.update.UpdateManifest
+import com.anisequel.data.update.UpdateCheckResult
+import com.anisequel.data.update.UpdateDownloadResult
+import com.anisequel.data.update.UpdateManager
+import com.anisequel.data.update.UpdateManifest
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob

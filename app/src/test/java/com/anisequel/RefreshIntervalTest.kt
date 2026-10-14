@@ -1,8 +1,8 @@
-package com.example
+package com.anisequel
 
-import com.example.data.repository.RefreshInterval
-import com.example.data.repository.isRefreshDue
-import com.example.data.repository.millisUntilRefreshDue
+import com.anisequel.data.repository.RefreshInterval
+import com.anisequel.data.repository.isRefreshDue
+import com.anisequel.data.repository.millisUntilRefreshDue
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull

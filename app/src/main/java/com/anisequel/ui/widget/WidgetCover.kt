@@ -1,4 +1,4 @@
-package com.example.ui.widget
+package com.anisequel.ui.widget
 
 import android.content.Context
 import android.graphics.Bitmap

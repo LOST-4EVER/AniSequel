@@ -1,4 +1,4 @@
-package com.example.ui.components.cards
+package com.anisequel.ui.components.cards
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -24,8 +24,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
-import com.example.data.model.MissedSequel
-import com.example.ui.components.expressive.bouncyPress
+import com.anisequel.data.model.MissedSequel
+import com.anisequel.ui.components.expressive.bouncyPress
 
 @Composable
 fun SequelCard(

@@ -1,4 +1,4 @@
-package com.example
+package com.anisequel
 
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertTrue
@@ -46,7 +46,7 @@ class WidgetDeclarationTest {
     private val widgetMetadataPath = "app/src/main/res/xml/widget_anisequel.xml"
     private val buildScriptPath = "app/build.gradle.kts"
     private val manifestPath = "app/src/main/AndroidManifest.xml"
-    private val providerPath = "app/src/main/java/com/example/ui/widget/AniSequelWidgetProvider.kt"
+    private val providerPath = "app/src/main/java/com/anisequel/ui/widget/AniSequelWidgetProvider.kt"
 
     /**
      * The Gradle test task runs with the project directory as the working

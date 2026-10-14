@@ -1,4 +1,4 @@
-package com.example.ui.components.markdown
+package com.anisequel.ui.components.markdown
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -14,7 +14,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.ui.components.openExternalUrl
+import com.anisequel.ui.components.openExternalUrl
 
 /**
  * One paragraph of inline tokens, with any inline image or GIF embedded in the

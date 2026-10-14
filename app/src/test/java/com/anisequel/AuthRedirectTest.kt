@@ -1,16 +1,16 @@
-package com.example
+package com.anisequel
 
 import android.net.Uri
-import com.example.data.model.MediaListCollection
-import com.example.data.model.MediaNode
-import com.example.data.model.SimpleMediaListEntry
-import com.example.data.model.ViewerProfile
-import com.example.data.network.AniListErrorKind
-import com.example.data.network.AniListException
-import com.example.data.repository.AniListRepository
-import com.example.data.repository.AuthRepository
-import com.example.ui.viewmodel.AuthUiState
-import com.example.ui.viewmodel.AuthViewModel
+import com.anisequel.data.model.MediaListCollection
+import com.anisequel.data.model.MediaNode
+import com.anisequel.data.model.SimpleMediaListEntry
+import com.anisequel.data.model.ViewerProfile
+import com.anisequel.data.network.AniListErrorKind
+import com.anisequel.data.network.AniListException
+import com.anisequel.data.repository.AniListRepository
+import com.anisequel.data.repository.AuthRepository
+import com.anisequel.ui.viewmodel.AuthUiState
+import com.anisequel.ui.viewmodel.AuthViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow

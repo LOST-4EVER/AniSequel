@@ -1,4 +1,4 @@
-package com.example.ui.screens.profile
+package com.anisequel.ui.screens.profile
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -40,15 +40,15 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.example.data.model.FavouriteCharacter
-import com.example.data.model.FavouriteStaff
-import com.example.data.model.MediaNode
-import com.example.data.model.StudioNode
-import com.example.ui.components.AppVectorIcons
-import com.example.ui.components.expressive.ExpressiveEmptyOrb
-import com.example.ui.components.expressive.ExpressiveShapes
-import com.example.ui.components.expressive.bouncyPress
-import com.example.ui.theme.AniSequelTheme
+import com.anisequel.data.model.FavouriteCharacter
+import com.anisequel.data.model.FavouriteStaff
+import com.anisequel.data.model.MediaNode
+import com.anisequel.data.model.StudioNode
+import com.anisequel.ui.components.AppVectorIcons
+import com.anisequel.ui.components.expressive.ExpressiveEmptyOrb
+import com.anisequel.ui.components.expressive.ExpressiveShapes
+import com.anisequel.ui.components.expressive.bouncyPress
+import com.anisequel.ui.theme.AniSequelTheme
 
 /**
  * Content width shared by every profile screen, matching the dashboard's.

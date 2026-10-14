@@ -1,4 +1,4 @@
-package com.example.ui.components.markdown
+package com.anisequel.ui.components.markdown
 
 import java.util.Locale
 

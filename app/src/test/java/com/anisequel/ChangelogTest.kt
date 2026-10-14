@@ -1,9 +1,9 @@
-package com.example
+package com.anisequel
 
 import android.content.Context
 import androidx.test.core.app.ApplicationProvider
-import com.example.data.changelog.Changelog
-import com.example.data.changelog.ChangelogRepository
+import com.anisequel.data.changelog.Changelog
+import com.anisequel.data.changelog.ChangelogRepository
 import com.squareup.moshi.Moshi
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
@@ -67,7 +67,7 @@ class ChangelogTest {
     /**
      * The one that actually bites: notes that exist nowhere.
      *
-     * ## Why this is not an exact match on [com.example.BuildConfig.VERSION_NAME]
+     * ## Why this is not an exact match on [com.anisequel.BuildConfig.VERSION_NAME]
      *
      * It started out that way, and it cannot work. The release workflow does not
      * use the version in `gradle.properties`: the resolver step advances the patch

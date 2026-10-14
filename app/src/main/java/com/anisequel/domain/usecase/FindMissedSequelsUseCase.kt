@@ -1,10 +1,10 @@
-package com.example.domain.usecase
+package com.anisequel.domain.usecase
 
-import com.example.data.model.FilterCriteria
-import com.example.data.model.MediaListCollection
-import com.example.data.model.MissedSequel
-import com.example.data.model.SequelSortOption
-import com.example.data.model.StatusFilter
+import com.anisequel.data.model.FilterCriteria
+import com.anisequel.data.model.MediaListCollection
+import com.anisequel.data.model.MissedSequel
+import com.anisequel.data.model.SequelSortOption
+import com.anisequel.data.model.StatusFilter
 
 /**
  * Works out which franchise entries are missing from a user's AniList list.

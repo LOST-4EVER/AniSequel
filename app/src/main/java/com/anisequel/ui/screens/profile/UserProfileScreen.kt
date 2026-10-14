@@ -1,4 +1,4 @@
-package com.example.ui.screens.profile
+package com.anisequel.ui.screens.profile
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.fadeIn
@@ -53,26 +53,26 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.example.data.model.FollowUser
-import com.example.data.model.MediaCover
-import com.example.data.model.MediaCoverKey
-import com.example.data.model.MediaListEntryItem
-import com.example.data.model.MediaNode
-import com.example.data.model.withSummaryProgress
-import com.example.data.repository.LibraryPreferences
-import com.example.ui.components.AppVectorIcons
-import com.example.ui.components.detail.SequelDetailSheet
-import com.example.ui.components.detail.AnimeDetailSubject
-import com.example.ui.components.expressive.ExpressiveLoadingIndicator
-import com.example.ui.components.expressive.ExpressiveMotion
-import com.example.ui.components.expressive.ExpressiveNavigationBar
-import com.example.ui.components.expressive.NavigationDestination
-import com.example.ui.components.expressive.bouncyPress
-import com.example.ui.components.openExternalUrl
-import com.example.ui.viewmodel.UserActivityViewModel
-import com.example.ui.viewmodel.UserOverviewUiState
-import com.example.ui.viewmodel.UserOverviewViewModel
-import com.example.ui.viewmodel.UserSocialViewModel
+import com.anisequel.data.model.FollowUser
+import com.anisequel.data.model.MediaCover
+import com.anisequel.data.model.MediaCoverKey
+import com.anisequel.data.model.MediaListEntryItem
+import com.anisequel.data.model.MediaNode
+import com.anisequel.data.model.withSummaryProgress
+import com.anisequel.data.repository.LibraryPreferences
+import com.anisequel.ui.components.AppVectorIcons
+import com.anisequel.ui.components.detail.SequelDetailSheet
+import com.anisequel.ui.components.detail.AnimeDetailSubject
+import com.anisequel.ui.components.expressive.ExpressiveLoadingIndicator
+import com.anisequel.ui.components.expressive.ExpressiveMotion
+import com.anisequel.ui.components.expressive.ExpressiveNavigationBar
+import com.anisequel.ui.components.expressive.NavigationDestination
+import com.anisequel.ui.components.expressive.bouncyPress
+import com.anisequel.ui.components.openExternalUrl
+import com.anisequel.ui.viewmodel.UserActivityViewModel
+import com.anisequel.ui.viewmodel.UserOverviewUiState
+import com.anisequel.ui.viewmodel.UserOverviewViewModel
+import com.anisequel.ui.viewmodel.UserSocialViewModel
 
 /**
  * How much room a tab's list leaves for the floating navigation capsule,
@@ -377,7 +377,7 @@ fun UserProfileScreen(
 
     // The activity row's detail sheet. A plain media subject: an activity entry
     // is a show the person already tracks, so it has no parent and nothing to
-    // add - the same distinction [com.example.data.model.ArrivingEntry] draws.
+    // add - the same distinction [com.anisequel.data.model.ArrivingEntry] draws.
     selectedSubject?.let { subject ->
         SequelDetailSheet(
             subject = subject,

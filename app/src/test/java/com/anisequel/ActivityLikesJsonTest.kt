@@ -1,8 +1,8 @@
-package com.example
+package com.anisequel
 
-import com.example.data.model.ActivityLikesData
-import com.example.data.model.GraphQLResponse
-import com.example.data.network.FlexibleStringAdapter
+import com.anisequel.data.model.ActivityLikesData
+import com.anisequel.data.model.GraphQLResponse
+import com.anisequel.data.network.FlexibleStringAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
 import org.junit.Assert.assertEquals

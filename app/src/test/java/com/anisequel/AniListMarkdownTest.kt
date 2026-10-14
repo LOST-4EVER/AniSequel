@@ -1,8 +1,8 @@
-package com.example
+package com.anisequel
 
-import com.example.ui.components.markdown.AniListMarkdownParser
-import com.example.ui.components.markdown.InlineToken
-import com.example.ui.components.markdown.MarkdownNode
+import com.anisequel.ui.components.markdown.AniListMarkdownParser
+import com.anisequel.ui.components.markdown.InlineToken
+import com.anisequel.ui.components.markdown.MarkdownNode
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotNull

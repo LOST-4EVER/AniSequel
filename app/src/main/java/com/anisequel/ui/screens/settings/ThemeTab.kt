@@ -1,4 +1,4 @@
-package com.example.ui.screens.settings
+package com.anisequel.ui.screens.settings
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.BorderStroke
@@ -34,17 +34,17 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.example.data.repository.MotionStyle
-import com.example.data.repository.ThemeMode
-import com.example.data.repository.ThemePreferences
-import com.example.ui.components.AppVectorIcons
-import com.example.ui.components.expressive.ExpressiveMotion
-import com.example.ui.components.expressive.ExpressivePolygonSegmentedBar
-import com.example.ui.components.expressive.ExpressiveShapes
-import com.example.ui.components.expressive.SegmentedOption
-import com.example.ui.components.expressive.bouncyPress
-import com.example.ui.theme.DynamicThemeBuilder
-import com.example.ui.theme.ThemePalette
+import com.anisequel.data.repository.MotionStyle
+import com.anisequel.data.repository.ThemeMode
+import com.anisequel.data.repository.ThemePreferences
+import com.anisequel.ui.components.AppVectorIcons
+import com.anisequel.ui.components.expressive.ExpressiveMotion
+import com.anisequel.ui.components.expressive.ExpressivePolygonSegmentedBar
+import com.anisequel.ui.components.expressive.ExpressiveShapes
+import com.anisequel.ui.components.expressive.SegmentedOption
+import com.anisequel.ui.components.expressive.bouncyPress
+import com.anisequel.ui.theme.DynamicThemeBuilder
+import com.anisequel.ui.theme.ThemePalette
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 

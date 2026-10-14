@@ -1,7 +1,7 @@
-package com.example
+package com.anisequel
 
-import com.example.data.repository.RefreshInterval
-import com.example.ui.viewmodel.ListFreshnessWatch
+import com.anisequel.data.repository.RefreshInterval
+import com.anisequel.ui.viewmodel.ListFreshnessWatch
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.advanceTimeBy

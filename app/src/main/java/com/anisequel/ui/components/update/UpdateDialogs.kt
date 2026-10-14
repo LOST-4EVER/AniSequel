@@ -1,4 +1,4 @@
-package com.example.ui.components.update
+package com.anisequel.ui.components.update
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -16,7 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
-import com.example.data.update.formatBytes
+import com.anisequel.data.update.formatBytes
 
 /**
  * The startup prompt.

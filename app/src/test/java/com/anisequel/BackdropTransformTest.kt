@@ -1,7 +1,7 @@
-package com.example
+package com.anisequel
 
-import com.example.ui.components.backdropCoverScale
-import com.example.ui.components.backdropTransform
+import com.anisequel.ui.components.backdropCoverScale
+import com.anisequel.ui.components.backdropTransform
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test

@@ -1,4 +1,4 @@
-package com.example.data.model
+package com.anisequel.data.model
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
@@ -81,7 +81,7 @@ data class UserAvatar(
  *
  *  - `statuses` and `genres` are the obvious-looking way to get "7 watching, 128
  *    completed" and a top-genres chart straight from AniList, and they are asked
- *    for in [com.example.data.network.GraphQLQueries.GET_USER_OVERVIEW] nowhere
+ *    for in [com.anisequel.data.network.GraphQLQueries.GET_USER_OVERVIEW] nowhere
  *    because they answer `[]` for every user that was tried - including accounts
  *    with hundreds of scored entries. The distributions come from the deprecated
  *    `User.stats` block instead; see [AniListUserStats].

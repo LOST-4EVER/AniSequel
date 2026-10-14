@@ -1,35 +1,35 @@
-package com.example.data.repository
+package com.anisequel.data.repository
 
-import com.example.data.model.ActivityHistoryDay
-import com.example.data.model.AniListUserStats
-import com.example.data.model.AnimeStats
-import com.example.data.model.FavouriteCharacter
-import com.example.data.model.FavouriteCharacterConnection
-import com.example.data.model.FavouriteMediaConnection
-import com.example.data.model.FavouriteStaff
-import com.example.data.model.FavouriteStaffConnection
-import com.example.data.model.Favourites
-import com.example.data.model.FollowUser
-import com.example.data.model.FormatAmount
-import com.example.data.model.GenreAmount
-import com.example.data.model.ListActivity
-import com.example.data.model.ListScoreStats
-import com.example.data.model.MangaStats
-import com.example.data.model.MediaCoverImage
-import com.example.data.model.MediaNode
-import com.example.data.model.MediaTag
-import com.example.data.model.MediaTitle
-import com.example.data.model.PersonImage
-import com.example.data.model.PersonName
-import com.example.data.model.ScoreAmount
-import com.example.data.model.StatusAmount
-import com.example.data.model.StudioConnection
-import com.example.data.model.StudioNode
-import com.example.data.model.TagAmount
-import com.example.data.model.UserAvatar
-import com.example.data.model.UserOverview
-import com.example.data.model.UserStatistics
-import com.example.data.model.YearAmount
+import com.anisequel.data.model.ActivityHistoryDay
+import com.anisequel.data.model.AniListUserStats
+import com.anisequel.data.model.AnimeStats
+import com.anisequel.data.model.FavouriteCharacter
+import com.anisequel.data.model.FavouriteCharacterConnection
+import com.anisequel.data.model.FavouriteMediaConnection
+import com.anisequel.data.model.FavouriteStaff
+import com.anisequel.data.model.FavouriteStaffConnection
+import com.anisequel.data.model.Favourites
+import com.anisequel.data.model.FollowUser
+import com.anisequel.data.model.FormatAmount
+import com.anisequel.data.model.GenreAmount
+import com.anisequel.data.model.ListActivity
+import com.anisequel.data.model.ListScoreStats
+import com.anisequel.data.model.MangaStats
+import com.anisequel.data.model.MediaCoverImage
+import com.anisequel.data.model.MediaNode
+import com.anisequel.data.model.MediaTag
+import com.anisequel.data.model.MediaTitle
+import com.anisequel.data.model.PersonImage
+import com.anisequel.data.model.PersonName
+import com.anisequel.data.model.ScoreAmount
+import com.anisequel.data.model.StatusAmount
+import com.anisequel.data.model.StudioConnection
+import com.anisequel.data.model.StudioNode
+import com.anisequel.data.model.TagAmount
+import com.anisequel.data.model.UserAvatar
+import com.anisequel.data.model.UserOverview
+import com.anisequel.data.model.UserStatistics
+import com.anisequel.data.model.YearAmount
 
 /**
  * The demo profile screen's fixture.
@@ -154,7 +154,7 @@ object DemoProfileProvider {
      * A recent activity feed, newest first.
      *
      * Relative timestamps rather than fixed ones, for the same reason
-     * [com.example.data.repository.DemoDataProvider.daysAgo] is: a fixture
+     * [com.anisequel.data.repository.DemoDataProvider.daysAgo] is: a fixture
      * pinned to 2024 would say "2 years ago" forever and the feed would look
      * broken. The `MediaNode` ids are the real AniList ids of the demo shows, so
      * tapping a card opens something that exists.

@@ -1,4 +1,4 @@
-package com.example.ui.screens.profile
+package com.anisequel.ui.screens.profile
 
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.Canvas
@@ -38,13 +38,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.example.domain.usecase.BucketTally
-import com.example.domain.usecase.SegmentTally
-import com.example.domain.usecase.StatusDistribution
-import com.example.ui.components.AppVectorIcons
-import com.example.ui.components.expressive.ExpressiveMotion
-import com.example.ui.components.expressive.ExpressiveShapes
-import com.example.ui.theme.AniSequelTheme
+import com.anisequel.domain.usecase.BucketTally
+import com.anisequel.domain.usecase.SegmentTally
+import com.anisequel.domain.usecase.StatusDistribution
+import com.anisequel.ui.components.AppVectorIcons
+import com.anisequel.ui.components.expressive.ExpressiveMotion
+import com.anisequel.ui.components.expressive.ExpressiveShapes
+import com.anisequel.ui.theme.AniSequelTheme
 
 /**
  * The palette the Stats tab's charts share.

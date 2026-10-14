@@ -1,9 +1,9 @@
-package com.example
+package com.anisequel
 
 import android.app.Application
 import coil.ImageLoader
 import coil.ImageLoaderFactory
-import com.example.data.network.NetworkClient
+import com.anisequel.data.network.NetworkClient
 
 /**
  * Supplies Coil with the app's tuned [ImageLoader].

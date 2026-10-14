@@ -1,4 +1,4 @@
-package com.example.ui.components
+package com.anisequel.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -21,9 +21,9 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.example.ui.components.expressive.ExpressiveEmptyOrb
-import com.example.ui.components.expressive.ExpressivePrimaryButton
-import com.example.ui.theme.AniSequelTheme
+import com.anisequel.ui.components.expressive.ExpressiveEmptyOrb
+import com.anisequel.ui.components.expressive.ExpressivePrimaryButton
+import com.anisequel.ui.theme.AniSequelTheme
 
 @Composable
 fun EmptyStateView(

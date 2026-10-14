@@ -1,7 +1,7 @@
-package com.example.domain.usecase
+package com.anisequel.domain.usecase
 
-import com.example.data.model.ArrivingEntry
-import com.example.data.model.MediaListCollection
+import com.anisequel.data.model.ArrivingEntry
+import com.anisequel.data.model.MediaListCollection
 
 /**
  * Works out which of the viewer's own entries are airing now or have not

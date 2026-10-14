@@ -1,6 +1,6 @@
-package com.example.ui.components.update
+package com.anisequel.ui.components.update
 
-import com.example.data.update.UpdateManifest
+import com.anisequel.data.update.UpdateManifest
 import java.io.File
 
 /** What the updater is doing, for the UI to render. */

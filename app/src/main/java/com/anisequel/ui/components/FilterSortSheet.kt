@@ -1,4 +1,4 @@
-package com.example.ui.components
+package com.anisequel.ui.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -31,11 +31,11 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.data.model.FilterCriteria
-import com.example.data.model.MissedSequel
-import com.example.data.model.RelationKind
-import com.example.data.model.SequelSortOption
-import com.example.data.model.StatusFilter
+import com.anisequel.data.model.FilterCriteria
+import com.anisequel.data.model.MissedSequel
+import com.anisequel.data.model.RelationKind
+import com.anisequel.data.model.SequelSortOption
+import com.anisequel.data.model.StatusFilter
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable

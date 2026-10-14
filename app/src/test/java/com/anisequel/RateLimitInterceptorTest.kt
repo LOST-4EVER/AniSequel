@@ -1,6 +1,6 @@
-package com.example
+package com.anisequel
 
-import com.example.data.network.RateLimitInterceptor
+import com.anisequel.data.network.RateLimitInterceptor
 import okhttp3.Interceptor
 import okhttp3.Protocol
 import okhttp3.Request

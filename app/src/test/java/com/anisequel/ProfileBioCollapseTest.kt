@@ -1,8 +1,8 @@
-package com.example
+package com.anisequel
 
-import com.example.ui.components.markdown.AniListMarkdownParser
-import com.example.ui.components.markdown.MARKDOWN_COLLAPSED_BLOCK_LIMIT
-import com.example.ui.screens.profile.isBioCollapsible
+import com.anisequel.ui.components.markdown.AniListMarkdownParser
+import com.anisequel.ui.components.markdown.MARKDOWN_COLLAPSED_BLOCK_LIMIT
+import com.anisequel.ui.screens.profile.isBioCollapsible
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test

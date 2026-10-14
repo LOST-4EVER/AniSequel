@@ -1,4 +1,4 @@
-package com.example.ui.screens.profile
+package com.anisequel.ui.screens.profile
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -40,12 +40,12 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.example.data.model.ActivityReply
-import com.example.ui.components.AppVectorIcons
-import com.example.ui.components.expressive.ExpressiveLoadingIndicator
-import com.example.ui.components.markdown.AniListMarkdownParser
-import com.example.ui.components.markdown.AniListMarkdownView
-import com.example.ui.viewmodel.UserActivityViewModel
+import com.anisequel.data.model.ActivityReply
+import com.anisequel.ui.components.AppVectorIcons
+import com.anisequel.ui.components.expressive.ExpressiveLoadingIndicator
+import com.anisequel.ui.components.markdown.AniListMarkdownParser
+import com.anisequel.ui.components.markdown.AniListMarkdownView
+import com.anisequel.ui.viewmodel.UserActivityViewModel
 
 /**
  * The comment thread for one activity, with a composer.

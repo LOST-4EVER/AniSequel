@@ -1,4 +1,4 @@
-package com.example.data.network
+package com.anisequel.data.network
 
 import android.content.Context
 import android.os.Build
@@ -7,8 +7,8 @@ import coil.decode.GifDecoder
 import coil.decode.ImageDecoderDecoder
 import coil.disk.DiskCache
 import coil.memory.MemoryCache
-import com.example.BuildConfig
-import com.example.data.repository.AuthRepository
+import com.anisequel.BuildConfig
+import com.anisequel.data.repository.AuthRepository
 import com.squareup.moshi.Moshi
 import okhttp3.ConnectionPool
 import okhttp3.Dispatcher

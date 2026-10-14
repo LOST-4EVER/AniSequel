@@ -1,8 +1,8 @@
-package com.example
+package com.anisequel
 
-import com.example.data.model.FilterCriteria
-import com.example.data.model.RelationKind
-import com.example.data.model.StatusFilter
+import com.anisequel.data.model.FilterCriteria
+import com.anisequel.data.model.RelationKind
+import com.anisequel.data.model.StatusFilter
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -41,6 +41,6 @@ class FilterCriteriaNarrowingTest {
 
     @Test
     fun `sorting alone does not narrow`() {
-        assertFalse(FilterCriteria().copy(sortOption = com.example.data.model.SequelSortOption.POPULARITY).isNarrowing)
+        assertFalse(FilterCriteria().copy(sortOption = com.anisequel.data.model.SequelSortOption.POPULARITY).isNarrowing)
     }
 }

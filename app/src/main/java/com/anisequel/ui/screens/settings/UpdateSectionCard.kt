@@ -1,4 +1,4 @@
-package com.example.ui.screens.settings
+package com.anisequel.ui.screens.settings
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -18,11 +18,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.example.data.update.formatBytes
-import com.example.ui.components.AppVectorIcons
-import com.example.ui.components.update.DownloadProgress
-import com.example.ui.components.update.UpdateUiState
-import com.example.ui.components.update.rememberUpdateController
+import com.anisequel.data.update.formatBytes
+import com.anisequel.ui.components.AppVectorIcons
+import com.anisequel.ui.components.update.DownloadProgress
+import com.anisequel.ui.components.update.UpdateUiState
+import com.anisequel.ui.components.update.rememberUpdateController
 
 @Composable
 fun UpdateSectionCard(modifier: Modifier = Modifier) {

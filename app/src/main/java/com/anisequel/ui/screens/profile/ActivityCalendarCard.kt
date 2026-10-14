@@ -1,4 +1,4 @@
-package com.example.ui.screens.profile
+package com.anisequel.ui.screens.profile
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
@@ -36,9 +36,9 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.example.domain.usecase.ActivityCalendar
-import com.example.domain.usecase.ActivityMonthLabel
-import com.example.ui.components.expressive.ExpressiveMotion
+import com.anisequel.domain.usecase.ActivityCalendar
+import com.anisequel.domain.usecase.ActivityMonthLabel
+import com.anisequel.ui.components.expressive.ExpressiveMotion
 import kotlinx.coroutines.flow.first
 
 private val CellSize = 13.dp

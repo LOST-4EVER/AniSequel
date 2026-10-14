@@ -1,8 +1,8 @@
-package com.example.ui.viewmodel
+package com.anisequel.ui.viewmodel
 
-import com.example.data.repository.RefreshInterval
-import com.example.data.repository.isRefreshDue
-import com.example.data.repository.millisUntilRefreshDue
+import com.anisequel.data.repository.RefreshInterval
+import com.anisequel.data.repository.isRefreshDue
+import com.anisequel.data.repository.millisUntilRefreshDue
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -24,7 +24,7 @@ import kotlinx.coroutines.launch
  * ## The failure this fixes
  *
  * Nothing observed the app coming back to the foreground. The list was cached
- * for a flat hour in [com.example.data.repository.AniListRepositoryImpl] and
+ * for a flat hour in [com.anisequel.data.repository.AniListRepositoryImpl] and
  * `DashboardViewModel` loaded once in its `init`, so reopening AniSequel - which
  * Android does not restart, it resumes - served the same collection. The list
  * went stale the moment it was fetched: finishing something on AniList in a

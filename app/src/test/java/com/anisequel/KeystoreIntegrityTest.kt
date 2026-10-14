@@ -1,4 +1,4 @@
-package com.example
+package com.anisequel
 
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue

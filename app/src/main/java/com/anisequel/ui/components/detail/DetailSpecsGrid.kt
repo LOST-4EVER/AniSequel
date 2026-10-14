@@ -1,4 +1,4 @@
-package com.example.ui.components.detail
+package com.anisequel.ui.components.detail
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -21,26 +21,26 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.example.data.model.MediaNode
-import com.example.data.model.airingCountdown
-import com.example.data.model.airingEpisodeNumber
-import com.example.data.model.durationLabel
-import com.example.data.model.episodesLabel
-import com.example.data.model.formatLabel
-import com.example.data.model.isAiringNow
-import com.example.data.model.isManga
-import com.example.data.model.isOnHiatus
-import com.example.data.model.isUpcoming
-import com.example.data.model.releaseLabel
-import com.example.data.model.seasonLabel
-import com.example.data.model.sourceLabel
-import com.example.data.model.statusLabel
-import com.example.data.model.studioName
-import com.example.data.model.watchFraction
-import com.example.data.model.watchFractionLabel
-import com.example.ui.components.AppVectorIcons
-import com.example.ui.components.expressive.WavyProgressBar
-import com.example.ui.theme.AniSequelTheme
+import com.anisequel.data.model.MediaNode
+import com.anisequel.data.model.airingCountdown
+import com.anisequel.data.model.airingEpisodeNumber
+import com.anisequel.data.model.durationLabel
+import com.anisequel.data.model.episodesLabel
+import com.anisequel.data.model.formatLabel
+import com.anisequel.data.model.isAiringNow
+import com.anisequel.data.model.isManga
+import com.anisequel.data.model.isOnHiatus
+import com.anisequel.data.model.isUpcoming
+import com.anisequel.data.model.releaseLabel
+import com.anisequel.data.model.seasonLabel
+import com.anisequel.data.model.sourceLabel
+import com.anisequel.data.model.statusLabel
+import com.anisequel.data.model.studioName
+import com.anisequel.data.model.watchFraction
+import com.anisequel.data.model.watchFractionLabel
+import com.anisequel.ui.components.AppVectorIcons
+import com.anisequel.ui.components.expressive.WavyProgressBar
+import com.anisequel.ui.theme.AniSequelTheme
 
 /**
  * Specifications 2x2 / 2x3 grid showcasing anime details, status, studio,

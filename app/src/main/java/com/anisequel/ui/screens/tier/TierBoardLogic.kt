@@ -1,4 +1,4 @@
-package com.example.ui.screens.tier
+package com.anisequel.ui.screens.tier
 
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
@@ -6,10 +6,10 @@ import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.Color
-import com.example.domain.tier.TierDefinition
-import com.example.domain.tier.TierItemBox
-import com.example.domain.tier.TierLayoutOptions
-import com.example.domain.tier.TierRowBox
+import com.anisequel.domain.tier.TierDefinition
+import com.anisequel.domain.tier.TierItemBox
+import com.anisequel.domain.tier.TierLayoutOptions
+import com.anisequel.domain.tier.TierRowBox
 
 // ---------------------------------------------------------------------------
 // Pure, testable helpers.

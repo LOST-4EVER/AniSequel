@@ -1,4 +1,4 @@
-package com.example.ui.components.detail
+package com.anisequel.ui.components.detail
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -34,18 +34,18 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.example.data.model.MediaNode
-import com.example.data.model.displayName
-import com.example.data.model.englishName
-import com.example.data.model.formatLabel
-import com.example.data.model.posterColor
-import com.example.data.model.posterUrl
-import com.example.data.model.releaseLabel
-import com.example.data.model.romajiName
-import com.example.ui.components.AppVectorIcons
-import com.example.ui.components.PannableBackdrop
-import com.example.ui.components.cards.toCoverColorOrNull
-import com.example.ui.components.expressive.expressiveHoldGesture
+import com.anisequel.data.model.MediaNode
+import com.anisequel.data.model.displayName
+import com.anisequel.data.model.englishName
+import com.anisequel.data.model.formatLabel
+import com.anisequel.data.model.posterColor
+import com.anisequel.data.model.posterUrl
+import com.anisequel.data.model.releaseLabel
+import com.anisequel.data.model.romajiName
+import com.anisequel.ui.components.AppVectorIcons
+import com.anisequel.ui.components.PannableBackdrop
+import com.anisequel.ui.components.cards.toCoverColorOrNull
+import com.anisequel.ui.components.expressive.expressiveHoldGesture
 
 @Composable
 fun DetailHeader(

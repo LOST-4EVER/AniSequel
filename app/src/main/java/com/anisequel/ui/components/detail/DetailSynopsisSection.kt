@@ -1,4 +1,4 @@
-package com.example.ui.components.detail
+package com.anisequel.ui.components.detail
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateContentSize
@@ -24,10 +24,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.example.data.model.MissedSequel
-import com.example.ui.components.AppVectorIcons
-import com.example.ui.components.markdown.AniListMarkdownParser
-import com.example.ui.components.markdown.AniListMarkdownView
+import com.anisequel.data.model.MissedSequel
+import com.anisequel.ui.components.AppVectorIcons
+import com.anisequel.ui.components.markdown.AniListMarkdownParser
+import com.anisequel.ui.components.markdown.AniListMarkdownView
 
 /**
  * Synopsis section powered by AniList Markdown parsing.

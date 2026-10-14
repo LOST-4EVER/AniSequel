@@ -1,4 +1,4 @@
-package com.example.ui.components.markdown
+package com.anisequel.ui.components.markdown
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -11,8 +11,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
-import com.example.data.model.MediaCover
-import com.example.data.model.MediaCoverKey
+import com.anisequel.data.model.MediaCover
+import com.anisequel.data.model.MediaCoverKey
 
 /**
  * How many top-level blocks a *collapsed* render keeps.

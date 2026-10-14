@@ -1,4 +1,4 @@
-package com.example.ui.components
+package com.anisequel.ui.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -17,10 +17,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
-import com.example.data.model.FilterCriteria
-import com.example.data.model.StatusFilter
-import com.example.ui.components.AppVectorIcons
-import com.example.ui.components.expressive.ExpressiveSegmentedBar
+import com.anisequel.data.model.FilterCriteria
+import com.anisequel.data.model.StatusFilter
+import com.anisequel.ui.components.AppVectorIcons
+import com.anisequel.ui.components.expressive.ExpressiveSegmentedBar
 
 /**
  * The one-tap filters.

@@ -1,15 +1,15 @@
-package com.example.ui.viewmodel
+package com.anisequel.ui.viewmodel
 
 import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.data.network.AniListErrorKind
-import com.example.data.network.AniListException
-import com.example.data.network.AniListOAuth
-import com.example.data.network.RedirectResult
-import com.example.data.repository.AniListRepository
-import com.example.data.repository.AuthRepository
-import com.example.data.repository.AuthRepositoryImpl
+import com.anisequel.data.network.AniListErrorKind
+import com.anisequel.data.network.AniListException
+import com.anisequel.data.network.AniListOAuth
+import com.anisequel.data.network.RedirectResult
+import com.anisequel.data.repository.AniListRepository
+import com.anisequel.data.repository.AuthRepository
+import com.anisequel.data.repository.AuthRepositoryImpl
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow

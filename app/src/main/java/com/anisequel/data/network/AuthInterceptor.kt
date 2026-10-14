@@ -1,6 +1,6 @@
-package com.example.data.network
+package com.anisequel.data.network
 
-import com.example.data.repository.AuthRepository
+import com.anisequel.data.repository.AuthRepository
 import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
 import okhttp3.Response

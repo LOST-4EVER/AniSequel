@@ -1,9 +1,9 @@
-package com.example
+package com.anisequel
 
 import android.content.Context
 import androidx.test.core.app.ApplicationProvider
-import com.example.data.repository.RefreshInterval
-import com.example.data.repository.RefreshIntervalPreferences
+import com.anisequel.data.repository.RefreshInterval
+import com.anisequel.data.repository.RefreshIntervalPreferences
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals

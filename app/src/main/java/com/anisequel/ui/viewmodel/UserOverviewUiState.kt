@@ -1,13 +1,13 @@
-package com.example.ui.viewmodel
+package com.anisequel.ui.viewmodel
 
-import com.example.data.model.FavouriteCharacter
-import com.example.data.model.FavouriteStaff
-import com.example.data.model.MediaListEntryItem
-import com.example.data.model.MediaNode
-import com.example.data.model.StudioNode
-import com.example.domain.usecase.ActivityCalendar
-import com.example.domain.usecase.ListEntryInsights
-import com.example.domain.usecase.ListInsights
+import com.anisequel.data.model.FavouriteCharacter
+import com.anisequel.data.model.FavouriteStaff
+import com.anisequel.data.model.MediaListEntryItem
+import com.anisequel.data.model.MediaNode
+import com.anisequel.data.model.StudioNode
+import com.anisequel.domain.usecase.ActivityCalendar
+import com.anisequel.domain.usecase.ListEntryInsights
+import com.anisequel.domain.usecase.ListInsights
 
 /**
  * The profile screen's state contract for the Home and Stats tabs.

@@ -1,4 +1,4 @@
-package com.example.ui.components.update
+package com.anisequel.ui.components.update
 
 import android.content.Context
 import android.content.Intent
@@ -47,7 +47,7 @@ import java.io.File
  * the default value quietly built a *second* one (and a second OkHttp client and
  * thread pool) on every installation object created. Anything that needs to
  * fetch or download belongs to [UpdateController], which holds the one real
- * `com.example.data.update.UpdateManager`.
+ * `com.anisequel.data.update.UpdateManager`.
  */
 class UpdateInstallation(private val context: Context) {
 

@@ -1,8 +1,8 @@
-package com.example
+package com.anisequel
 
 import androidx.compose.ui.graphics.vector.ImageVector
-import com.example.ui.components.icons.AppCustomVectors
-import com.example.ui.components.icons.AppExtraVectors
+import com.anisequel.ui.components.icons.AppCustomVectors
+import com.anisequel.ui.components.icons.AppExtraVectors
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue

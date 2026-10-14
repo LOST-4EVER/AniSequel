@@ -1,10 +1,10 @@
-package com.example
+package com.anisequel
 
-import com.example.ui.screens.profile.formatJoinYear
-import com.example.ui.screens.profile.formatMeanScore
-import com.example.ui.screens.profile.formatRelativeSeconds
-import com.example.ui.screens.profile.formatWatchTime
-import com.example.ui.screens.profile.stripMarkdown
+import com.anisequel.ui.screens.profile.formatJoinYear
+import com.anisequel.ui.screens.profile.formatMeanScore
+import com.anisequel.ui.screens.profile.formatRelativeSeconds
+import com.anisequel.ui.screens.profile.formatWatchTime
+import com.anisequel.ui.screens.profile.stripMarkdown
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue

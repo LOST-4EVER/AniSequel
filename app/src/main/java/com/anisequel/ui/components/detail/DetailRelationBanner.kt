@@ -1,4 +1,4 @@
-package com.example.ui.components.detail
+package com.anisequel.ui.components.detail
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -21,10 +21,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.example.data.model.MissedSequel
-import com.example.ui.components.AppVectorIcons
-import com.example.ui.components.cards.toCoverColorOrNull
-import com.example.ui.theme.AniSequelTheme
+import com.anisequel.data.model.MissedSequel
+import com.anisequel.ui.components.AppVectorIcons
+import com.anisequel.ui.components.cards.toCoverColorOrNull
+import com.anisequel.ui.theme.AniSequelTheme
 
 /**
  * Contextual card displaying the watched anime parent relationship.

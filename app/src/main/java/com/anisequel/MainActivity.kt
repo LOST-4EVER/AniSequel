@@ -1,4 +1,4 @@
-package com.example
+package com.anisequel
 
 import android.content.Intent
 import android.os.Bundle
@@ -16,19 +16,19 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.data.network.NetworkClient
-import com.example.data.repository.AniListRepositoryImpl
-import com.example.data.repository.AuthRepository
-import com.example.data.repository.AuthRepositoryImpl
-import com.example.data.repository.ThemeMode
-import com.example.data.repository.ThemePreferences
-import com.example.ui.components.update.UpdateController
-import com.example.ui.components.update.UpdatePromptHost
-import com.example.ui.components.update.rememberUpdateController
-import com.example.ui.navigation.AppNavigation
-import com.example.ui.theme.AniSequelTheme
-import com.example.ui.theme.ThemePalette
-import com.example.ui.viewmodel.AuthViewModel
+import com.anisequel.data.network.NetworkClient
+import com.anisequel.data.repository.AniListRepositoryImpl
+import com.anisequel.data.repository.AuthRepository
+import com.anisequel.data.repository.AuthRepositoryImpl
+import com.anisequel.data.repository.ThemeMode
+import com.anisequel.data.repository.ThemePreferences
+import com.anisequel.ui.components.update.UpdateController
+import com.anisequel.ui.components.update.UpdatePromptHost
+import com.anisequel.ui.components.update.rememberUpdateController
+import com.anisequel.ui.navigation.AppNavigation
+import com.anisequel.ui.theme.AniSequelTheme
+import com.anisequel.ui.theme.ThemePalette
+import com.anisequel.ui.viewmodel.AuthViewModel
 import java.lang.ref.WeakReference
 
 class MainActivity : ComponentActivity() {

@@ -1,15 +1,15 @@
-package com.example
+package com.anisequel
 
-import com.example.data.model.FuzzyDate
-import com.example.data.model.GraphQLResponse
-import com.example.data.model.MediaEntryEdit
-import com.example.data.model.MediaListEntryData
-import com.example.data.model.SimpleMediaListEntry
-import com.example.data.network.GraphQLQueries
-import com.example.data.repository.toSaveVariables
-import com.example.ui.components.detail.formatScore
-import com.example.ui.components.detail.statusLabel
-import com.example.ui.components.detail.toDraft
+import com.anisequel.data.model.FuzzyDate
+import com.anisequel.data.model.GraphQLResponse
+import com.anisequel.data.model.MediaEntryEdit
+import com.anisequel.data.model.MediaListEntryData
+import com.anisequel.data.model.SimpleMediaListEntry
+import com.anisequel.data.network.GraphQLQueries
+import com.anisequel.data.repository.toSaveVariables
+import com.anisequel.ui.components.detail.formatScore
+import com.anisequel.ui.components.detail.statusLabel
+import com.anisequel.ui.components.detail.toDraft
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
 import org.junit.Assert.assertEquals

@@ -1,4 +1,4 @@
-package com.example.data.network
+package com.anisequel.data.network
 
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.JsonReader

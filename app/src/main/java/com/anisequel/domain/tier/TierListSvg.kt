@@ -1,4 +1,4 @@
-package com.example.domain.tier
+package com.anisequel.domain.tier
 
 /**
  * Writes a [TierListLayout] out as a standalone SVG document.

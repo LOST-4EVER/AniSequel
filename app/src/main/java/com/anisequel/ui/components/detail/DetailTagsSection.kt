@@ -1,4 +1,4 @@
-package com.example.ui.components.detail
+package com.anisequel.ui.components.detail
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -20,8 +20,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.example.data.model.MissedSequel
-import com.example.ui.components.AppVectorIcons
+import com.anisequel.data.model.MissedSequel
+import com.anisequel.ui.components.AppVectorIcons
 
 /**
  * Categorical metadata: Genres, AniList thematic tags, and alternative titles.

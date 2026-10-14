@@ -1,4 +1,4 @@
-package com.example.ui.components.expressive
+package com.anisequel.ui.components.expressive
 
 import androidx.compose.animation.core.FiniteAnimationSpec
 import androidx.compose.animation.core.Spring
@@ -46,13 +46,13 @@ object ExpressiveMotion {
 
     /**
      * How the app's custom springs and fades are scaled. Set once per theme
-     * change in [com.example.ui.theme.AniSequelTheme]. The Material
+     * change in [com.anisequel.ui.theme.AniSequelTheme]. The Material
      * `MotionScheme` covers M3 components' built-in motion; this value covers
      * the tokens the app itself drives (route transitions, list item fades,
      * press feedback, and the morph loops).
      */
-    var speed: com.example.data.repository.MotionStyle =
-        com.example.data.repository.MotionStyle.DEFAULT
+    var speed: com.anisequel.data.repository.MotionStyle =
+        com.anisequel.data.repository.MotionStyle.DEFAULT
 
     /** Snappy spatial spring for quick taps and micro-interactions. */
     val FastSpatial: FiniteAnimationSpec<Float> get() =
@@ -115,12 +115,12 @@ object ExpressiveMotion {
      */
     val DefaultSpatialOffset: FiniteAnimationSpec<IntOffset> get() =
         when (speed) {
-            com.example.data.repository.MotionStyle.INSTANT -> snap()
-            com.example.data.repository.MotionStyle.SMOOTH -> spring(
+            com.anisequel.data.repository.MotionStyle.INSTANT -> snap()
+            com.anisequel.data.repository.MotionStyle.SMOOTH -> spring(
                 dampingRatio = Spring.DampingRatioNoBouncy,
                 stiffness = Spring.StiffnessMediumLow
             )
-            com.example.data.repository.MotionStyle.CHILL -> spring(
+            com.anisequel.data.repository.MotionStyle.CHILL -> spring(
                 dampingRatio = 0.65f,
                 stiffness = Spring.StiffnessMediumLow
             )
@@ -156,12 +156,12 @@ object ExpressiveMotion {
      */
     val FastSpatialSize: FiniteAnimationSpec<IntSize> get() =
         when (speed) {
-            com.example.data.repository.MotionStyle.INSTANT -> snap()
-            com.example.data.repository.MotionStyle.SMOOTH -> spring(
+            com.anisequel.data.repository.MotionStyle.INSTANT -> snap()
+            com.anisequel.data.repository.MotionStyle.SMOOTH -> spring(
                 dampingRatio = Spring.DampingRatioNoBouncy,
                 stiffness = Spring.StiffnessMedium
             )
-            com.example.data.repository.MotionStyle.CHILL -> spring(
+            com.anisequel.data.repository.MotionStyle.CHILL -> spring(
                 dampingRatio = Spring.DampingRatioMediumBouncy,
                 stiffness = Spring.StiffnessMedium
             )
@@ -187,12 +187,12 @@ object ExpressiveMotion {
      */
     val FastSpatialInt: FiniteAnimationSpec<Int> get() =
         when (speed) {
-            com.example.data.repository.MotionStyle.INSTANT -> snap()
-            com.example.data.repository.MotionStyle.SMOOTH -> spring(
+            com.anisequel.data.repository.MotionStyle.INSTANT -> snap()
+            com.anisequel.data.repository.MotionStyle.SMOOTH -> spring(
                 dampingRatio = Spring.DampingRatioNoBouncy,
                 stiffness = Spring.StiffnessMedium
             )
-            com.example.data.repository.MotionStyle.CHILL -> spring(
+            com.anisequel.data.repository.MotionStyle.CHILL -> spring(
                 dampingRatio = Spring.DampingRatioMediumBouncy,
                 stiffness = Spring.StiffnessMedium
             )
@@ -203,12 +203,12 @@ object ExpressiveMotion {
      */
     val FastSpatialDp: FiniteAnimationSpec<Dp> get() =
         when (speed) {
-            com.example.data.repository.MotionStyle.INSTANT -> snap()
-            com.example.data.repository.MotionStyle.SMOOTH -> spring(
+            com.anisequel.data.repository.MotionStyle.INSTANT -> snap()
+            com.anisequel.data.repository.MotionStyle.SMOOTH -> spring(
                 dampingRatio = Spring.DampingRatioNoBouncy,
                 stiffness = Spring.StiffnessMedium
             )
-            com.example.data.repository.MotionStyle.CHILL -> spring(
+            com.anisequel.data.repository.MotionStyle.CHILL -> spring(
                 dampingRatio = Spring.DampingRatioMediumBouncy,
                 stiffness = Spring.StiffnessMedium
             )
@@ -219,12 +219,12 @@ object ExpressiveMotion {
         expressiveStiffness: Float = Spring.StiffnessMedium
     ): FiniteAnimationSpec<Float> =
         when (speed) {
-            com.example.data.repository.MotionStyle.INSTANT -> snap()
-            com.example.data.repository.MotionStyle.SMOOTH -> spring(
+            com.anisequel.data.repository.MotionStyle.INSTANT -> snap()
+            com.anisequel.data.repository.MotionStyle.SMOOTH -> spring(
                 dampingRatio = Spring.DampingRatioNoBouncy,
                 stiffness = Spring.StiffnessMedium
             )
-            com.example.data.repository.MotionStyle.CHILL -> spring(
+            com.anisequel.data.repository.MotionStyle.CHILL -> spring(
                 dampingRatio = expressiveDamping,
                 stiffness = expressiveStiffness
             )
@@ -234,15 +234,15 @@ object ExpressiveMotion {
         stiffness: Float
     ): FiniteAnimationSpec<Float> =
         when (speed) {
-            com.example.data.repository.MotionStyle.INSTANT -> snap()
-            com.example.data.repository.MotionStyle.SMOOTH -> spring(
+            com.anisequel.data.repository.MotionStyle.INSTANT -> snap()
+            com.anisequel.data.repository.MotionStyle.SMOOTH -> spring(
                 dampingRatio = Spring.DampingRatioNoBouncy,
                 stiffness = Spring.StiffnessMedium
             )
             // `CHILL` and the tokens are one spring: the effects tokens are the
             // calm half of the pair, even in the expressive style. NoBouncy keeps
             // alpha and colour from overshooting their target.
-            com.example.data.repository.MotionStyle.CHILL -> spring(
+            com.anisequel.data.repository.MotionStyle.CHILL -> spring(
                 dampingRatio = Spring.DampingRatioNoBouncy,
                 stiffness = stiffness
             )
@@ -252,12 +252,12 @@ object ExpressiveMotion {
         stiffness: Float
     ): FiniteAnimationSpec<Color> =
         when (speed) {
-            com.example.data.repository.MotionStyle.INSTANT -> snap()
-            com.example.data.repository.MotionStyle.SMOOTH -> spring(
+            com.anisequel.data.repository.MotionStyle.INSTANT -> snap()
+            com.anisequel.data.repository.MotionStyle.SMOOTH -> spring(
                 dampingRatio = Spring.DampingRatioNoBouncy,
                 stiffness = Spring.StiffnessMedium
             )
-            com.example.data.repository.MotionStyle.CHILL -> spring(
+            com.anisequel.data.repository.MotionStyle.CHILL -> spring(
                 dampingRatio = Spring.DampingRatioNoBouncy,
                 stiffness = stiffness
             )

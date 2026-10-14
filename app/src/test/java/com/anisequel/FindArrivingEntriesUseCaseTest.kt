@@ -1,13 +1,13 @@
-package com.example
+package com.anisequel
 
-import com.example.data.model.ArrivingEntry
-import com.example.data.model.FuzzyDate
-import com.example.data.model.MediaListCollection
-import com.example.data.model.MediaListEntryItem
-import com.example.data.model.MediaListGroup
-import com.example.data.model.MediaNode
-import com.example.data.model.MediaTitle
-import com.example.domain.usecase.FindArrivingEntriesUseCase
+import com.anisequel.data.model.ArrivingEntry
+import com.anisequel.data.model.FuzzyDate
+import com.anisequel.data.model.MediaListCollection
+import com.anisequel.data.model.MediaListEntryItem
+import com.anisequel.data.model.MediaListGroup
+import com.anisequel.data.model.MediaNode
+import com.anisequel.data.model.MediaTitle
+import com.anisequel.domain.usecase.FindArrivingEntriesUseCase
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Test
@@ -36,7 +36,7 @@ class FindArrivingEntriesUseCaseTest {
         status = status,
         episodes = episodes,
         startDate = startDate,
-        nextAiringEpisode = airingAt?.let { com.example.data.model.NextAiringEpisode(nextEpisode, it) }
+        nextAiringEpisode = airingAt?.let { com.anisequel.data.model.NextAiringEpisode(nextEpisode, it) }
     )
 
     private fun entry(

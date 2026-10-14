@@ -1,4 +1,4 @@
-package com.example.ui.screens.profile
+package com.anisequel.ui.screens.profile
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -37,13 +37,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.example.data.model.FollowUser
-import com.example.ui.components.AppVectorIcons
-import com.example.ui.components.expressive.ExpressiveLoadingIndicator
-import com.example.ui.components.expressive.ExpressiveStateChip
-import com.example.ui.components.expressive.bouncyPress
-import com.example.ui.viewmodel.SocialList
-import com.example.ui.viewmodel.UserSocialViewModel
+import com.anisequel.data.model.FollowUser
+import com.anisequel.ui.components.AppVectorIcons
+import com.anisequel.ui.components.expressive.ExpressiveLoadingIndicator
+import com.anisequel.ui.components.expressive.ExpressiveStateChip
+import com.anisequel.ui.components.expressive.bouncyPress
+import com.anisequel.ui.viewmodel.SocialList
+import com.anisequel.ui.viewmodel.UserSocialViewModel
 
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -56,9 +56,9 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import com.example.ui.components.expressive.ExpressiveEmptyOrb
-import com.example.ui.components.expressive.ExpressiveShapes
-import com.example.ui.theme.AniSequelTheme
+import com.anisequel.ui.components.expressive.ExpressiveEmptyOrb
+import com.anisequel.ui.components.expressive.ExpressiveShapes
+import com.anisequel.ui.theme.AniSequelTheme
 import java.util.Locale
 
 /**

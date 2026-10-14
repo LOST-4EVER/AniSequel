@@ -1,4 +1,4 @@
-package com.example.data.model
+package com.anisequel.data.model
 
 import java.util.Locale
 

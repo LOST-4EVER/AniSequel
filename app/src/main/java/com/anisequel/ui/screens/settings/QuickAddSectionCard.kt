@@ -1,4 +1,4 @@
-package com.example.ui.screens.settings
+package com.anisequel.ui.screens.settings
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -15,9 +15,9 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
-import com.example.data.repository.QuickAddPreferences
-import com.example.ui.components.AppVectorIcons
-import com.example.ui.components.expressive.ExpressiveTabBar
+import com.anisequel.data.repository.QuickAddPreferences
+import com.anisequel.ui.components.AppVectorIcons
+import com.anisequel.ui.components.expressive.ExpressiveTabBar
 import kotlinx.coroutines.launch
 
 /**

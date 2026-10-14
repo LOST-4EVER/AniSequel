@@ -1,10 +1,10 @@
-package com.example.data.update
+package com.anisequel.data.update
 
 import android.content.Context
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.os.Build
-import com.example.BuildConfig
+import com.anisequel.BuildConfig
 import com.squareup.moshi.Moshi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

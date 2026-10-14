@@ -1,4 +1,4 @@
-package com.example.ui.components.expressive
+package com.anisequel.ui.components.expressive
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.core.FastOutSlowInEasing
@@ -38,8 +38,8 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.graphics.shapes.Morph
-import com.example.data.repository.MotionStyle
-import com.example.ui.components.AppVectorIcons
+import com.anisequel.data.repository.MotionStyle
+import com.anisequel.ui.components.AppVectorIcons
 
 private const val EXPRESSIVE_TAG = "expressive_"
 

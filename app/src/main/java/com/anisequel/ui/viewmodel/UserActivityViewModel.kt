@@ -1,15 +1,15 @@
-package com.example.ui.viewmodel
+package com.anisequel.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.example.data.model.ActivityReply
-import com.example.data.model.FollowUser
-import com.example.data.model.ListActivity
-import com.example.data.model.MediaNode
-import com.example.data.network.AniListErrorKind
-import com.example.data.network.AniListException
-import com.example.data.repository.AniListRepository
+import com.anisequel.data.model.ActivityReply
+import com.anisequel.data.model.FollowUser
+import com.anisequel.data.model.ListActivity
+import com.anisequel.data.model.MediaNode
+import com.anisequel.data.network.AniListErrorKind
+import com.anisequel.data.network.AniListException
+import com.anisequel.data.repository.AniListRepository
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

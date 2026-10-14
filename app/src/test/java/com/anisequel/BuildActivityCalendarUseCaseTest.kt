@@ -1,7 +1,7 @@
-package com.example
+package com.anisequel
 
-import com.example.data.model.ActivityHistoryDay
-import com.example.domain.usecase.BuildActivityCalendarUseCase
+import com.anisequel.data.model.ActivityHistoryDay
+import com.anisequel.domain.usecase.BuildActivityCalendarUseCase
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test

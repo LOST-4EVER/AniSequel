@@ -1,7 +1,7 @@
-package com.example.ui.viewmodel
+package com.anisequel.ui.viewmodel
 
-import com.example.data.model.MediaNode
-import com.example.data.repository.AniListRepository
+import com.anisequel.data.model.MediaNode
+import com.anisequel.data.repository.AniListRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

@@ -1,9 +1,9 @@
-package com.example.ui.widget
+package com.anisequel.ui.widget
 
 import android.content.Context
-import com.example.data.model.displayName
-import com.example.data.model.posterUrl
-import com.example.data.repository.DemoProfileProvider
+import com.anisequel.data.model.displayName
+import com.anisequel.data.model.posterUrl
+import com.anisequel.data.repository.DemoProfileProvider
 
 /**
  * Where the widgets' numbers and labels come from.

@@ -1,4 +1,4 @@
-package com.example.data.model
+package com.anisequel.data.model
 
 /**
  * One of the viewer's own list entries that is arriving: airing right now, or

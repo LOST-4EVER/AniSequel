@@ -1,11 +1,11 @@
-package com.example
+package com.anisequel
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Outline
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.LayoutDirection
-import com.example.ui.components.expressive.ExpressiveShapes
+import com.anisequel.ui.components.expressive.ExpressiveShapes
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test

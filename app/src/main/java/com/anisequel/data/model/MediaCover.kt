@@ -1,4 +1,4 @@
-package com.example.data.model
+package com.anisequel.data.model
 
 import com.squareup.moshi.JsonClass
 import java.util.Locale

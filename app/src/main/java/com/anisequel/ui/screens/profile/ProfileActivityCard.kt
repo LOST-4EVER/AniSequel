@@ -1,4 +1,4 @@
-package com.example.ui.screens.profile
+package com.anisequel.ui.screens.profile
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -40,12 +40,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.example.data.model.ListActivity
-import com.example.data.model.MediaNode
-import com.example.ui.components.AppVectorIcons
-import com.example.ui.components.cards.SequelInfoChip
-import com.example.ui.components.expressive.ExpressiveShapes
-import com.example.ui.components.expressive.bouncyPress
+import com.anisequel.data.model.ListActivity
+import com.anisequel.data.model.MediaNode
+import com.anisequel.ui.components.AppVectorIcons
+import com.anisequel.ui.components.cards.SequelInfoChip
+import com.anisequel.ui.components.expressive.ExpressiveShapes
+import com.anisequel.ui.components.expressive.bouncyPress
 import java.util.Locale
 
 /** AniList covers are 2:3. */

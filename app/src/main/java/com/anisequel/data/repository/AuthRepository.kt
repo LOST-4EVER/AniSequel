@@ -1,4 +1,4 @@
-package com.example.data.repository
+package com.anisequel.data.repository
 
 import kotlinx.coroutines.flow.Flow
 

@@ -1,12 +1,12 @@
-package com.example.ui.components.detail
+package com.anisequel.ui.components.detail
 
-import com.example.data.model.ArrivingEntry
-import com.example.data.model.MediaCoverImage
-import com.example.data.model.MediaNode
-import com.example.data.model.MediaTitle
-import com.example.data.model.MissedSequel
-import com.example.data.model.NextAiringEpisode
-import com.example.data.model.SimpleMediaListEntry
+import com.anisequel.data.model.ArrivingEntry
+import com.anisequel.data.model.MediaCoverImage
+import com.anisequel.data.model.MediaNode
+import com.anisequel.data.model.MediaTitle
+import com.anisequel.data.model.MissedSequel
+import com.anisequel.data.model.NextAiringEpisode
+import com.anisequel.data.model.SimpleMediaListEntry
 
 /**
  * What the detail sheet is showing: a sequel recommendation, or a plain list or

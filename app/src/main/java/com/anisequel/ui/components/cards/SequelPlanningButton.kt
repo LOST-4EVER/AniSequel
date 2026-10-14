@@ -1,8 +1,8 @@
-package com.example.ui.components.cards
+package com.anisequel.ui.components.cards
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.example.data.model.MissedSequel
+import com.anisequel.data.model.MissedSequel
 
 /**
  * Quick-action list button for missed sequel cards.

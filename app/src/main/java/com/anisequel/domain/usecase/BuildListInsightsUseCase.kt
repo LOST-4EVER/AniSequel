@@ -1,11 +1,11 @@
-package com.example.domain.usecase
+package com.anisequel.domain.usecase
 
-import com.example.data.model.FormatAmount
-import com.example.data.model.GenreAmount
-import com.example.data.model.ScoreAmount
-import com.example.data.model.StatusAmount
-import com.example.data.model.TagAmount
-import com.example.data.model.YearAmount
+import com.anisequel.data.model.FormatAmount
+import com.anisequel.data.model.GenreAmount
+import com.anisequel.data.model.ScoreAmount
+import com.anisequel.data.model.StatusAmount
+import com.anisequel.data.model.TagAmount
+import com.anisequel.data.model.YearAmount
 
 /** One row of a horizontal bar chart: a label, a count, and a share of the largest. */
 data class BucketTally(

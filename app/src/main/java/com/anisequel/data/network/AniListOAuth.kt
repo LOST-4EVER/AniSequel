@@ -1,4 +1,4 @@
-package com.example.data.network
+package com.anisequel.data.network
 
 import android.content.Context
 import android.content.Intent

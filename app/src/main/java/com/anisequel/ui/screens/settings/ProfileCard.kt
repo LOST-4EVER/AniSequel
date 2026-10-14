@@ -1,4 +1,4 @@
-package com.example.ui.screens.settings
+package com.anisequel.ui.screens.settings
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -29,9 +29,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import coil.compose.AsyncImage
-import com.example.data.model.ViewerProfile
-import com.example.ui.components.AppVectorIcons
-import com.example.ui.components.expressive.bouncyPress
+import com.anisequel.data.model.ViewerProfile
+import com.anisequel.ui.components.AppVectorIcons
+import com.anisequel.ui.components.expressive.bouncyPress
 
 @Composable
 fun ProfileCard(

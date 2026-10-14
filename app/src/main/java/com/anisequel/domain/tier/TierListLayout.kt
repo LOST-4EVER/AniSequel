@@ -1,4 +1,4 @@
-package com.example.domain.tier
+package com.anisequel.domain.tier
 
 /**
  * The geometry of a tier list, computed once and drawn two ways.

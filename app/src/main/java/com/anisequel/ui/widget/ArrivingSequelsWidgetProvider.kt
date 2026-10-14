@@ -1,4 +1,4 @@
-package com.example.ui.widget
+package com.anisequel.ui.widget
 
 import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
@@ -9,8 +9,8 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.view.View
 import android.widget.RemoteViews
-import com.example.MainActivity
-import com.example.R
+import com.anisequel.MainActivity
+import com.anisequel.R
 
 /**
  * Widget displaying the count of arriving soon and currently airing sequels,

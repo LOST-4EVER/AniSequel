@@ -1,4 +1,4 @@
-package com.example.ui.components.cards
+package com.anisequel.ui.components.cards
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -16,8 +16,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.example.ui.components.AppVectorIcons
-import com.example.ui.theme.AniSequelTheme
+import com.anisequel.ui.components.AppVectorIcons
+import com.anisequel.ui.theme.AniSequelTheme
 
 /**
  * One status, as the four things the chip has to draw.

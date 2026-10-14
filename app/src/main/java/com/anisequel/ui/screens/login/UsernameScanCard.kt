@@ -1,4 +1,4 @@
-package com.example.ui.screens.login
+package com.anisequel.ui.screens.login
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -25,8 +25,8 @@ import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.example.ui.components.AppVectorIcons
-import com.example.ui.components.expressive.bouncyPress
+import com.anisequel.ui.components.AppVectorIcons
+import com.anisequel.ui.components.expressive.bouncyPress
 
 @Composable
 fun UsernameScanCard(

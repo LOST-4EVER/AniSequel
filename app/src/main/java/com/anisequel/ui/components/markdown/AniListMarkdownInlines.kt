@@ -1,4 +1,4 @@
-package com.example.ui.components.markdown
+package com.anisequel.ui.components.markdown
 
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable

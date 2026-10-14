@@ -1,15 +1,15 @@
-package com.example
+package com.anisequel
 
-import com.example.data.model.FilterCriteria
-import com.example.data.model.MediaCoverImage
-import com.example.data.model.MediaListCollection
-import com.example.data.model.MediaListEntryItem
-import com.example.data.model.MediaListGroup
-import com.example.data.model.MediaNode
-import com.example.data.model.MediaRelationEdge
-import com.example.data.model.MediaRelations
-import com.example.data.model.MediaTitle
-import com.example.domain.usecase.FindMissedSequelsUseCase
+import com.anisequel.data.model.FilterCriteria
+import com.anisequel.data.model.MediaCoverImage
+import com.anisequel.data.model.MediaListCollection
+import com.anisequel.data.model.MediaListEntryItem
+import com.anisequel.data.model.MediaListGroup
+import com.anisequel.data.model.MediaNode
+import com.anisequel.data.model.MediaRelationEdge
+import com.anisequel.data.model.MediaRelations
+import com.anisequel.data.model.MediaTitle
+import com.anisequel.domain.usecase.FindMissedSequelsUseCase
 import org.junit.Assert.assertEquals
 import org.junit.Test
 

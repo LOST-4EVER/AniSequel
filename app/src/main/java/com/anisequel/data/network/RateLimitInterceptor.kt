@@ -1,4 +1,4 @@
-package com.example.data.network
+package com.anisequel.data.network
 
 import okhttp3.Interceptor
 import okhttp3.Response

@@ -1,11 +1,11 @@
-package com.example
+package com.anisequel
 
-import com.example.domain.tier.StandardTiers
-import com.example.domain.tier.TierAssignment
-import com.example.domain.tier.TierDefinition
-import com.example.domain.tier.orphanedCount
-import com.example.domain.tier.withPlacement
-import com.example.domain.tier.withoutOrphans
+import com.anisequel.domain.tier.StandardTiers
+import com.anisequel.domain.tier.TierAssignment
+import com.anisequel.domain.tier.TierDefinition
+import com.anisequel.domain.tier.orphanedCount
+import com.anisequel.domain.tier.withPlacement
+import com.anisequel.domain.tier.withoutOrphans
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertSame
 import org.junit.Test

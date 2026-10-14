@@ -1,13 +1,13 @@
-package com.example
+package com.anisequel
 
-import com.example.domain.tier.TIER_LIST_BASE_NAME
-import com.example.domain.tier.TierAssignment
-import com.example.domain.tier.TierListDocument
-import com.example.domain.tier.TierUndoEntry
-import com.example.domain.tier.TierUndoStack
-import com.example.domain.tier.defaultTierListName
-import com.example.domain.tier.mostRecentTierList
-import com.example.domain.tier.newTierListId
+import com.anisequel.domain.tier.TIER_LIST_BASE_NAME
+import com.anisequel.domain.tier.TierAssignment
+import com.anisequel.domain.tier.TierListDocument
+import com.anisequel.domain.tier.TierUndoEntry
+import com.anisequel.domain.tier.TierUndoStack
+import com.anisequel.domain.tier.defaultTierListName
+import com.anisequel.domain.tier.mostRecentTierList
+import com.anisequel.domain.tier.newTierListId
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull

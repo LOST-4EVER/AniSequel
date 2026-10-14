@@ -1,4 +1,4 @@
-package com.example.ui.components
+package com.anisequel.ui.components
 
 import android.content.Intent
 import android.net.Uri
@@ -23,9 +23,9 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
-import com.example.data.network.AniListOAuth
-import com.example.ui.screens.settings.SettingsButton
-import com.example.ui.screens.settings.SettingsButtonVariant
+import com.anisequel.data.network.AniListOAuth
+import com.anisequel.ui.screens.settings.SettingsButton
+import com.anisequel.ui.screens.settings.SettingsButtonVariant
 
 /**
  * Tells the user the exact Redirect URL to register with AniList.

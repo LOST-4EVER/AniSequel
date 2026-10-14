@@ -1,4 +1,4 @@
-package com.example.domain.tier
+package com.anisequel.domain.tier
 
 /**
  * The domain model behind the profile's Tier List.

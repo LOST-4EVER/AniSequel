@@ -1,4 +1,4 @@
-package com.example.ui.screens.profile
+package com.anisequel.ui.screens.profile
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -38,10 +38,10 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.example.ui.components.AppVectorIcons
-import com.example.ui.components.PannableBackdrop
-import com.example.ui.components.expressive.ExpressiveShapes
-import com.example.ui.viewmodel.UserOverviewUiState
+import com.anisequel.ui.components.AppVectorIcons
+import com.anisequel.ui.components.PannableBackdrop
+import com.anisequel.ui.components.expressive.ExpressiveShapes
+import com.anisequel.ui.viewmodel.UserOverviewUiState
 
 /**
  * The banner, avatar, name, core stats and account join/update dates.

@@ -1,8 +1,8 @@
-package com.example
+package com.anisequel
 
-import com.example.ui.screens.tier.TIER_TRAY_SNAP_SLOP
-import com.example.ui.screens.tier.TierRowBand
-import com.example.ui.screens.tier.tierRowAt
+import com.anisequel.ui.screens.tier.TIER_TRAY_SNAP_SLOP
+import com.anisequel.ui.screens.tier.TierRowBand
+import com.anisequel.ui.screens.tier.tierRowAt
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Test

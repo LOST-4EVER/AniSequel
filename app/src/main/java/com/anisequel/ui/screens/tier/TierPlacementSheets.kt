@@ -1,4 +1,4 @@
-package com.example.ui.screens.tier
+package com.anisequel.ui.screens.tier
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -42,11 +42,11 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.example.domain.tier.TierCandidate
-import com.example.domain.tier.TierDefinition
-import com.example.ui.components.AppVectorIcons
-import com.example.ui.components.expressive.ExpressiveShapes
-import com.example.ui.components.expressive.bouncyPress
+import com.anisequel.domain.tier.TierCandidate
+import com.anisequel.domain.tier.TierDefinition
+import com.anisequel.ui.components.AppVectorIcons
+import com.anisequel.ui.components.expressive.ExpressiveShapes
+import com.anisequel.ui.components.expressive.bouncyPress
 
 /**
  * The sheets the board opens, in their own file.

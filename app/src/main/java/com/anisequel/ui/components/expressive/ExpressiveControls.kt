@@ -1,4 +1,4 @@
-package com.example.ui.components.expressive
+package com.anisequel.ui.components.expressive
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateDpAsState

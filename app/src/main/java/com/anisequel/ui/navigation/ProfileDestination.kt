@@ -1,4 +1,4 @@
-package com.example.ui.navigation
+package com.anisequel.ui.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -6,12 +6,12 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
-import com.example.data.model.FollowUser
-import com.example.data.repository.AniListRepository
-import com.example.ui.screens.profile.UserProfileScreen
-import com.example.ui.viewmodel.UserActivityViewModel
-import com.example.ui.viewmodel.UserOverviewViewModel
-import com.example.ui.viewmodel.UserSocialViewModel
+import com.anisequel.data.model.FollowUser
+import com.anisequel.data.repository.AniListRepository
+import com.anisequel.ui.screens.profile.UserProfileScreen
+import com.anisequel.ui.viewmodel.UserActivityViewModel
+import com.anisequel.ui.viewmodel.UserOverviewViewModel
+import com.anisequel.ui.viewmodel.UserSocialViewModel
 
 /**
  * The routes a profile can be opened for.
@@ -112,7 +112,7 @@ fun ProfileDestination(
      * per process. Two readers of the same file is how the tab ends up
      * disagreeing with itself about what was last chosen.
      */
-    libraryPreferences: com.example.data.repository.LibraryPreferences,
+    libraryPreferences: com.anisequel.data.repository.LibraryPreferences,
     initialTab: Int = 0
 ) {
     // Keyed on the username as well as the id: two profiles can be opened one

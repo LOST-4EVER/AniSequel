@@ -1,14 +1,14 @@
-package com.example
+package com.anisequel
 
-import com.example.domain.tier.StandardTiers
-import com.example.domain.tier.TierAssignment
-import com.example.domain.tier.TierCandidate
-import com.example.domain.tier.TierDefinition
-import com.example.domain.tier.TierLayoutOptions
-import com.example.domain.tier.TierListSvg
-import com.example.domain.tier.layoutTierList
-import com.example.domain.tier.seedFromScores
-import com.example.domain.tier.unseedableCount
+import com.anisequel.domain.tier.StandardTiers
+import com.anisequel.domain.tier.TierAssignment
+import com.anisequel.domain.tier.TierCandidate
+import com.anisequel.domain.tier.TierDefinition
+import com.anisequel.domain.tier.TierLayoutOptions
+import com.anisequel.domain.tier.TierListSvg
+import com.anisequel.domain.tier.layoutTierList
+import com.anisequel.domain.tier.seedFromScores
+import com.anisequel.domain.tier.unseedableCount
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull

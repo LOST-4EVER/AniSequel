@@ -1,4 +1,4 @@
-package com.example.ui.screens.settings
+package com.anisequel.ui.screens.settings
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -23,11 +23,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.example.data.repository.ThemePreferences
-import com.example.ui.components.AppVectorIcons
-import com.example.ui.components.expressive.ExpressivePolygonSegmentedBar
-import com.example.ui.components.expressive.SegmentedOption
-import com.example.ui.theme.DynamicThemeBuilder
+import com.anisequel.data.repository.ThemePreferences
+import com.anisequel.ui.components.AppVectorIcons
+import com.anisequel.ui.components.expressive.ExpressivePolygonSegmentedBar
+import com.anisequel.ui.components.expressive.SegmentedOption
+import com.anisequel.ui.theme.DynamicThemeBuilder
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 

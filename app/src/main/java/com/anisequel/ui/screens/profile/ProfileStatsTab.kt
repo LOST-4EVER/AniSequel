@@ -1,4 +1,4 @@
-package com.example.ui.screens.profile
+package com.anisequel.ui.screens.profile
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -26,13 +26,13 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.example.domain.usecase.BucketTally
-import com.example.domain.usecase.ListEntryInsights
-import com.example.domain.usecase.ListInsights
-import com.example.domain.usecase.SegmentTally
-import com.example.ui.theme.AniSequelTheme
-import com.example.ui.components.AppVectorIcons
-import com.example.ui.viewmodel.UserOverviewUiState
+import com.anisequel.domain.usecase.BucketTally
+import com.anisequel.domain.usecase.ListEntryInsights
+import com.anisequel.domain.usecase.ListInsights
+import com.anisequel.domain.usecase.SegmentTally
+import com.anisequel.ui.theme.AniSequelTheme
+import com.anisequel.ui.components.AppVectorIcons
+import com.anisequel.ui.viewmodel.UserOverviewUiState
 import kotlin.math.roundToInt
 
 /**

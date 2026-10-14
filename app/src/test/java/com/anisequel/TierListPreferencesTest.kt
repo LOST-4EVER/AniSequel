@@ -1,12 +1,12 @@
-package com.example
+package com.anisequel
 
 import android.content.Context
 import androidx.test.core.app.ApplicationProvider
-import com.example.data.repository.StoredTierLibrary
-import com.example.data.repository.TierListPreferences
-import com.example.domain.tier.TierAssignment
-import com.example.domain.tier.TierDefinition
-import com.example.domain.tier.withPlacement
+import com.anisequel.data.repository.StoredTierLibrary
+import com.anisequel.data.repository.TierListPreferences
+import com.anisequel.domain.tier.TierAssignment
+import com.anisequel.domain.tier.TierDefinition
+import com.anisequel.domain.tier.withPlacement
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals

@@ -1,6 +1,6 @@
-package com.example.data.network
+package com.anisequel.data.network
 
-import com.example.data.model.MediaCoverKey
+import com.anisequel.data.model.MediaCoverKey
 
 /**
  * GraphQL documents sent to `graphql.anilist.co`.

@@ -1,30 +1,30 @@
-package com.example.ui.viewmodel
+package com.anisequel.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.example.data.model.ArrivingEntry
-import com.example.data.model.FilterCriteria
-import com.example.data.model.MediaEntryEdit
-import com.example.data.model.MediaListCollection
-import com.example.data.model.MediaNode
-import com.example.data.model.MissedSequel
-import com.example.data.model.RelationKind
-import com.example.data.model.SequelSortOption
-import com.example.data.model.SimpleMediaListEntry
-import com.example.data.model.StatusFilter
-import com.example.data.model.ViewerProfile
-import com.example.data.network.AniListErrorKind
-import com.example.data.network.AniListException
-import com.example.data.repository.AniListRepository
-import com.example.data.repository.ArrivingPreferences
-import com.example.data.repository.RefreshInterval
-import com.example.data.repository.RefreshIntervalPreferences
-import com.example.domain.usecase.FindArrivingEntriesUseCase
-import com.example.domain.usecase.FindMissedSequelsUseCase
-import com.example.domain.usecase.GetViewerProfileUseCase
-import com.example.domain.usecase.SaveToPlanningUseCase
-import com.example.ui.components.detail.EntryEditor
+import com.anisequel.data.model.ArrivingEntry
+import com.anisequel.data.model.FilterCriteria
+import com.anisequel.data.model.MediaEntryEdit
+import com.anisequel.data.model.MediaListCollection
+import com.anisequel.data.model.MediaNode
+import com.anisequel.data.model.MissedSequel
+import com.anisequel.data.model.RelationKind
+import com.anisequel.data.model.SequelSortOption
+import com.anisequel.data.model.SimpleMediaListEntry
+import com.anisequel.data.model.StatusFilter
+import com.anisequel.data.model.ViewerProfile
+import com.anisequel.data.network.AniListErrorKind
+import com.anisequel.data.network.AniListException
+import com.anisequel.data.repository.AniListRepository
+import com.anisequel.data.repository.ArrivingPreferences
+import com.anisequel.data.repository.RefreshInterval
+import com.anisequel.data.repository.RefreshIntervalPreferences
+import com.anisequel.domain.usecase.FindArrivingEntriesUseCase
+import com.anisequel.domain.usecase.FindMissedSequelsUseCase
+import com.anisequel.domain.usecase.GetViewerProfileUseCase
+import com.anisequel.domain.usecase.SaveToPlanningUseCase
+import com.anisequel.ui.components.detail.EntryEditor
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.async
@@ -37,7 +37,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
-import com.example.data.repository.HiddenSequelsPreferences
+import com.anisequel.data.repository.HiddenSequelsPreferences
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -63,7 +63,7 @@ class DashboardViewModel(
     private val isDemo: Boolean = false,
     private val getViewerProfileUseCase: GetViewerProfileUseCase = GetViewerProfileUseCase(aniListRepository),
     private val saveToPlanningUseCase: SaveToPlanningUseCase = SaveToPlanningUseCase(aniListRepository),
-    private val saveToWatchingUseCase: com.example.domain.usecase.SaveToWatchingUseCase = com.example.domain.usecase.SaveToWatchingUseCase(aniListRepository),
+    private val saveToWatchingUseCase: com.anisequel.domain.usecase.SaveToWatchingUseCase = com.anisequel.domain.usecase.SaveToWatchingUseCase(aniListRepository),
     private val findMissedSequelsUseCase: FindMissedSequelsUseCase = FindMissedSequelsUseCase(),
     private val findArrivingEntriesUseCase: FindArrivingEntriesUseCase = FindArrivingEntriesUseCase(),
     /**

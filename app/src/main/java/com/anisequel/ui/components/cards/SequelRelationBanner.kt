@@ -1,4 +1,4 @@
-package com.example.ui.components.cards
+package com.anisequel.ui.components.cards
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Row
@@ -19,8 +19,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.example.data.model.MissedSequel
-import com.example.ui.components.AppVectorIcons
+import com.anisequel.data.model.MissedSequel
+import com.anisequel.ui.components.AppVectorIcons
 
 @Composable
 fun SequelRelationBanner(

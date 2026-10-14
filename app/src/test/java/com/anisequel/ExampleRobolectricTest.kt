@@ -1,4 +1,4 @@
-package com.example
+package com.anisequel
 
 import android.content.Context
 import androidx.test.core.app.ApplicationProvider

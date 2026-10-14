@@ -1,4 +1,4 @@
-package com.example.ui.components
+package com.anisequel.ui.components
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.Spring
@@ -39,10 +39,10 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.example.data.model.ViewerProfile
-import com.example.ui.components.expressive.bouncyPress
-import com.example.ui.components.expressive.ExpressiveLoadingIndicator
-import com.example.ui.components.expressive.expressiveHoldGesture
+import com.anisequel.data.model.ViewerProfile
+import com.anisequel.ui.components.expressive.bouncyPress
+import com.anisequel.ui.components.expressive.ExpressiveLoadingIndicator
+import com.anisequel.ui.components.expressive.expressiveHoldGesture
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

@@ -1,4 +1,4 @@
-package com.example.ui.components.cards
+package com.anisequel.ui.components.cards
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -32,11 +32,11 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.example.data.model.MissedSequel
-import com.example.ui.components.AppVectorIcons
-import com.example.ui.components.detail.FullScreenCoverViewer
-import com.example.ui.components.expressive.expressiveHoldGesture
-import com.example.ui.theme.AniSequelTheme
+import com.anisequel.data.model.MissedSequel
+import com.anisequel.ui.components.AppVectorIcons
+import com.anisequel.ui.components.detail.FullScreenCoverViewer
+import com.anisequel.ui.components.expressive.expressiveHoldGesture
+import com.anisequel.ui.theme.AniSequelTheme
 
 /**
  * Modern poster component with dynamic background hue, format badge, and score indicator.
@@ -180,7 +180,7 @@ fun SequelPoster(
  * Parses an AniList `#RRGGBB` cover colour, or null if it is missing or junk.
  *
  * `internal` rather than `private` so the parent-cover thumbnails in
- * [com.example.ui.components.cards.SequelCard] and the detail sheet can tint
+ * [com.anisequel.ui.components.cards.SequelCard] and the detail sheet can tint
  * their placeholders the same way instead of each re-implementing the parse.
  */
 internal fun String?.toCoverColorOrNull(): Color? {

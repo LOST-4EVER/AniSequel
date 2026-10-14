@@ -1,4 +1,4 @@
-package com.example.ui.components.detail
+package com.anisequel.ui.components.detail
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -21,12 +21,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.example.data.model.MediaNode
-import com.example.data.model.MediaRanking
-import com.example.data.model.rankingList
-import com.example.data.model.topRankingLabel
-import com.example.ui.components.AppVectorIcons
-import com.example.ui.components.expressive.ExpressiveShapes
+import com.anisequel.data.model.MediaNode
+import com.anisequel.data.model.MediaRanking
+import com.anisequel.data.model.rankingList
+import com.anisequel.data.model.topRankingLabel
+import com.anisequel.ui.components.AppVectorIcons
+import com.anisequel.ui.components.expressive.ExpressiveShapes
 
 /**
  * Community & all-time AniList rankings section.

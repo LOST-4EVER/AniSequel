@@ -1,4 +1,4 @@
-package com.example.data.model
+package com.anisequel.data.model
 
 /**
  * The relationship AniList reports between two entries that the user is being
@@ -108,7 +108,7 @@ data class MissedSequel(
     }
 
     /**
-     * [cachedSearchableText], for [com.example.domain.usecase.FindMissedSequelsUseCase.applyFilters].
+     * [cachedSearchableText], for [com.anisequel.domain.usecase.FindMissedSequelsUseCase.applyFilters].
      */
     val searchableText: String
         get() = cachedSearchableText

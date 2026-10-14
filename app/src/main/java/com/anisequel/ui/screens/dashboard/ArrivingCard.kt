@@ -1,4 +1,4 @@
-package com.example.ui.screens.dashboard
+package com.anisequel.ui.screens.dashboard
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -29,11 +29,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.example.data.model.ArrivingEntry
-import com.example.ui.components.AppVectorIcons
-import com.example.ui.components.cards.SequelStatusChip
-import com.example.ui.components.cards.toCoverColorOrNull
-import com.example.ui.components.expressive.bouncyPress
+import com.anisequel.data.model.ArrivingEntry
+import com.anisequel.ui.components.AppVectorIcons
+import com.anisequel.ui.components.cards.SequelStatusChip
+import com.anisequel.ui.components.cards.toCoverColorOrNull
+import com.anisequel.ui.components.expressive.bouncyPress
 
 /**
  * Standard card for an airing or announced anime in "Currently arriving".

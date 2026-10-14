@@ -1,6 +1,6 @@
-package com.example.ui.components.markdown
+package com.anisequel.ui.components.markdown
 
-import com.example.data.model.MediaCoverKey
+import com.anisequel.data.model.MediaCoverKey
 import java.util.Locale
 
 /**

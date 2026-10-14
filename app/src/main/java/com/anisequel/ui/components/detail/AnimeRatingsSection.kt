@@ -1,4 +1,4 @@
-package com.example.ui.components.detail
+package com.anisequel.ui.components.detail
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -25,9 +25,9 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.example.data.model.MediaNode
-import com.example.ui.components.AppVectorIcons
-import com.example.ui.theme.AniSequelTheme
+import com.anisequel.data.model.MediaNode
+import com.anisequel.ui.components.AppVectorIcons
+import com.anisequel.ui.theme.AniSequelTheme
 
 /**
  * Community scores, average reception gauge, and popularity rating.

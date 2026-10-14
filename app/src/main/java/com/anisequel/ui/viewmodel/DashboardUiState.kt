@@ -1,8 +1,8 @@
-package com.example.ui.viewmodel
+package com.anisequel.ui.viewmodel
 
-import com.example.data.model.ArrivingEntry
-import com.example.data.model.MissedSequel
-import com.example.data.model.ViewerProfile
+import com.anisequel.data.model.ArrivingEntry
+import com.anisequel.data.model.MissedSequel
+import com.anisequel.data.model.ViewerProfile
 
 /**
  * The dashboard's public state contract.

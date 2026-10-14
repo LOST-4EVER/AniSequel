@@ -1,4 +1,4 @@
-package com.example.ui.screens.tier
+package com.anisequel.ui.screens.tier
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -48,14 +48,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.example.domain.tier.TIER_LIST_NAME_MAX_LENGTH
-import com.example.domain.tier.TierListDocument
-import com.example.ui.components.AppVectorIcons
-import com.example.ui.components.expressive.ExpressiveEmptyOrb
-import com.example.ui.components.expressive.ExpressivePrimaryButton
-import com.example.ui.components.expressive.ExpressiveShapes
-import com.example.ui.components.expressive.bouncyPress
-import com.example.ui.theme.AniSequelTheme
+import com.anisequel.domain.tier.TIER_LIST_NAME_MAX_LENGTH
+import com.anisequel.domain.tier.TierListDocument
+import com.anisequel.ui.components.AppVectorIcons
+import com.anisequel.ui.components.expressive.ExpressiveEmptyOrb
+import com.anisequel.ui.components.expressive.ExpressivePrimaryButton
+import com.anisequel.ui.components.expressive.ExpressiveShapes
+import com.anisequel.ui.components.expressive.bouncyPress
+import com.anisequel.ui.theme.AniSequelTheme
 import kotlin.math.max
 
 /**

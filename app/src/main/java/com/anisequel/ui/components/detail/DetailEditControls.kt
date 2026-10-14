@@ -1,4 +1,4 @@
-package com.example.ui.components.detail
+package com.anisequel.ui.components.detail
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -23,9 +23,9 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.example.data.model.FuzzyDate
-import com.example.data.model.SimpleMediaListEntry
-import com.example.ui.components.AppVectorIcons
+import com.anisequel.data.model.FuzzyDate
+import com.anisequel.data.model.SimpleMediaListEntry
+import com.anisequel.ui.components.AppVectorIcons
 import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneOffset

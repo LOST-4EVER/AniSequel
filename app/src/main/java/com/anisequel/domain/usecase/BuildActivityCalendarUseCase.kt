@@ -1,6 +1,6 @@
-package com.example.domain.usecase
+package com.anisequel.domain.usecase
 
-import com.example.data.model.ActivityHistoryDay
+import com.anisequel.data.model.ActivityHistoryDay
 import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneOffset

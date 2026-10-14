@@ -1,4 +1,4 @@
-package com.example.ui.screens.profile
+package com.anisequel.ui.screens.profile
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -32,14 +32,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.example.data.model.MediaNode
-import com.example.domain.usecase.ActivityCalendar
-import com.example.ui.components.AppVectorIcons
-import com.example.ui.components.expressive.ExpressiveEmptyOrb
-import com.example.ui.components.expressive.ExpressiveLoadingIndicator
-import com.example.ui.components.expressive.bouncyPress
-import com.example.ui.theme.AniSequelTheme
-import com.example.ui.viewmodel.UserActivityViewModel
+import com.anisequel.data.model.MediaNode
+import com.anisequel.domain.usecase.ActivityCalendar
+import com.anisequel.ui.components.AppVectorIcons
+import com.anisequel.ui.components.expressive.ExpressiveEmptyOrb
+import com.anisequel.ui.components.expressive.ExpressiveLoadingIndicator
+import com.anisequel.ui.components.expressive.bouncyPress
+import com.anisequel.ui.theme.AniSequelTheme
+import com.anisequel.ui.viewmodel.UserActivityViewModel
 
 /**
  * The Activity tab: the person's activity heatmap and list history, newest first.

@@ -1,7 +1,7 @@
-package com.example
+package com.anisequel
 
-import com.example.data.model.MediaNode
-import com.example.data.model.statusLabel
+import com.anisequel.data.model.MediaNode
+import com.anisequel.data.model.statusLabel
 import org.junit.Assert.assertEquals
 import org.junit.Test
 

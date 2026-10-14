@@ -1,7 +1,7 @@
-package com.example.domain.usecase
+package com.anisequel.domain.usecase
 
-import com.example.data.model.ViewerProfile
-import com.example.data.repository.AniListRepository
+import com.anisequel.data.model.ViewerProfile
+import com.anisequel.data.repository.AniListRepository
 
 class GetViewerProfileUseCase(
     private val aniListRepository: AniListRepository

@@ -1,19 +1,19 @@
-package com.example.data.repository
+package com.anisequel.data.repository
 
-import com.example.data.model.FuzzyDate
-import com.example.data.model.MediaCoverImage
-import com.example.data.model.MediaListCollection
-import com.example.data.model.MediaListEntryItem
-import com.example.data.model.MediaListGroup
-import com.example.data.model.MediaNode
-import com.example.data.model.MediaRelationEdge
-import com.example.data.model.MediaRelations
-import com.example.data.model.MediaTitle
-import com.example.data.model.NextAiringEpisode
-import com.example.data.model.StudioConnection
-import com.example.data.model.StudioNode
-import com.example.data.model.UserAvatar
-import com.example.data.model.ViewerProfile
+import com.anisequel.data.model.FuzzyDate
+import com.anisequel.data.model.MediaCoverImage
+import com.anisequel.data.model.MediaListCollection
+import com.anisequel.data.model.MediaListEntryItem
+import com.anisequel.data.model.MediaListGroup
+import com.anisequel.data.model.MediaNode
+import com.anisequel.data.model.MediaRelationEdge
+import com.anisequel.data.model.MediaRelations
+import com.anisequel.data.model.MediaTitle
+import com.anisequel.data.model.NextAiringEpisode
+import com.anisequel.data.model.StudioConnection
+import com.anisequel.data.model.StudioNode
+import com.anisequel.data.model.UserAvatar
+import com.anisequel.data.model.ViewerProfile
 
 object DemoDataProvider {
 
@@ -53,15 +53,15 @@ object DemoDataProvider {
             coverImage = MediaCoverImage(large = "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx142329-3L1p5rR0kZ0H.jpg"),
             startDate = FuzzyDate(2021, 12, 5),
             studios = ufotable,
-            trailer = com.example.data.model.MediaTrailer(id = "VQGCKyvzIM4", site = "youtube"),
+            trailer = com.anisequel.data.model.MediaTrailer(id = "VQGCKyvzIM4", site = "youtube"),
             rankings = listOf(
-                com.example.data.model.MediaRanking(rank = 15, context = "Highest Rated All Time", allTime = true)
+                com.anisequel.data.model.MediaRanking(rank = 15, context = "Highest Rated All Time", allTime = true)
             ),
             tags = listOf(
-                com.example.data.model.MediaTag(name = "Demons", rank = 96),
-                com.example.data.model.MediaTag(name = "Historical", rank = 92),
-                com.example.data.model.MediaTag(name = "Swordplay", rank = 90),
-                com.example.data.model.MediaTag(name = "Shounen", rank = 88)
+                com.anisequel.data.model.MediaTag(name = "Demons", rank = 96),
+                com.anisequel.data.model.MediaTag(name = "Historical", rank = 92),
+                com.anisequel.data.model.MediaTag(name = "Swordplay", rank = 90),
+                com.anisequel.data.model.MediaTag(name = "Shounen", rank = 88)
             )
         )
 
@@ -95,15 +95,15 @@ object DemoDataProvider {
             coverImage = MediaCoverImage(large = "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx145064-7O1F9aQhFz4C.jpg"),
             startDate = FuzzyDate(2023, 7, 6),
             studios = mappa,
-            trailer = com.example.data.model.MediaTrailer(id = "O6qVieflwqs", site = "youtube"),
+            trailer = com.anisequel.data.model.MediaTrailer(id = "O6qVieflwqs", site = "youtube"),
             rankings = listOf(
-                com.example.data.model.MediaRanking(rank = 8, context = "Most Popular 2023", year = 2023)
+                com.anisequel.data.model.MediaRanking(rank = 8, context = "Most Popular 2023", year = 2023)
             ),
             tags = listOf(
-                com.example.data.model.MediaTag(name = "Urban Fantasy", rank = 95),
-                com.example.data.model.MediaTag(name = "Curse", rank = 90),
-                com.example.data.model.MediaTag(name = "Martial Arts", rank = 86),
-                com.example.data.model.MediaTag(name = "Shounen", rank = 85)
+                com.anisequel.data.model.MediaTag(name = "Urban Fantasy", rank = 95),
+                com.anisequel.data.model.MediaTag(name = "Curse", rank = 90),
+                com.anisequel.data.model.MediaTag(name = "Martial Arts", rank = 86),
+                com.anisequel.data.model.MediaTag(name = "Shounen", rank = 85)
             )
         )
 

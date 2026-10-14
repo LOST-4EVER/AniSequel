@@ -1,4 +1,4 @@
-package com.example.data.changelog
+package com.anisequel.data.changelog
 
 import android.content.Context
 import com.squareup.moshi.Json
@@ -15,7 +15,7 @@ data class ChangelogItem(
 /**
  * One released version and the notes a user would want before updating.
  *
- * Every field nullable for the same reason as [com.example.data.update.UpdateManifest]:
+ * Every field nullable for the same reason as [com.anisequel.data.update.UpdateManifest]:
  * this is a file that is edited by hand, shipped inside the APK, and read by code
  * that must not throw because somebody left a comma out. A malformed entry
  * degrades to a version with no notes, which is boring and survivable.

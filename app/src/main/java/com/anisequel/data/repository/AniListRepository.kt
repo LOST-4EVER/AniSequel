@@ -1,17 +1,17 @@
-package com.example.data.repository
+package com.anisequel.data.repository
 
-import com.example.data.model.ActivityLikeState
-import com.example.data.model.ActivityReply
-import com.example.data.model.FollowUser
-import com.example.data.model.ListActivity
-import com.example.data.model.MediaCover
-import com.example.data.model.MediaCoverKey
-import com.example.data.model.MediaEntryEdit
-import com.example.data.model.MediaListCollection
-import com.example.data.model.MediaNode
-import com.example.data.model.SimpleMediaListEntry
-import com.example.data.model.UserOverview
-import com.example.data.model.ViewerProfile
+import com.anisequel.data.model.ActivityLikeState
+import com.anisequel.data.model.ActivityReply
+import com.anisequel.data.model.FollowUser
+import com.anisequel.data.model.ListActivity
+import com.anisequel.data.model.MediaCover
+import com.anisequel.data.model.MediaCoverKey
+import com.anisequel.data.model.MediaEntryEdit
+import com.anisequel.data.model.MediaListCollection
+import com.anisequel.data.model.MediaNode
+import com.anisequel.data.model.SimpleMediaListEntry
+import com.anisequel.data.model.UserOverview
+import com.anisequel.data.model.ViewerProfile
 
 interface AniListRepository {
     suspend fun getViewer(): Result<ViewerProfile>
@@ -170,7 +170,7 @@ interface AniListRepository {
      * return value - not the request - is what the UI trusts.
      *
      * Requires a session. Called with none (the demo feed) it fails with
-     * [com.example.data.network.AniListErrorKind.INVALID_SESSION], and the UI
+     * [com.anisequel.data.network.AniListErrorKind.INVALID_SESSION], and the UI
      * hides the control rather than offering an action that cannot work.
      */
     suspend fun toggleActivityLike(activityId: Int): Result<ActivityLikeState> =

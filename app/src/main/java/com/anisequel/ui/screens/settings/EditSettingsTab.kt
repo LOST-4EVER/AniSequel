@@ -1,4 +1,4 @@
-package com.example.ui.screens.settings
+package com.anisequel.ui.screens.settings
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -35,16 +35,16 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.selected
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.example.data.repository.AuthRepositoryImpl
-import com.example.data.repository.ArrivingPreferences
-import com.example.data.repository.RefreshInterval
-import com.example.data.repository.RefreshIntervalPreferences
-import com.example.ui.components.AppVectorIcons
-import com.example.ui.components.RedirectUrlHint
-import com.example.ui.components.expressive.ExpressiveShapes
-import com.example.ui.components.expressive.bouncyPress
-import com.example.ui.viewmodel.AuthUiState
-import com.example.ui.viewmodel.AuthViewModel
+import com.anisequel.data.repository.AuthRepositoryImpl
+import com.anisequel.data.repository.ArrivingPreferences
+import com.anisequel.data.repository.RefreshInterval
+import com.anisequel.data.repository.RefreshIntervalPreferences
+import com.anisequel.ui.components.AppVectorIcons
+import com.anisequel.ui.components.RedirectUrlHint
+import com.anisequel.ui.components.expressive.ExpressiveShapes
+import com.anisequel.ui.components.expressive.bouncyPress
+import com.anisequel.ui.viewmodel.AuthUiState
+import com.anisequel.ui.viewmodel.AuthViewModel
 import kotlinx.coroutines.launch
 
 @Composable
@@ -52,7 +52,7 @@ fun EditSettingsTab(
     authViewModel: AuthViewModel,
     refreshIntervalPreferences: RefreshIntervalPreferences,
     arrivingPreferences: ArrivingPreferences,
-    quickAddPreferences: com.example.data.repository.QuickAddPreferences,
+    quickAddPreferences: com.anisequel.data.repository.QuickAddPreferences,
     onNavigateToLogin: () -> Unit,
     modifier: Modifier = Modifier
 ) {

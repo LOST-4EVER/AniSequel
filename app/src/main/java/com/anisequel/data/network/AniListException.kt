@@ -1,7 +1,7 @@
-package com.example.data.network
+package com.anisequel.data.network
 
-import com.example.data.model.AniListErrorEnvelope
-import com.example.data.model.GraphQLError
+import com.anisequel.data.model.AniListErrorEnvelope
+import com.anisequel.data.model.GraphQLError
 import com.squareup.moshi.Moshi
 
 /**

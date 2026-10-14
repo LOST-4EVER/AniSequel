@@ -1,4 +1,4 @@
-package com.example.ui.screens.tier
+package com.anisequel.ui.screens.tier
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.runtime.Composable
@@ -6,7 +6,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.example.ui.viewmodel.TierListViewModel
+import com.anisequel.ui.viewmodel.TierListViewModel
 
 /**
  * The tier list destination: the lists, and whichever one is open.

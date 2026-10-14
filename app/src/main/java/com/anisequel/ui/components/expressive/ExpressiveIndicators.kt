@@ -1,4 +1,4 @@
-package com.example.ui.components.expressive
+package com.anisequel.ui.components.expressive
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

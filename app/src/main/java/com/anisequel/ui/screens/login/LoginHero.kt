@@ -1,4 +1,4 @@
-package com.example.ui.screens.login
+package com.anisequel.ui.screens.login
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -17,7 +17,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.example.ui.components.AppVectorIcons
+import com.anisequel.ui.components.AppVectorIcons
 
 /**
  * Expressive hero header for AniSequel onboarding and login.

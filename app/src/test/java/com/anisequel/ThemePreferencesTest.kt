@@ -1,9 +1,9 @@
-package com.example
+package com.anisequel
 
 import android.content.Context
 import androidx.test.core.app.ApplicationProvider
-import com.example.data.repository.ThemeMode
-import com.example.data.repository.ThemePreferences
+import com.anisequel.data.repository.ThemeMode
+import com.anisequel.data.repository.ThemePreferences
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals

@@ -1,4 +1,4 @@
-package com.example.ui.components.detail
+package com.anisequel.ui.components.detail
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -20,11 +20,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.example.data.model.MediaNode
-import com.example.data.model.rankedTags
-import com.example.data.model.synonymList
-import com.example.ui.components.AppVectorIcons
-import com.example.ui.components.expressive.ExpressiveShapes
+import com.anisequel.data.model.MediaNode
+import com.anisequel.data.model.rankedTags
+import com.anisequel.data.model.synonymList
+import com.anisequel.ui.components.AppVectorIcons
+import com.anisequel.ui.components.expressive.ExpressiveShapes
 
 /**
  * Thematic tags with percentage weights and alternative franchise titles.

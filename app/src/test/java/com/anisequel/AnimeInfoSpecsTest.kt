@@ -1,12 +1,12 @@
-package com.example
+package com.anisequel
 
-import com.example.data.model.MediaNode
-import com.example.data.model.MediaRanking
-import com.example.data.model.MediaTag
-import com.example.data.model.MediaTitle
-import com.example.data.model.MediaTrailer
-import com.example.data.model.MissedSequel
-import com.example.data.model.RelationKind
+import com.anisequel.data.model.MediaNode
+import com.anisequel.data.model.MediaRanking
+import com.anisequel.data.model.MediaTag
+import com.anisequel.data.model.MediaTitle
+import com.anisequel.data.model.MediaTrailer
+import com.anisequel.data.model.MissedSequel
+import com.anisequel.data.model.RelationKind
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull

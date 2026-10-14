@@ -1,4 +1,4 @@
-package com.example.ui.navigation
+package com.anisequel.ui.navigation
 
 import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.fadeIn
@@ -28,24 +28,24 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.example.data.changelog.ChangelogRepository
-import com.example.data.network.NetworkClient
-import com.example.data.repository.AniListRepositoryImpl
-import com.example.data.repository.ArrivingPreferences
-import com.example.data.repository.AuthRepository
-import com.example.data.repository.HiddenSequelsPreferences
-import com.example.data.repository.RefreshIntervalPreferences
-import com.example.data.repository.ThemePreferences
-import com.example.data.repository.TierListPreferences
-import com.example.ui.screens.DashboardScreen
-import com.example.ui.screens.LoginScreen
-import com.example.ui.screens.SettingsScreen
-import com.example.ui.screens.tier.TierListScreen
-import com.example.ui.viewmodel.AuthUiState
-import com.example.ui.viewmodel.AuthViewModel
-import com.example.ui.viewmodel.DashboardUiState
-import com.example.ui.viewmodel.DashboardViewModel
-import com.example.ui.viewmodel.TierListViewModel
+import com.anisequel.data.changelog.ChangelogRepository
+import com.anisequel.data.network.NetworkClient
+import com.anisequel.data.repository.AniListRepositoryImpl
+import com.anisequel.data.repository.ArrivingPreferences
+import com.anisequel.data.repository.AuthRepository
+import com.anisequel.data.repository.HiddenSequelsPreferences
+import com.anisequel.data.repository.RefreshIntervalPreferences
+import com.anisequel.data.repository.ThemePreferences
+import com.anisequel.data.repository.TierListPreferences
+import com.anisequel.ui.screens.DashboardScreen
+import com.anisequel.ui.screens.LoginScreen
+import com.anisequel.ui.screens.SettingsScreen
+import com.anisequel.ui.screens.tier.TierListScreen
+import com.anisequel.ui.viewmodel.AuthUiState
+import com.anisequel.ui.viewmodel.AuthViewModel
+import com.anisequel.ui.viewmodel.DashboardUiState
+import com.anisequel.ui.viewmodel.DashboardViewModel
+import com.anisequel.ui.viewmodel.TierListViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 
 object AppRoutes {
@@ -70,13 +70,13 @@ private val EmptyDashboardState = MutableStateFlow<DashboardUiState?>(null)
  * motion routes should use too.
  */
 private val RouteSlideSpring: FiniteAnimationSpec<IntOffset> get() =
-    when (com.example.ui.components.expressive.ExpressiveMotion.speed) {
-        com.example.data.repository.MotionStyle.INSTANT -> snap()
-        com.example.data.repository.MotionStyle.SMOOTH -> spring(
+    when (com.anisequel.ui.components.expressive.ExpressiveMotion.speed) {
+        com.anisequel.data.repository.MotionStyle.INSTANT -> snap()
+        com.anisequel.data.repository.MotionStyle.SMOOTH -> spring(
             dampingRatio = Spring.DampingRatioNoBouncy,
             stiffness = Spring.StiffnessMediumLow
         )
-        com.example.data.repository.MotionStyle.CHILL -> spring(
+        com.anisequel.data.repository.MotionStyle.CHILL -> spring(
             dampingRatio = Spring.DampingRatioMediumBouncy,
             stiffness = Spring.StiffnessMediumLow
         )
@@ -90,13 +90,13 @@ private val RouteSlideSpring: FiniteAnimationSpec<IntOffset> get() =
  * while the slide is moving.
  */
 private val RouteFadeEffect: FiniteAnimationSpec<Float> get() =
-    when (com.example.ui.components.expressive.ExpressiveMotion.speed) {
-        com.example.data.repository.MotionStyle.INSTANT -> snap()
-        com.example.data.repository.MotionStyle.SMOOTH -> spring(
+    when (com.anisequel.ui.components.expressive.ExpressiveMotion.speed) {
+        com.anisequel.data.repository.MotionStyle.INSTANT -> snap()
+        com.anisequel.data.repository.MotionStyle.SMOOTH -> spring(
             dampingRatio = Spring.DampingRatioNoBouncy,
             stiffness = Spring.StiffnessMediumLow
         )
-        com.example.data.repository.MotionStyle.CHILL -> spring(
+        com.anisequel.data.repository.MotionStyle.CHILL -> spring(
             dampingRatio = Spring.DampingRatioNoBouncy,
             stiffness = Spring.StiffnessMediumLow
         )
@@ -148,14 +148,14 @@ fun AppNavigation(
     }
 
     val quickAddPreferences = remember(context) {
-        com.example.data.repository.QuickAddPreferences(context.applicationContext)
+        com.anisequel.data.repository.QuickAddPreferences(context.applicationContext)
     }
 
     // The Library tab's remembered media type. Application-scoped and built here
     // for the same reason as the rest: one DataStore reader per process, so the
     // tab cannot disagree with itself about what was last chosen.
     val libraryPreferences = remember(context) {
-        com.example.data.repository.LibraryPreferences(context.applicationContext)
+        com.anisequel.data.repository.LibraryPreferences(context.applicationContext)
     }
 
     // Application-scoped for the same reason as the rest: the tier list is the
@@ -342,7 +342,7 @@ fun AppNavigation(
         val success = widgetSuccess ?: return@LaunchedEffect
         val top = success.missedSequels.firstOrNull()
         val arriving = success.arriving.firstOrNull()
-        com.example.ui.widget.AniSequelWidgetData.updateData(
+        com.anisequel.ui.widget.AniSequelWidgetData.updateData(
             context = context,
             missedCount = success.totalMissedCount,
             arrivingCount = success.arriving.size,
@@ -356,10 +356,10 @@ fun AppNavigation(
             arrivingColor = arriving?.coverColor,
             activityArt = widgetAvatarUrl
         )
-        com.example.ui.widget.AniSequelWidgetProvider.updateAll(context)
-        com.example.ui.widget.MissedSequelsWidgetProvider.updateAll(context)
-        com.example.ui.widget.ArrivingSequelsWidgetProvider.updateAll(context)
-        com.example.ui.widget.FeaturedSequelWidgetProvider.updateAll(context)
+        com.anisequel.ui.widget.AniSequelWidgetProvider.updateAll(context)
+        com.anisequel.ui.widget.MissedSequelsWidgetProvider.updateAll(context)
+        com.anisequel.ui.widget.ArrivingSequelsWidgetProvider.updateAll(context)
+        com.anisequel.ui.widget.FeaturedSequelWidgetProvider.updateAll(context)
     }
 
     NavHost(
@@ -637,7 +637,7 @@ fun AppNavigation(
 /**
  * The demo profile's name.
  *
- * Deliberately the same name as [com.example.data.repository.DemoDataProvider]
+ * Deliberately the same name as [com.anisequel.data.repository.DemoDataProvider]
  * uses for its viewer, so the profile screen's own route and its fixture agree
  * about who "this" is.
  */

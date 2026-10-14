@@ -1,7 +1,7 @@
-package com.example.ui.components.detail
+package com.anisequel.ui.components.detail
 
-import com.example.data.model.MediaEntryEdit
-import com.example.data.model.SimpleMediaListEntry
+import com.anisequel.data.model.MediaEntryEdit
+import com.anisequel.data.model.SimpleMediaListEntry
 
 /**
  * Reads and writes the signed-in viewer's own list entry for one media.

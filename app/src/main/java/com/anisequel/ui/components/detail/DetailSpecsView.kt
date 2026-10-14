@@ -1,4 +1,4 @@
-package com.example.ui.components.detail
+package com.anisequel.ui.components.detail
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -7,8 +7,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
-import com.example.data.model.MediaNode
-import com.example.data.model.trailerYoutubeUrl
+import com.anisequel.data.model.MediaNode
+import com.anisequel.data.model.trailerYoutubeUrl
 
 /**
  * Material 3 Expressive Anime Info & Specs tab.

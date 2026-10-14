@@ -1,4 +1,4 @@
-package com.example.data.repository
+package com.anisequel.data.repository
 
 import android.content.Context
 import androidx.datastore.core.DataStore

@@ -1,4 +1,4 @@
-package com.example.data.model
+package com.anisequel.data.model
 
 enum class SequelSortOption(val displayName: String) {
     RELEASE_DATE_DESC("Newest First"),

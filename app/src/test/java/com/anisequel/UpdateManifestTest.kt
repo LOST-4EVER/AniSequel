@@ -1,8 +1,8 @@
-package com.example
+package com.anisequel
 
-import com.example.data.update.UPDATE_MANIFEST_URL
-import com.example.data.update.UpdateManifest
-import com.example.data.update.formatBytes
+import com.anisequel.data.update.UPDATE_MANIFEST_URL
+import com.anisequel.data.update.UpdateManifest
+import com.anisequel.data.update.formatBytes
 import com.squareup.moshi.Moshi
 import java.io.File
 import org.junit.Assert.assertEquals

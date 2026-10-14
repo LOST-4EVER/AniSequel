@@ -1,4 +1,4 @@
-package com.example.ui.screens.profile
+package com.anisequel.ui.screens.profile
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -50,17 +50,17 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.example.data.model.MediaListEntryItem
-import com.example.data.model.MediaNode
-import com.example.data.repository.LibraryPreferences
-import com.example.data.model.isManga
-import com.example.ui.components.AppVectorIcons
-import com.example.ui.components.expressive.ExpressiveEmptyOrb
-import com.example.ui.components.expressive.ExpressiveLoadingIndicator
-import com.example.ui.components.expressive.ExpressiveShapes
-import com.example.ui.components.expressive.ExpressiveStateChip
-import com.example.ui.components.expressive.bouncyPress
-import com.example.ui.theme.AniSequelTheme
+import com.anisequel.data.model.MediaListEntryItem
+import com.anisequel.data.model.MediaNode
+import com.anisequel.data.repository.LibraryPreferences
+import com.anisequel.data.model.isManga
+import com.anisequel.ui.components.AppVectorIcons
+import com.anisequel.ui.components.expressive.ExpressiveEmptyOrb
+import com.anisequel.ui.components.expressive.ExpressiveLoadingIndicator
+import com.anisequel.ui.components.expressive.ExpressiveShapes
+import com.anisequel.ui.components.expressive.ExpressiveStateChip
+import com.anisequel.ui.components.expressive.bouncyPress
+import com.anisequel.ui.theme.AniSequelTheme
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.coroutines.launch
 import java.util.Locale

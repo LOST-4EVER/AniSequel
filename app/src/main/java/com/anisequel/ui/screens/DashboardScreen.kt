@@ -1,4 +1,4 @@
-package com.example.ui.screens
+package com.anisequel.ui.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -31,28 +31,28 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.LifecycleResumeEffect
-import com.example.data.model.MissedSequel
-import com.example.data.model.ViewerProfile
-import com.example.data.model.withSummaryProgress
-import com.example.ui.components.AniTopAppBar
-import com.example.ui.components.EmptyStateView
-import com.example.ui.components.FilterSortSheet
-import com.example.ui.components.QuickFilterBar
-import com.example.ui.components.cards.SequelCard
-import com.example.ui.components.detail.SequelDetailSheet
-import com.example.ui.components.StatsBanner
-import com.example.ui.components.detail.AnimeDetailSubject
-import com.example.ui.components.detail.toDetailMedia
-import com.example.ui.components.expressive.ExpressiveMotion
-import com.example.ui.screens.dashboard.ArrivingSection
-import com.example.ui.screens.dashboard.DashboardDemoBanner
-import com.example.ui.screens.dashboard.DashboardErrorView
-import com.example.ui.screens.dashboard.DashboardLoadingView
-import com.example.ui.screens.dashboard.DashboardSearchBar
-import com.example.ui.screens.dashboard.DashboardSectionHeader
-import com.example.ui.viewmodel.DashboardEvent
-import com.example.ui.viewmodel.DashboardUiState
-import com.example.ui.viewmodel.DashboardViewModel
+import com.anisequel.data.model.MissedSequel
+import com.anisequel.data.model.ViewerProfile
+import com.anisequel.data.model.withSummaryProgress
+import com.anisequel.ui.components.AniTopAppBar
+import com.anisequel.ui.components.EmptyStateView
+import com.anisequel.ui.components.FilterSortSheet
+import com.anisequel.ui.components.QuickFilterBar
+import com.anisequel.ui.components.cards.SequelCard
+import com.anisequel.ui.components.detail.SequelDetailSheet
+import com.anisequel.ui.components.StatsBanner
+import com.anisequel.ui.components.detail.AnimeDetailSubject
+import com.anisequel.ui.components.detail.toDetailMedia
+import com.anisequel.ui.components.expressive.ExpressiveMotion
+import com.anisequel.ui.screens.dashboard.ArrivingSection
+import com.anisequel.ui.screens.dashboard.DashboardDemoBanner
+import com.anisequel.ui.screens.dashboard.DashboardErrorView
+import com.anisequel.ui.screens.dashboard.DashboardLoadingView
+import com.anisequel.ui.screens.dashboard.DashboardSearchBar
+import com.anisequel.ui.screens.dashboard.DashboardSectionHeader
+import com.anisequel.ui.viewmodel.DashboardEvent
+import com.anisequel.ui.viewmodel.DashboardUiState
+import com.anisequel.ui.viewmodel.DashboardViewModel
 import kotlinx.coroutines.flow.collectLatest
 
 private val MaxContentWidth = 640.dp
@@ -64,7 +64,7 @@ fun DashboardScreen(
     onOpenSettings: (ViewerProfile?) -> Unit,
     onSignInAgain: () -> Unit = {},
     onOpenProfile: (ViewerProfile?) -> Unit = {},
-    quickAddPreferences: com.example.data.repository.QuickAddPreferences,
+    quickAddPreferences: com.anisequel.data.repository.QuickAddPreferences,
     modifier: Modifier = Modifier
 ) {
     val uiState by dashboardViewModel.uiState.collectAsState()
@@ -79,7 +79,7 @@ fun DashboardScreen(
     // Compose violation, not just a wasted allocation, that would drop or
     // scramble state the moment the parameter flipped.
     val quickAddSettings by quickAddPreferences.settings.collectAsState(
-        initial = com.example.data.repository.QuickAddPreferences.QuickAddSettings()
+        initial = com.anisequel.data.repository.QuickAddPreferences.QuickAddSettings()
     )
 
     var showFilterSheet by remember { mutableStateOf(false) }

@@ -1,4 +1,4 @@
-package com.example.ui.screens.profile
+package com.anisequel.ui.screens.profile
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
@@ -13,12 +13,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
-import com.example.ui.components.AppVectorIcons
-import com.example.ui.components.openExternalUrl
-import com.example.data.model.MediaCover
-import com.example.data.model.MediaCoverKey
-import com.example.data.model.MediaNode
-import com.example.ui.viewmodel.UserOverviewUiState
+import com.anisequel.ui.components.AppVectorIcons
+import com.anisequel.ui.components.openExternalUrl
+import com.anisequel.data.model.MediaCover
+import com.anisequel.data.model.MediaCoverKey
+import com.anisequel.data.model.MediaNode
+import com.anisequel.ui.viewmodel.UserOverviewUiState
 
 /**
  * The Home tab: who this is, what they wrote in their bio, and what they have pinned.

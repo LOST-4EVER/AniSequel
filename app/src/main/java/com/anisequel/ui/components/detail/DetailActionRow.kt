@@ -1,4 +1,4 @@
-package com.example.ui.components.detail
+package com.anisequel.ui.components.detail
 
 import android.content.Context
 import android.content.Intent
@@ -18,11 +18,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
-import com.example.data.model.MissedSequel
-import com.example.data.model.pageUrl
-import com.example.ui.components.AppVectorIcons
-import com.example.ui.components.cards.HoldAndSwipePlanningButton
-import com.example.ui.components.expressive.bouncyPress
+import com.anisequel.data.model.MissedSequel
+import com.anisequel.data.model.pageUrl
+import com.anisequel.ui.components.AppVectorIcons
+import com.anisequel.ui.components.cards.HoldAndSwipePlanningButton
+import com.anisequel.ui.components.expressive.bouncyPress
 
 /**
  * Action bar at the bottom of the anime detail sheet.

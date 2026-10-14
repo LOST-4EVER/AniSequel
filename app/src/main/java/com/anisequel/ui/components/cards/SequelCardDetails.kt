@@ -1,4 +1,4 @@
-package com.example.ui.components.cards
+package com.anisequel.ui.components.cards
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -21,10 +21,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.example.data.model.MissedSequel
-import com.example.ui.components.AppVectorIcons
-import com.example.ui.components.expressive.WavyProgressBar
-import com.example.ui.theme.AniSequelTheme
+import com.anisequel.data.model.MissedSequel
+import com.anisequel.ui.components.AppVectorIcons
+import com.anisequel.ui.components.expressive.WavyProgressBar
+import com.anisequel.ui.theme.AniSequelTheme
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable

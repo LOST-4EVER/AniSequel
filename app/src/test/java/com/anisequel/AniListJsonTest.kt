@@ -1,11 +1,11 @@
-package com.example
+package com.anisequel
 
-import com.example.data.model.GraphQLResponse
-import com.example.data.model.MediaCoverPage
-import com.example.data.model.MediaListCollectionData
-import com.example.data.model.MediaNode
-import com.example.data.model.UserByNameData
-import com.example.data.model.ViewerData
+import com.anisequel.data.model.GraphQLResponse
+import com.anisequel.data.model.MediaCoverPage
+import com.anisequel.data.model.MediaListCollectionData
+import com.anisequel.data.model.MediaNode
+import com.anisequel.data.model.UserByNameData
+import com.anisequel.data.model.ViewerData
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
 import org.junit.Assert.assertEquals
