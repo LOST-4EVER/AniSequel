@@ -237,21 +237,23 @@ class UpdateDownloadStateTest {
             controller.install()
 
             val state = controller.state
+            val ready = state as? UpdateUiState.ReadyToInstall
+
             assertTrue(
                 "the apk is downloaded and still on disk, so the state must stay " +
                     "ReadyToInstall rather than becoming Failed. Was $state",
-                state is UpdateUiState.ReadyToInstall
+                ready != null
             )
             assertEquals(
                 "the file must still be in the state, or the UI has nothing to " +
                     "retry with",
                 alreadyThere,
-                (state as UpdateUiState.ReadyToInstall).file
+                ready?.file
             )
             assertTrue(
                 "a launch that did not open has to say so. Expected a notice, " +
-                    "got ${(state as UpdateUiState.ReadyToInstall).notice}",
-                state.notice != null
+                    "got ${ready?.notice}",
+                ready?.notice != null
             )
         }
     }
@@ -261,18 +263,25 @@ class UpdateDownloadStateTest {
         val alreadyThere = File("anisequel-9999.apk")
 
         runTest(dispatcher) {
-            val controller = UpdateController(managerReporting(alreadyThere), grantingInstallation())
+            val controller = UpdateController(
+                managerReporting(alreadyThere),
+                grantingInstallation()
+            )
 
             controller.check()
             advanceUntilIdle()
             controller.install()
 
-            val state = controller.state
-            assertTrue("expected ReadyToInstall but was $state", state is UpdateUiState.ReadyToInstall)
+            val ready = controller.state as? UpdateUiState.ReadyToInstall
+
+            assertTrue(
+                "expected ReadyToInstall but was ${controller.state}",
+                ready != null
+            )
             assertEquals(
                 "a launcher that opened has nothing to apologise for",
                 null,
-                (state as UpdateUiState.ReadyToInstall).notice
+                ready?.notice
             )
         }
     }
