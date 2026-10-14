@@ -65,8 +65,20 @@ class UpdateController(
                 is UpdateCheckResult.UpToDate ->
                     UpdateUiState.UpToDate(result.installedVersion)
 
+                // Rehydrate before offering the download. This process may have
+                // no memory of a download this device already made - the app was
+                // killed, or the user force-stopped it, or the APK was fetched
+                // on a previous launch that never got as far as installing. The
+                // file is still on disk and still valid, so showing
+                // "Download & install" would be a lie: the user presses it, and
+                // the button quietly returns without transferring anything,
+                // which reads as the app having downloaded the file all over
+                // again. Asking `downloadedApkFor` here is what makes the app
+                // remember where it saved it.
                 is UpdateCheckResult.Available ->
-                    UpdateUiState.Available(result.manifest)
+                    updateManager.downloadedApkFor(result.manifest)
+                        ?.let { settleDownloaded(it, result.manifest, sentToSettings = false) }
+                        ?: UpdateUiState.Available(result.manifest)
 
                 is UpdateCheckResult.Failed ->
                     UpdateUiState.Failed(result.reason)
@@ -103,17 +115,18 @@ class UpdateController(
         )
 
         scope.launch {
-            // Any APK from an earlier attempt goes first. Two copies of the
-            // same APK in the cache directory is not harmful, but it is wasted
-            // storage on a phone that may not have much, and the old one is
-            // never valid again once the user has tapped update.
-            updateManager.clearDownloadedApk()
-
             when (val result = updateManager.download(manifest) { read, total ->
                 state = UpdateUiState.Downloading(manifest, read, total)
             }) {
-                is UpdateDownloadResult.Success ->
+                is UpdateDownloadResult.Success -> {
+                    // Only now, with the new APK safely renamed into place, are
+                    // the stale ones removed. This used to run *before* the
+                    // download started, which meant a failed retry left the user
+                    // with nothing at all - having thrown away a previous
+                    // release's APK that was perfectly installable.
+                    updateManager.clearDownloadedApk(keep = result.file)
                     settleDownloaded(result.file, result.manifest, sentToSettings = false)
+                }
 
                 is UpdateDownloadResult.Failed ->
                     state = UpdateUiState.Failed(result.reason)
