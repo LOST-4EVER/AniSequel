@@ -5,7 +5,7 @@ import com.example.data.model.GraphQLError
 import com.example.data.model.GraphQLRequest
 import com.example.data.model.GraphQLResponse
 import com.example.data.model.MediaDetailData
-import com.example.data.model.MediaNode
+import com.example.data.model.MediaCoverPage
 import com.example.data.model.MediaListCollectionData
 import com.example.data.model.SaveMediaListEntryData
 import com.example.data.model.SimpleMediaListEntry
@@ -72,7 +72,7 @@ class AniListErrorMappingTest {
         // answers with no data rather than growing a fake that can drift.
         override suspend fun getMediaCovers(
             request: GraphQLRequest
-        ): GraphQLResponse<Map<String, MediaNode>> = GraphQLResponse(emptyMap())
+        ): GraphQLResponse<Map<String, MediaCoverPage>> = GraphQLResponse(emptyMap())
 
         // The profile screen's four endpoints. Thrown rather than returned as an
         // empty response on purpose: if a test ever starts calling one, that is a
@@ -266,7 +266,7 @@ class RequestCoalescingPolicyTest {
         // answers with no data rather than growing a fake that can drift.
         override suspend fun getMediaCovers(
             request: GraphQLRequest
-        ): GraphQLResponse<Map<String, MediaNode>> = GraphQLResponse(emptyMap())
+        ): GraphQLResponse<Map<String, MediaCoverPage>> = GraphQLResponse(emptyMap())
 
         // The profile screen's four endpoints. Thrown rather than returned as an
         // empty response on purpose: if a test ever starts calling one, that is a
