@@ -1,12 +1,14 @@
 package com.example
 
 import com.example.data.model.AniListErrorEnvelope
+import com.example.data.model.DeleteMediaListEntryData
 import com.example.data.model.GraphQLError
 import com.example.data.model.GraphQLRequest
 import com.example.data.model.GraphQLResponse
 import com.example.data.model.MediaDetailData
 import com.example.data.model.MediaCoverPage
 import com.example.data.model.MediaListCollectionData
+import com.example.data.model.MediaListEntryData
 import com.example.data.model.SaveMediaListEntryData
 import com.example.data.model.SimpleMediaListEntry
 import com.example.data.model.UserByNameData
@@ -64,6 +66,18 @@ class AniListErrorMappingTest {
         override suspend fun saveMediaListEntry(
             request: GraphQLRequest
         ): GraphQLResponse<SaveMediaListEntryData> = GraphQLResponse(null)
+
+        // The My Entry editor's endpoints. Added to AniListApiService for the
+        // editor tab, which has its own coverage in MediaEntryEditorTest. Failure
+        // classification is not what these tests are about, so they answer with no
+        // data rather than growing a fake that can drift.
+        override suspend fun getMediaListEntry(
+            request: GraphQLRequest
+        ): GraphQLResponse<MediaListEntryData> = GraphQLResponse(null)
+
+        override suspend fun deleteMediaListEntry(
+            request: GraphQLRequest
+        ): GraphQLResponse<DeleteMediaListEntryData> = GraphQLResponse(null)
 
         override suspend fun getMediaDetail(request: GraphQLRequest): GraphQLResponse<MediaDetailData> =
             GraphQLResponse(null)
@@ -250,6 +264,18 @@ class RequestCoalescingPolicyTest {
             release.await()
             return GraphQLResponse(SaveMediaListEntryData(SimpleMediaListEntry(id = 1)))
         }
+
+        // The My Entry editor's endpoints. Coalescing is asserted against
+        // getViewer and saveMediaListEntry only, and the editor has its own
+        // coverage in MediaEntryEditorTest, so these answer with no data rather
+        // than growing a fake that can drift.
+        override suspend fun getMediaListEntry(
+            request: GraphQLRequest
+        ): GraphQLResponse<MediaListEntryData> = GraphQLResponse(null)
+
+        override suspend fun deleteMediaListEntry(
+            request: GraphQLRequest
+        ): GraphQLResponse<DeleteMediaListEntryData> = GraphQLResponse(null)
 
         override suspend fun getUserByName(request: GraphQLRequest): GraphQLResponse<UserByNameData> =
             GraphQLResponse(null)
