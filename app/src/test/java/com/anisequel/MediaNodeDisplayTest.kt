@@ -4,6 +4,10 @@ import com.anisequel.data.model.MediaNode
 import com.anisequel.data.model.MediaRanking
 import com.anisequel.data.model.MediaTitle
 import com.anisequel.data.model.SimpleMediaListEntry
+import com.anisequel.data.model.alternativeTitleRows
+import com.anisequel.data.model.displayName
+import com.anisequel.data.model.hasProgressCard
+import com.anisequel.data.model.hasRankings
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue

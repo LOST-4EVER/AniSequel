@@ -1,8 +1,11 @@
 package com.anisequel
 
 import com.anisequel.data.model.MediaCoverKey
+import com.anisequel.data.model.MediaListCollection
 import com.anisequel.data.model.MediaNode
 import com.anisequel.data.model.MediaTitle
+import com.anisequel.data.model.SimpleMediaListEntry
+import com.anisequel.data.model.ViewerProfile
 import com.anisequel.data.repository.AniListRepository
 import com.anisequel.ui.viewmodel.MediaDetailStore
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -202,6 +205,15 @@ class MediaDetailNamespacingTest {
     /**
      * Answers each request with a node named for the namespace it was asked for, so
      * a cross-namespace hit is visible in the returned data rather than inferred.
+     *
+     * [AniListRepository] has a handful of members with no default - `getViewer`,
+     * `getUserByName`, `getUserAnimeList`, `getUserAnimeListByUsername`,
+     * `getUserMangaList`, `addToPlanning`, `getDemoProfile`, `getDemoAnimeList` - and
+     * they are listed here even though this test never calls them, because an
+     * interface with a default for everything except those eight means a fake that
+     * omits one does not compile. They all fail, rather than returning something, so
+     * a test that *did* reach one by accident would fail loudly instead of quietly
+     * answering.
      */
     private class RecordingRepository : AniListRepository {
         val requests = mutableListOf<Pair<String?, Int>>()
@@ -217,5 +229,31 @@ class MediaDetailNamespacingTest {
                 )
             )
         }
+
+        override suspend fun getViewer(): Result<ViewerProfile> = unsupported()
+        override suspend fun getUserByName(userName: String): Result<ViewerProfile> = unsupported()
+        override suspend fun getUserAnimeList(
+            userId: Int,
+            forceRefresh: Boolean
+        ): Result<MediaListCollection> = unsupported()
+
+        override suspend fun getUserAnimeListByUsername(
+            userName: String,
+            forceRefresh: Boolean
+        ): Result<MediaListCollection> = unsupported()
+
+        override suspend fun getUserMangaList(
+            userId: Int,
+            forceRefresh: Boolean
+        ): Result<MediaListCollection> = unsupported()
+
+        override suspend fun addToPlanning(mediaId: Int): Result<SimpleMediaListEntry> =
+            unsupported()
+
+        override fun getDemoProfile(): ViewerProfile = unsupported()
+        override fun getDemoAnimeList(): MediaListCollection = unsupported()
+
+        private fun <T> unsupported(): Result<T> =
+            Result.failure(UnsupportedOperationException("not used by this test"))
     }
 }
