@@ -22,6 +22,26 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.onSizeChanged
 import coil.compose.AsyncImage
 import kotlin.math.max
+import kotlin.math.min
+
+/**
+ * How the picture is fitted into its box before any pinch is applied.
+ *
+ * [COVER] scales by the *larger* axis ratio: the box is filled edge to edge and
+ * whichever axis has slack is cropped off. [FIT] scales by the *smaller* ratio:
+ * the whole picture is inside the box, and the axis with slack letterboxes
+ * against the caller's background.
+ *
+ * The detail sheet's hero used to be COVER unconditionally, which reads as
+ * "zoomed in" on a wide AniList banner: the left and right thirds of the artwork
+ * are cropped by definition, and the reader had to pinch out to see the banner
+ * whole. FIT is what "show the full image" means, and COVER stays the default
+ * because a profile banner letterboxed against the surface would look unfinished.
+ */
+internal enum class BackdropFit {
+    COVER,
+    FIT
+}
 
 /**
  * A hero image that covers its box, can be pinched, and can be dragged once there
@@ -56,6 +76,7 @@ fun PannableBackdrop(
     contentDescription: String?,
     modifier: Modifier = Modifier,
     colorFilter: ColorFilter? = null,
+    fit: BackdropFit = BackdropFit.COVER,
     overlay: @Composable BoxScope.() -> Unit = {}
 ) {
     var containerWidth by remember { mutableFloatStateOf(0f) }
@@ -80,7 +101,8 @@ fun PannableBackdrop(
         imageHeight = imageSize.height,
         zoom = zoom,
         offsetX = offsetX,
-        offsetY = offsetY
+        offsetY = offsetY,
+        fit = fit
     )
 
     // `transformable` rather than a `pointerInput` with
@@ -111,7 +133,8 @@ fun PannableBackdrop(
             imageHeight = imageSize.height,
             zoom = nextZoom,
             offsetX = offsetX + panChange.x,
-            offsetY = offsetY + panChange.y
+            offsetY = offsetY + panChange.y,
+            fit = fit
         )
         offsetX = next.offsetX
         offsetY = next.offsetY
@@ -164,7 +187,7 @@ fun PannableBackdrop(
                         // that asked "is there slack?" was always open, and an
                         // open gate eats the sheet's own vertical scroll while
                         // the transform clamps the pan back to zero.
-                        canPan = { hasOverflow(containerWidth, containerHeight, imageSize, zoom) },
+                        canPan = { hasOverflow(containerWidth, containerHeight, imageSize, zoom, fit) },
                         lockRotationOnZoomPan = true
                     ),
                 // `FitBounds` because the transform above owns the fit. Crop here
@@ -233,7 +256,8 @@ internal fun hasOverflow(
     containerWidth: Float,
     containerHeight: Float,
     imageSize: Size,
-    zoom: Float
+    zoom: Float,
+    fit: BackdropFit = BackdropFit.COVER
 ): Boolean {
     if (containerWidth <= 0f || containerHeight <= 0f) return false
     if (imageSize.width <= 0f || imageSize.height <= 0f) return false
@@ -242,10 +266,22 @@ internal fun hasOverflow(
     // per-axis question below cannot be expressed through `canPan`, and asking it
     // anyway is what consumed the sheet's own scroll.
     if (clampedZoom <= BACKDROP_MIN_ZOOM) return false
-    val scale = backdropCoverScale(containerWidth, containerHeight, imageSize.width, imageSize.height) *
+    val scale = backdropBaseScale(fit, containerWidth, containerHeight, imageSize.width, imageSize.height) *
         clampedZoom
     return imageSize.width * scale > containerWidth + 0.5f ||
         imageSize.height * scale > containerHeight + 0.5f
+}
+
+/** Which axis decides the base scale: the larger ratio [COVER], the smaller [FIT]. */
+private fun backdropBaseScale(
+    fit: BackdropFit,
+    containerWidth: Float,
+    containerHeight: Float,
+    imageWidth: Float,
+    imageHeight: Float
+): Float = when (fit) {
+    BackdropFit.COVER -> backdropCoverScale(containerWidth, containerHeight, imageWidth, imageHeight)
+    BackdropFit.FIT -> backdropFitScale(containerWidth, containerHeight, imageWidth, imageHeight)
 }
 
 /**
@@ -264,6 +300,25 @@ internal fun backdropCoverScale(
     if (containerWidth <= 0f || containerHeight <= 0f) return 1f
     if (imageWidth <= 0f || imageHeight <= 0f) return 1f
     return max(containerWidth / imageWidth, containerHeight / imageHeight)
+}
+
+/**
+ * The scale that makes the picture *fit inside* its box: the whole image, with
+ * the slack on the longer axis left as letterbox.
+ *
+ * The smaller of the two ratios - [backdropCoverScale]'s twin, and the reason the
+ * two live side by side: a wide banner at the cover fit is zoomed by definition,
+ * because covering a 280dp-tall box with a 16:9 image means cropping its sides.
+ */
+internal fun backdropFitScale(
+    containerWidth: Float,
+    containerHeight: Float,
+    imageWidth: Float,
+    imageHeight: Float
+): Float {
+    if (containerWidth <= 0f || containerHeight <= 0f) return 1f
+    if (imageWidth <= 0f || imageHeight <= 0f) return 1f
+    return min(containerWidth / imageWidth, containerHeight / imageHeight)
 }
 
 /**
@@ -295,7 +350,8 @@ internal fun backdropTransform(
     imageHeight: Float,
     zoom: Float,
     offsetX: Float,
-    offsetY: Float
+    offsetY: Float,
+    fit: BackdropFit = BackdropFit.COVER
 ): BackdropTransform {
     // Nothing measured, nothing to place. Without this the cover scale reads 1 and
     // the *zoom* is still applied on top, so a caller asking about an unmeasured
@@ -305,8 +361,8 @@ internal fun backdropTransform(
     if (containerWidth <= 0f || containerHeight <= 0f) return BackdropTransform(1f, 0f, 0f)
     if (imageWidth <= 0f || imageHeight <= 0f) return BackdropTransform(1f, 0f, 0f)
 
-    val cover = backdropCoverScale(containerWidth, containerHeight, imageWidth, imageHeight)
-    val scale = cover * zoom.coerceIn(BACKDROP_MIN_ZOOM, BACKDROP_MAX_ZOOM)
+    val base = backdropBaseScale(fit, containerWidth, containerHeight, imageWidth, imageHeight)
+    val scale = base * zoom.coerceIn(BACKDROP_MIN_ZOOM, BACKDROP_MAX_ZOOM)
 
     val overflowX = imageWidth * scale - containerWidth
     val overflowY = imageHeight * scale - containerHeight
