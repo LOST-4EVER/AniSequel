@@ -37,6 +37,7 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -262,6 +263,11 @@ fun InfoHero(
                     contentScale = ContentScale.Crop,
                     modifier = Modifier.matchParentSize()
                 )
+                // Decorative. The poster itself is the clickable thing and carries
+                // the title as its `contentDescription`, so this badge was a second
+                // element for a reader using a screen reader to reach - announcing
+                // "Hold to expand" for a control whose actual action is a tap, over
+                // a poster that already said what it was.
                 Surface(
                     shape = CircleShape,
                     color = Color.Black.copy(alpha = 0.62f),
@@ -271,7 +277,7 @@ fun InfoHero(
                 ) {
                     Icon(
                         imageVector = AppVectorIcons.FullscreenExpand,
-                        contentDescription = "Hold to expand",
+                        contentDescription = null,
                         tint = Color.White,
                         modifier = Modifier
                             .padding(4.dp)
@@ -286,10 +292,22 @@ fun InfoHero(
                 Text(
                     text = media.displayName,
                     style = MaterialTheme.typography.headlineSmall,
+                    // The artwork behind is sharp now, so the title carries its own
+                    // shadow rather than relying on the gradient alone. One shadow on
+                    // one short block of text: it is what keeps a white
+                    // `headlineSmall` legible over a pale poster *without*
+                    // darkening the whole hero, which is what pushing the gradient
+                    // harder would have done.
                     color = Color.White,
                     fontWeight = FontWeight.ExtraBold,
                     maxLines = 3,
-                    overflow = TextOverflow.Ellipsis
+                    overflow = TextOverflow.Ellipsis,
+                    modifier = Modifier.shadow(
+                        elevation = 6.dp,
+                        shape = RectangleShape,
+                        ambientColor = Color.Black,
+                        spotColor = Color.Black
+                    )
                 )
 
                 Spacer(modifier = Modifier.height(10.dp))
@@ -315,9 +333,16 @@ fun InfoHero(
                     HeroChip(
                         icon = when {
                             media.isManga -> AppVectorIcons.SourceBook
-                            media.formatLabel == "MOVIE" -> AppVectorIcons.Movie
+                            // Read off the raw field, not `formatLabel`: that is
+                            // now spelled for a reader ("TV Short"), so comparing
+                            // it to `"MOVIE"` would silently never match and every
+                            // movie would draw the TV icon.
+                            media.format.equals("MOVIE", ignoreCase = true) -> AppVectorIcons.Movie
                             else -> AppVectorIcons.Tv
                         },
+                        // Small caps, the way the other hero chips are set. This
+                        // used to be `.uppercase()` on a raw enum, which printed
+                        // `TV_SHORT` on screen; `formatLabel` now spells it.
                         label = media.formatLabel.uppercase()
                     )
                 }

@@ -226,15 +226,29 @@ fun InfoSynopsisCard(
                     (plain?.length ?: 0) > SYNOPSIS_EXPAND_THRESHOLD
 
                 if (isClamped) {
-                    TextButton(onClick = { isExpanded = !isExpanded }) {
-                        Text(if (isExpanded) "Show less" else "Read more")
+                    TextButton(
+                        onClick = { isExpanded = !isExpanded },
+                        modifier = Modifier.testTag("info_synopsis_toggle")
+                    ) {
+                        Text(
+                            text = if (isExpanded) "Show less" else "Read more",
+                            // Drawn in the accent, and at the same weight as the
+                            // card's own title rather than as a button label. This
+                            // is the one control on the card, so it reads as chrome
+                            // at rest: a full `TextButton` slot of tonal padding in
+                            // the middle of a paragraph looked like a button the
+                            // synopsis needed.
+                            color = MaterialTheme.colorScheme.primary,
+                            fontWeight = FontWeight.SemiBold
+                        )
                     }
                 }
 
                 Text(
                     text = "Source: AniList",
                     style = MaterialTheme.typography.labelSmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.75f)
+                    color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f),
+                    modifier = Modifier.testTag("info_synopsis_source")
                 )
             }
         }

@@ -54,7 +54,40 @@ val MediaNode.hasNotAired: Boolean
     get() = status.equals("NOT_YET_RELEASED", ignoreCase = true) ||
         status.equals("CANCELLED", ignoreCase = true)
 
-val MediaNode.formatLabel: String get() = format ?: if (isManga) "MANGA" else "ANIME"
+/**
+ * The format, in the words a person uses for it.
+ *
+ * Was the raw enum with an underscore in it - `TV_SHORT`, `ONE_SHOT` - uppercased
+ * at the call site into `TV_SHORT`, printed in a hero chip and in the Details grid
+ * beside "Episodes" and "Season". That is the raw GraphQL vocabulary of the API
+ * appearing in the same typeface as the show's name, and it is exactly what the
+ * KDoc on [statusLabel] says was fixed for status and left broken for format.
+ *
+ * `MANGA` and `NOVEL` are kept as the words rather than lowercased, because that is
+ * how they are written on a shelf; `TV` and `OVA`/`ONA` are acronyms and stay
+ * upper. An unrecognised value is passed through untouched rather than replaced,
+ * for the same reason [statusLabel] does it: an unfamiliar word honestly signals
+ * that it is unfamiliar, where a confident wrong label does not.
+ */
+val MediaNode.formatLabel: String
+    get() {
+        val raw = format?.trim()?.takeIf { it.isNotBlank() } ?: return if (isManga) "Manga" else "TV"
+        return when (raw.uppercase(Locale.ROOT)) {
+            "TV" -> "TV"
+            "TV_SHORT" -> "TV Short"
+            "MOVIE" -> "Movie"
+            "SPECIAL" -> "Special"
+            "OVA" -> "OVA"
+            "ONA" -> "ONA"
+            "MANGA" -> "Manga"
+            "NOVEL" -> "Novel"
+            "ONE_SHOT" -> "One Shot"
+            "MUSIC_VIDEO" -> "Music Video"
+            else -> raw.lowercase(Locale.ROOT)
+                .replace('_', ' ')
+                .replaceFirstChar { it.uppercase(Locale.ROOT) }
+        }
+    }
 
 /**
  * Airing status, worded the way a person writes it.

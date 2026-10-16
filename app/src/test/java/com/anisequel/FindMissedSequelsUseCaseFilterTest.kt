@@ -155,6 +155,63 @@ class FindMissedSequelsUseCaseFilterTest {
         )
     }
 
+    /**
+     * The format filter compares against AniList's own enum key.
+     *
+     * It used to compare against `MissedSequel.format`, which is
+     * `MediaNode.formatLabel` - a value spelled for a *reader*. Once `formatLabel`
+     * stopped returning the raw enum, "Movie" no longer equalled `MOVIE` and every
+     * format chip narrowed the list to nothing: a filter that silently returns an
+     * empty list, with no error and an empty state the reader cannot tell from
+     * "you have no sequels". All the fixtures here are `TV`, which is why no
+     * existing test caught it - `TV` happens to be its own readable label.
+     */
+    @Test
+    fun `the format filter matches AniList's enum key, not the readable label`() {
+        val movie = MediaNode(
+            id = 203,
+            title = MediaTitle(english = "A Movie"),
+            format = "MOVIE",
+            status = "FINISHED",
+            episodes = 100
+        )
+        val special = MediaNode(
+            id = 204,
+            title = MediaTitle(english = "A Special"),
+            format = "TV_SHORT",
+            status = "FINISHED",
+            episodes = 1
+        )
+        val list = collection(
+            MediaListEntryItem(
+                status = "COMPLETED",
+                media = parent(300, airedSequel, movie, special)
+            )
+        )
+
+        assertEquals(
+            "choosing Movies must keep the movie and drop the TV entries",
+            listOf(203),
+            useCase.execute(list, FilterCriteria(selectedFormat = "MOVIE"))
+                .map { it.sequelId }
+        )
+
+        assertEquals(
+            "choosing TV series must keep the TV entry, and must not accidentally " +
+                "keep TV_SHORT now that the two have different readable labels",
+            listOf(201),
+            useCase.execute(list, FilterCriteria(selectedFormat = "TV"))
+                .map { it.sequelId }
+        )
+
+        assertEquals(
+            "Special is its own chip and its own key",
+            listOf(204),
+            useCase.execute(list, FilterCriteria(selectedFormat = "SPECIAL"))
+                .map { it.sequelId }
+        )
+    }
+
     @Test
     fun `search matches both the sequel title and the parent it came from`() {
         val list = collection(

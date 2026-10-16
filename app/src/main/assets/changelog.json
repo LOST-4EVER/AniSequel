@@ -82,6 +82,14 @@
         {
           "title": "Library posters say a little more",
           "detail": "A poster told you its title and its progress and nothing else, so a grid of thirty was a wall of art you had to read one caption at a time. Each poster now carries its score or format on a quieter line underneath, and a title that already contains that text does not repeat it. Titles are capped to one line so the new line has room, and the poster image no longer announces the title that is printed directly below it."
+        },
+        {
+          "title": "The title page stopped printing API names",
+          "detail": "A TV special read TV_SHORT and a one-shot manga read ONE_SHOT - AniList internal names with underscores, shown in the chip under the title and in the details grid beside Episodes and Season. Status had already been cleaned up years ago and format never was, so the two disagreed in the same card. Both now read as words, and the format filter still matches what you pick."
+        },
+        {
+          "title": "The title stays readable over its own artwork",
+          "detail": "With the artwork no longer blurred, the title over it could fade into a pale poster. The title now carries its own shadow rather than the whole hero being darkened, so the words stay legible and the artwork stays as bright as it is drawn."
         }
       ]
     },
