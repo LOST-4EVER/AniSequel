@@ -38,10 +38,6 @@
         {
           "title": "The Library tab remembers your filter and your sort",
           "detail": "Switching to Activity and coming back reset the Library grid to 'All' in list order every single time, because the choice lived inside the tab and the tab is thrown away on every switch. The media type was already remembered; the status filter, the sort and the direction you sorted it in now are too, and all of them come back together so the grid never paints a half-restored selection."
-        },
-        {
-          "title": "A title's banner opens whole instead of cropped",
-          "detail": "The artwork at the top of a title's details was cropped to fill its box, which on a wide AniList banner means the left and right thirds are gone by definition - pinching out was the only way to see the picture. It now opens fitted and centred, with the slack matted against the show's own colour, and pinch-to-zoom and dragging still work once you want a closer look."
         }
       ]
     },

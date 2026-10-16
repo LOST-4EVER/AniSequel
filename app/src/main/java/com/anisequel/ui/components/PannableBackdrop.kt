@@ -37,8 +37,24 @@ import kotlin.math.min
  * are cropped by definition, and the reader had to pinch out to see the banner
  * whole. FIT is what "show the full image" means, and COVER stays the default
  * because a profile banner letterboxed against the surface would look unfinished.
+ *
+ * ## Nothing passes FIT yet, and that is deliberate - say so before you hunt
+ *
+ * The hero this was written for stopped using [PannableBackdrop] in the same
+ * release: the title page redraws its own backdrop so the parallax can be driven
+ * by the page's scroll in the draw phase, and that drawing has to keep covering
+ * its box as it moves - a fitted hero would expose its letterbox the moment the
+ * page scrolls. The whole picture is still one tap away in the full-screen cover
+ * viewer. So FIT is reachable only through its parameters and its tests today;
+ * it is not dead weight to delete, it is the half of this component a caller who
+ * *does* want "show the whole image" (rather than fill the box) reaches for, and
+ * [BackdropTransformTest] is what currently holds the arithmetic honest.
+ *
+ * Public because [PannableBackdrop] is: a public function's parameter type cannot
+ * be `internal` (`'public' function exposes its 'internal' parameter type`), and
+ * widening the parameter's caller set is what this component is for.
  */
-internal enum class BackdropFit {
+enum class BackdropFit {
     COVER,
     FIT
 }

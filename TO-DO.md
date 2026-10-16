@@ -578,6 +578,22 @@ zoomed. `BackdropTransformTest` pins all three states, including that the
 geometry really does overflow horizontally — otherwise the test would just be
 asserting the new answer.
 
+### The backdrop's fit mode has no caller, and that is deliberate
+
+`BackdropFit.FIT` was written for the title page's hero, so a wide AniList banner
+would open whole instead of cropped to its middle third. The hero then stopped
+using `PannableBackdrop` in the same release: the title page redraws its own
+backdrop so the parallax can be driven by the page's scroll in the draw phase,
+and that drawing has to keep covering its box as it moves - a fitted hero would
+show its letterbox the moment the page scrolled.
+
+So nothing passes `fit = BackdropFit.FIT` today. It stays because it is the half
+of the component a caller who wants "show the whole image" rather than "fill the
+box" reaches for, and `BackdropTransformTest` holds the arithmetic until then.
+Removing the changelog entry that promised the behaviour was the other half of
+the same honesty: the app crops the way it always did, so the release cannot
+claim it stopped.
+
 ### The edit tab refetched the entry on every tab switch
 
 The draft was `remember`ed *inside* `DetailEditTab`, and the tabs live in an
