@@ -230,30 +230,31 @@ class MediaDetailNamespacingTest {
             )
         }
 
-        override suspend fun getViewer(): Result<ViewerProfile> = unsupported()
-        override suspend fun getUserByName(userName: String): Result<ViewerProfile> = unsupported()
+        override suspend fun getViewer(): Result<ViewerProfile> = failure()
+        override suspend fun getUserByName(userName: String): Result<ViewerProfile> = failure()
+
         override suspend fun getUserAnimeList(
             userId: Int,
             forceRefresh: Boolean
-        ): Result<MediaListCollection> = unsupported()
+        ): Result<MediaListCollection> = failure()
 
         override suspend fun getUserAnimeListByUsername(
             userName: String,
             forceRefresh: Boolean
-        ): Result<MediaListCollection> = unsupported()
+        ): Result<MediaListCollection> = failure()
 
         override suspend fun getUserMangaList(
             userId: Int,
             forceRefresh: Boolean
-        ): Result<MediaListCollection> = unsupported()
+        ): Result<MediaListCollection> = failure()
 
         override suspend fun addToPlanning(mediaId: Int): Result<SimpleMediaListEntry> =
-            unsupported()
+            failure()
 
-        override fun getDemoProfile(): ViewerProfile = unsupported()
-        override fun getDemoAnimeList(): MediaListCollection = unsupported()
+        override fun getDemoProfile(): ViewerProfile = ViewerProfile(1, "Demo", null, null)
+        override fun getDemoAnimeList(): MediaListCollection = MediaListCollection(emptyList())
 
-        private fun <T> unsupported(): Result<T> =
+        private fun <T> failure(): Result<T> =
             Result.failure(UnsupportedOperationException("not used by this test"))
     }
 }
