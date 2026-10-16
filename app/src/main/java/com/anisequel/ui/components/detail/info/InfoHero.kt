@@ -395,9 +395,13 @@ fun InfoFloatingBar(
  * One icon in a hero pill.
  *
  * Deliberately not an `IconButton`: the pill draws the surface, the divider and the
- * ripple clipping as one control, and Material's own button brings a 48dp touch
- * target with its own container and padding that would leave the divider floating
- * inside a gap.
+ * ripple clipping as one control, and Material's own button brings its own container
+ * and padding that would leave the divider floating inside a gap.
+ *
+ * 48dp is the platform minimum touch target and this used to be 46dp, which put
+ * both the hero's own controls and the docked bar's below it. The two that matter
+ * most are the ones a reader reaches for one-handed at the bottom of the screen, so
+ * the shortfall was felt rather than merely linted.
  */
 @Composable
 private fun HeroIconButton(
@@ -408,7 +412,7 @@ private fun HeroIconButton(
 ) {
     Box(
         modifier = Modifier
-            .size(46.dp)
+            .size(48.dp)
             .clip(CircleShape)
             .clickable(onClick = onClick),
         contentAlignment = Alignment.Center

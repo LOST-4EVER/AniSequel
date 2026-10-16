@@ -383,9 +383,13 @@ fun UserProfileScreen(
             subject = subject,
             sheetState = detailSheetState,
             onDismiss = { selectedMedia = null },
+            // A relation replaces the subject rather than stacking a sheet: see
+            // `InfoRelationsSection`. The summary is kept alongside the fetched
+            // detail so the viewer's own progress survives the hop.
+            onOpenMedia = { media -> selectedMedia = media },
             onAddToPlanning = {},
             onAddToWatching = {},
-            onLoadDetail = { activityViewModel.loadDetail(it) },
+            onLoadDetail = { id, type -> activityViewModel.loadDetail(id, type) },
             isDetailLoading = detailLoading,
             canWriteToAniList = false
         )

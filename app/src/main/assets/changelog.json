@@ -38,6 +38,22 @@
         {
           "title": "The Library tab remembers your filter and your sort",
           "detail": "Switching to Activity and coming back reset the Library grid to 'All' in list order every single time, because the choice lived inside the tab and the tab is thrown away on every switch. The media type was already remembered; the status filter, the sort and the direction you sorted it in now are too, and all of them come back together so the grid never paints a half-restored selection."
+        },
+        {
+          "title": "Opening a manga now loads that manga",
+          "detail": "The title page fetched its details by number alone, and AniList's numbers are unique per category rather than across all of them - anime/1 and manga/1 are two different titles. So opening a manga could answer with the anime sharing that number, showing its story, cast and relations; where no anime had that number, the request failed and the page quietly kept the thin summary from the list, with no cast, no crew and no relations at all. Manga now load properly wherever you open them from, and the cache keeps the two apart so one cannot be served in place of the other."
+        },
+        {
+          "title": "You can walk a franchise from the title page",
+          "detail": "The row of related titles was decorative - the artwork could not be tapped, because a sheet opened from inside a sheet leaves you with no way back that you can see. Tapping a related title now replaces the page in place, so a prequel, a sequel or the rest of a series is one tap away, from any screen in the app, and the same page renders it in full. The page also starts at the top of the new title rather than inheriting where you were scrolled to on the last one."
+        },
+        {
+          "title": "Fixed gaps and repeated text on the title page",
+          "detail": "Sections with nothing to show - no progress on a title you have not started, no crew, no relations, no alternative titles - left an empty 14dp hole in the page, because a list gives every section the same space whether or not it drew anything. They no longer take up room at all. Alternative Titles repeated the title the page already shows in full, which for most titles meant the same name printed twice; it now lists only the names the page is not already showing, and a title with just the one name no longer draws an empty card. 'Read more' on the story now appears whenever the story is actually cut off, not only when it is long enough by character count to be worth guessing at."
+        },
+        {
+          "title": "Crew portraits stop pretending to be buttons",
+          "detail": "The crew portraits squashed when you touched them and then did nothing, which reads as a broken control rather than a decoration. They are still a row of artwork - the positions each person held are printed under them - but they no longer invite a tap that goes nowhere."
         }
       ]
     },
