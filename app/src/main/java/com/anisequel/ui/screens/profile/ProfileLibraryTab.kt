@@ -979,7 +979,11 @@ private fun LibraryPoster(
         // The context line is only drawn when it says something the title does not.
         // A second title-shaped string under a poster in a grid is the poster
         // repeated, not information.
-        val title = media.title?.displayName.orEmpty()
+        // `media.displayName`, not `media.title?.displayName`. The extension is on
+        // [MediaNode] and falls back to "Unknown Title"; there is no `displayName`
+        // on `MediaTitle`, so the safe-call version was a receiver mismatch - a
+        // compile error, which is why this line has never run.
+        val title = media.displayName
         val score = media.averageScore?.takeIf { it > 0 }?.let { "$it%" }
         val context = score ?: media.formatLabel.takeIf { it.isNotBlank() }
         val contextIsDistinct = !context.isNullOrBlank() && !title.contains(context, ignoreCase = true)
