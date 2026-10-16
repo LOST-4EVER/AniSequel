@@ -31,9 +31,10 @@ import kotlinx.coroutines.delay
  *   the animation is running while the sheet is still settling.
  *
  * The spring is `DefaultSpatial`, so the motion style the user picked in Settings
- * governs it: `INSTANT` returns no modifier at all (an entrance delay *is* motion,
- * so skipping the spring but keeping the wait would be the one style whose name is
- * a lie), `SMOOTH` drops the overshoot, and `CHILL` keeps it.
+ * governs it: `INSTANT` returns the receiver unchanged, adding nothing at all (an
+ * entrance delay *is* motion, so skipping the spring but keeping the wait would be
+ * the one style whose name is a lie), `SMOOTH` drops the overshoot, and `CHILL`
+ * keeps it.
  *
  * ## It runs once per section, not once per composition of it
  *
@@ -47,8 +48,8 @@ import kotlinx.coroutines.delay
  * the composition would cancel the spring the moment the flag flipped.
  */
 @Composable
-fun sectionReveal(index: Int): Modifier {
-    if (ExpressiveMotion.speed == MotionStyle.INSTANT) return Modifier
+fun Modifier.sectionReveal(index: Int): Modifier {
+    if (ExpressiveMotion.speed == MotionStyle.INSTANT) return this
 
     var played by rememberSaveable { mutableStateOf(false) }
     val progress = remember { Animatable(if (played) 1f else 0f) }
@@ -62,7 +63,7 @@ fun sectionReveal(index: Int): Modifier {
         progress.animateTo(1f, ExpressiveMotion.DefaultSpatial)
     }
 
-    return Modifier.graphicsLayer {
+    return this.graphicsLayer {
         alpha = progress.value
         translationY = (1f - progress.value) * REVEAL_RISE.toPx()
     }
