@@ -70,6 +70,18 @@
         {
           "title": "Each profile remembers its own tab",
           "detail": "Opening somebody elses profile from the Social tab landed you on whichever tab you had left your own profile on, because the tab was saved without knowing which profile it belonged to. Every profile now keeps its own tab, and a rotation still returns you to it."
+        },
+        {
+          "title": "Facts read as facts",
+          "detail": "Studio, Episodes, Duration, Season and the rest were set in almost the same size and weight as the numbers under them, so the details card read as one block of text rather than as a list of labelled answers. Each label is now a small capital above its value, which is what makes a number findable when you are looking for one, and the pairs are spaced apart so a two-column grid no longer runs together as four columns."
+        },
+        {
+          "title": "Bold text in a bio actually looks bold",
+          "detail": "Bold in an AniList bio rendered as body text very slightly heavier, which for most of a phone screen was impossible to tell apart from normal - and bios lean on bold hard, so whole lines meant to stand out were not. Bold is now a heavier weight, and underlined text is emphasised rather than underlined with a near-invisible hairline."
+        },
+        {
+          "title": "Library posters say a little more",
+          "detail": "A poster told you its title and its progress and nothing else, so a grid of thirty was a wall of art you had to read one caption at a time. Each poster now carries its score or format on a quieter line underneath, and a title that already contains that text does not repeat it. Titles are capped to one line so the new line has room, and the poster image no longer announces the title that is printed directly below it."
         }
       ]
     },

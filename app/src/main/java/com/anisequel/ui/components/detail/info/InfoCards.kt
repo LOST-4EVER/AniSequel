@@ -32,6 +32,7 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.anisequel.data.model.MediaNode
 import com.anisequel.data.model.MissedSequel
@@ -309,18 +310,49 @@ fun InfoSpecsCard(
             }
         }
 
-        facts.chunked(2).forEach { pair ->
-            Row(modifier = Modifier.fillMaxWidth()) {
-                pair.forEach { (label, value) ->
-                    InfoFact(label = label, value = value, modifier = Modifier.weight(1f))
+        // `Arrangement.spacedBy` on the grid, not a `Row` per pair: each pair was its
+        // own row with no space above it, so a two-column grid of facts rendered as
+        // four columns of text with the pairs visually indistinguishable from each
+        // other - and a single label ("Episodes") sitting above a single value
+        // ("24") looked like a broken label/value pair rather than one of four.
+        //
+        // The pairs are also `Arrangement.Top`, so a fact whose value wraps to two
+        // lines does not drag its neighbour's value up to meet it.
+        Column(
+            modifier = Modifier.fillMaxWidth(),
+            verticalArrangement = Arrangement.spacedBy(10.dp)
+        ) {
+            facts.chunked(2).forEach { pair ->
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(12.dp),
+                    verticalAlignment = Alignment.Top
+                ) {
+                    pair.forEach { (label, value) ->
+                        InfoFact(label = label, value = value, modifier = Modifier.weight(1f))
+                    }
+                    if (pair.size == 1) Spacer(modifier = Modifier.weight(1f))
                 }
-                if (pair.size == 1) Spacer(modifier = Modifier.weight(1f))
             }
         }
     }
 }
 
-/** A label with its value under it - the unit both detail grids are built from. */
+/**
+ * A label with its value under it - the unit both detail grids are built from.
+ *
+ * The label is **uppercased and tracked out**. This is the one place on the page
+ * where a reader is scanning for a specific number across a two-column grid, and
+ * every label was set in the same weight and size as the values above and below
+ * them - so a grid of "Episodes / 24 / Duration / 24m / Season / Winter 2012"
+ * read as one undifferentiated block. A label that is visibly a *label* is what
+ * makes a number findable: the eye goes to the small tracked-out word, and the
+ * answer is the line under it.
+ *
+ * `onSurfaceVariant` at a reduced alpha rather than at full strength: the values
+ * are the content and the labels are the scaffolding, and at equal weight the
+ * scaffolding was competing.
+ */
 @Composable
 private fun InfoFact(
     label: String,
@@ -329,13 +361,20 @@ private fun InfoFact(
 ) {
     Column(modifier = modifier, verticalArrangement = Arrangement.spacedBy(2.dp)) {
         Text(
-            text = label,
-            style = MaterialTheme.typography.labelMedium,
-            color = MaterialTheme.colorScheme.onSurfaceVariant
+            text = label.uppercase(),
+            style = MaterialTheme.typography.labelSmall,
+            fontWeight = FontWeight.SemiBold,
+            color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.75f),
+            // Letter spacing is what makes a run of small capitals legible as a
+            // unit; at this size with the default spacing they run together.
+            letterSpacing = 0.6.sp,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis
         )
         Text(
             text = value,
             style = MaterialTheme.typography.bodyLarge,
+            color = MaterialTheme.colorScheme.onSurface,
             fontWeight = FontWeight.SemiBold,
             maxLines = 2,
             overflow = TextOverflow.Ellipsis
@@ -343,7 +382,12 @@ private fun InfoFact(
     }
 }
 
-/** A label on the left, its value on the right - the alternative-titles rows. */
+/**
+ * A label on the left, its value on the right - the alternative-titles rows.
+ *
+ * Same treatment as [InfoFact] and for the same reason: these rows are read by
+ * looking for one name, and the label is what says which column it is in.
+ */
 @Composable
 private fun InfoFactRow(
     label: String,
@@ -352,9 +396,13 @@ private fun InfoFactRow(
 ) {
     Row(modifier = modifier.fillMaxWidth(), verticalAlignment = Alignment.Top) {
         Text(
-            text = label,
-            style = MaterialTheme.typography.labelMedium,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            text = label.uppercase(),
+            style = MaterialTheme.typography.labelSmall,
+            fontWeight = FontWeight.SemiBold,
+            color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.75f),
+            letterSpacing = 0.6.sp,
+            maxLines = 2,
+            overflow = TextOverflow.Ellipsis,
             modifier = Modifier.width(96.dp)
         )
         Spacer(modifier = Modifier.width(12.dp))
