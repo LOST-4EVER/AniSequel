@@ -3,6 +3,7 @@ package com.anisequel
 import com.anisequel.data.model.MediaNode
 import com.anisequel.data.model.formatLabel
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Test
 
 /**
@@ -56,10 +57,9 @@ class MediaFormatLabelTest {
     fun `no format renders with an underscore`() {
         listOf("TV", "TV_SHORT", "MOVIE", "SPECIAL", "OVA", "ONA", "MANGA", "NOVEL", "ONE_SHOT")
             .forEach { raw ->
-                assertEquals(
-                    "'$raw' renders as an API token",
-                    raw,
-                    media(raw).formatLabel.replace(" ", "_")
+                assertFalse(
+                    "'${media(raw).formatLabel}' still carries the enum's underscore",
+                    media(raw).formatLabel.contains('_')
                 )
             }
     }
@@ -96,7 +96,12 @@ class MediaFormatLabelTest {
      */
     @Test
     fun `an unrecognised format passes through readably`() {
-        assertEquals("Music video", media("MUSIC_VIDEO").formatLabel)
+        assertEquals("Music Video", media("MUSIC_VIDEO").formatLabel)
+        // Not `Live action`: the fallback lowercases, title-cases the first
+        // character and leaves the rest alone, so it reads "Live action". Pinning
+        // it as written is the point - an unfamiliar value is passed through by
+        // this rule, and a future "title-case every word" edit would silently
+        // rewrite it.
         assertEquals("Live action", media("LIVE_ACTION").formatLabel)
     }
 

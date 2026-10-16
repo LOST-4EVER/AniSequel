@@ -8,6 +8,8 @@ import com.anisequel.data.model.alternativeTitleRows
 import com.anisequel.data.model.displayName
 import com.anisequel.data.model.hasProgressCard
 import com.anisequel.data.model.hasRankings
+import com.anisequel.data.model.progressCountLabel
+import com.anisequel.data.model.watchFraction
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
@@ -81,13 +83,21 @@ class MediaNodeDisplayTest {
     }
 
     @Test
-    fun `an unwatched title with a known total has no progress card`() {
-        // Progress recorded as 0 is still "on the list at episode zero", but a bar at
-        // 0% is a claim the viewer has started and not moved - which is why the card
-        // wants both a total and a count, and why the count has to be there.
+    fun `a tracked title with no progress yet still has a progress card`() {
+        // AniList records progress 0 the moment a show is added to Planning, before
+        // anything is watched - and that is not the same as "not on the list". The
+        // distinction is the whole point of this predicate: a title with no
+        // `mediaListEntry` has no `watchFraction` at all, so no card and no 0% wave
+        // (a bar there would claim progress for a thing nobody is tracking), while a
+        // title that is tracked at zero legitimately says "0 / 26".
+        //
+        // It is also what the Library tab already does: `libraryProgressLabel`
+        // returns "Ep 0/26" for the same entry, so the two surfaces agree.
         val media = node(episodes = 26, watched = 0)
 
-        assertFalse(media.hasProgressCard)
+        assertEquals("0 / 26", media.progressCountLabel)
+        assertEquals("the fraction is defined, at zero", 0f, media.watchFraction()!!, 0f)
+        assertTrue(media.hasProgressCard)
     }
 
     @Test

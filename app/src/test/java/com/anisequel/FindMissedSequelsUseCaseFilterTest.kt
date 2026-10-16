@@ -12,6 +12,7 @@ import com.anisequel.data.model.MediaTitle
 import com.anisequel.data.model.StatusFilter
 import com.anisequel.domain.usecase.FindMissedSequelsUseCase
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
@@ -178,6 +179,13 @@ class FindMissedSequelsUseCaseFilterTest {
         val special = MediaNode(
             id = 204,
             title = MediaTitle(english = "A Special"),
+            format = "SPECIAL",
+            status = "FINISHED",
+            episodes = 1
+        )
+        val tvShort = MediaNode(
+            id = 205,
+            title = MediaTitle(english = "A Short"),
             format = "TV_SHORT",
             status = "FINISHED",
             episodes = 1
@@ -185,7 +193,7 @@ class FindMissedSequelsUseCaseFilterTest {
         val list = collection(
             MediaListEntryItem(
                 status = "COMPLETED",
-                media = parent(300, airedSequel, movie, special)
+                media = parent(300, airedSequel, movie, special, tvShort)
             )
         )
 
@@ -197,8 +205,8 @@ class FindMissedSequelsUseCaseFilterTest {
         )
 
         assertEquals(
-            "choosing TV series must keep the TV entry, and must not accidentally " +
-                "keep TV_SHORT now that the two have different readable labels",
+            "choosing TV series must keep the TV entry and not reach across to the " +
+                "movie, now that 'TV' and 'Tv Short' are different readable labels",
             listOf(201),
             useCase.execute(list, FilterCriteria(selectedFormat = "TV"))
                 .map { it.sequelId }
@@ -209,6 +217,50 @@ class FindMissedSequelsUseCaseFilterTest {
             listOf(204),
             useCase.execute(list, FilterCriteria(selectedFormat = "SPECIAL"))
                 .map { it.sequelId }
+        )
+    }
+
+    /**
+     * A documented gap, pinned rather than papered over.
+     *
+     * The format chips hold AniList's keys - "TV", "MOVIE", "OVA", "ONA",
+     * "SPECIAL" - and the comparison is exact, so a `TV_SHORT` matches **none** of
+     * them: not "TV" (different string) and not "SPECIAL" (also different). A TV
+     * special is therefore unreachable by any format filter while remaining in the
+     * unfiltered list.
+     *
+     * Not fixed here because "which chip should a TV short belong to" is a product
+     * decision, not a bug: folding it into "TV" is defensible and so is giving it a
+     * chip of its own. What is a bug is not *knowing* it, which is what this test
+     * does - the shape is recorded so the decision is made deliberately later.
+     */
+    @Test
+    fun `a TV short matches no format chip, which is a known gap`() {
+        val tvShort = MediaNode(
+            id = 205,
+            title = MediaTitle(english = "A Short"),
+            format = "TV_SHORT",
+            status = "FINISHED",
+            episodes = 1
+        )
+        val list = collection(
+            MediaListEntryItem(
+                status = "COMPLETED",
+                media = parent(300, airedSequel, tvShort)
+            )
+        )
+
+        listOf("TV", "MOVIE", "OVA", "ONA", "SPECIAL").forEach { chip ->
+            assertFalse(
+                "'$chip' unexpectedly matched a TV_SHORT (id 205)",
+                useCase.execute(list, FilterCriteria(selectedFormat = chip))
+                    .any { it.sequelId == 205 }
+            )
+        }
+
+        assertTrue(
+            "and it is in the list when no format is chosen, so it is reachable at all",
+            useCase.execute(list, FilterCriteria()).any { it.sequelId == 205 }
         )
     }
 

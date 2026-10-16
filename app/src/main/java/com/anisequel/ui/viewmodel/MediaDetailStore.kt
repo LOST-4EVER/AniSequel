@@ -67,7 +67,30 @@ class MediaDetailStore(
     private val _details = MutableStateFlow<Map<Int, MediaNode>>(emptyMap())
     val details: StateFlow<Map<Int, MediaNode>> = _details.asStateFlow()
 
+    /**
+     * Namespaces currently being fetched, so the guard above is per-title rather
+     * than per-number.
+     *
+     * A plain set rather than a `StateFlow`: it is only read synchronously inside
+     * [load] and written inside the launched coroutine, and making it observable
+     * would mean the screens' spinner is driven by a flow that has to be mapped
+     * and scoped to answer a question - "is this one title loading" - that a set of
+     * ids answers directly. [loading] stays the observable, and stays keyed by id,
+     * because that is what its consumers look up by.
+     */
+    private val inFlight = mutableSetOf<MediaCoverKey>()
+
     private val _loading = MutableStateFlow<Set<Int>>(emptySet())
+
+    /**
+     * Which media ids are being fetched, for the screens' spinner.
+     *
+     * Keyed by id rather than by [inFlight]'s key, because that is what the
+     * consumers ask - "is the title I have open still loading" - and a screen only
+     * ever holds one title. Two namespaces sharing an id both appear here, which is
+     * harmless for a spinner and is exactly the collision the fetch guard no longer
+     * has.
+     */
     val loading: StateFlow<Set<Int>> = _loading.asStateFlow()
 
     /**
@@ -92,8 +115,16 @@ class MediaDetailStore(
             return
         }
         // Demo data is already complete, and there is no session to fetch with.
-        if (isDemo || mediaId in _loading.value) return
+        //
+        // The in-flight guard is keyed the same way [cache] is. It used to be a
+        // `Set<Int>`, which meant a second open for a *different* namespace sharing
+        // an id was dropped as "already loading" while the first was in flight - so
+        // opening `manga/1` and then, before it landed, `anime/1`, silently kept
+        // the manga's detail for both. The same collision as everywhere else here,
+        // in the one place that decides whether a fetch happens at all.
+        if (isDemo || key in inFlight) return
 
+        inFlight += key
         _loading.value = _loading.value + mediaId
         scope.launch {
             try {
@@ -105,7 +136,14 @@ class MediaDetailStore(
                 // A failed detail load is not worth interrupting the user over:
                 // the sheet shows what the summary query already had.
             } finally {
-                _loading.value = _loading.value - mediaId
+                inFlight -= key
+                // Only drop the spinner when *no* namespace for this id is still
+                // fetching. Dropping it on the first to finish would hide the
+                // spinner while the second was still on the wire, and the screen
+                // would show a half-filled page as though it were complete.
+                if (inFlight.none { it.id == mediaId }) {
+                    _loading.value = _loading.value - mediaId
+                }
             }
         }
     }
@@ -126,6 +164,11 @@ class MediaDetailStore(
     /** Drops the cache; called when the collection it was built against changes. */
     fun clear() {
         cache.clear()
+        // Cleared rather than left to drain: a launch that is still in flight for a
+        // collection that no longer exists has nothing to fold its answer into, and
+        // leaving it would keep a spinner turning over a list the reader has left.
+        // The launched coroutines still clear their own key on the way out.
+        inFlight.clear()
         _details.value = emptyMap()
         _loading.value = emptySet()
     }

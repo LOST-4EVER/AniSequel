@@ -437,7 +437,8 @@ class LibraryFilterTest {
             )
         )
         assertEquals(
-            "Ch 50",
+            "a manga rewatch reads as a percentage too, not a finished chapter total",
+            "Ch 25%",
             libraryProgressLabel(
                 entry(id = 2, type = "MANGA", progress = 50, chapters = 200, status = "REPEATING")
             )
