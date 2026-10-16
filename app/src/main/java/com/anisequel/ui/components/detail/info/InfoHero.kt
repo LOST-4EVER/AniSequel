@@ -32,7 +32,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Brush
@@ -62,18 +61,32 @@ import com.anisequel.ui.components.expressive.ExpressiveShapes
 import com.anisequel.ui.components.expressive.expressiveHoldGesture
 
 /**
- * The Info page's hero: the artwork, blurred behind its own title.
+ * The Info page's hero: the artwork, behind its own title.
  *
- * ## Why the backdrop is the *blurred* key visual rather than a banner
+ * ## Why the backdrop is the key visual rather than a banner
  *
- * The sheet used to lead with the banner, unblurred, with the title lockup over a
- * dark scrim. A banner is a 16:9 frame of whatever the studio put on the poster
- * edge, and cropped into a hero it competes with the title sitting on top of it.
- * Blurring the same artwork removes the competition and keeps the colour - the
- * page's first impression is still this show, but nothing in it is fighting the
- * text for attention. It also makes the hero honest for the common case: the
- * dashboard's list query does not fetch `bannerImage` at all, so a banner-led hero
- * started as a flat grey slab for every sheet opened from the dashboard.
+ * The sheet used to lead with the banner, with the title lockup over a dark scrim.
+ * A banner is a 16:9 frame of whatever the studio put on the poster edge, and
+ * cropped into a hero it competes with the title sitting on top of it. The key
+ * visual is the artwork a reader already recognises from the row they tapped, and
+ * it also makes the hero honest for the common case: the dashboard's list query
+ * does not fetch `bannerImage` at all, so a banner-led hero started as a flat grey
+ * slab for every sheet opened from the dashboard.
+ *
+ * ## Why the artwork is sharp and the scrim does the work
+ *
+ * It used to be blurred at 26dp, on the reasoning - still recorded on the old
+ * constant - that a sharp key visual puts its own lettering and faces behind the
+ * title lockup and the two fight. That reasoning was sound and the treatment was
+ * still wrong, because 26dp of blur is not a scrim: it is the artwork redrawn as
+ * an impression of itself. A hero is the one place a reader decides what a title
+ * looks like, and the poster's own artwork is the thing worth showing them.
+ *
+ * So the blur is gone and the legibility it was buying moved into the gradient
+ * below, which is weighted for sharp art and can be read in one place. The
+ * `ProfileActivityCard` backdrop keeps its blur, and the difference is deliberate:
+ * that is a 64dp wash behind a title on a card, where the art is a colour hint and
+ * never the subject.
  *
  * ## The collapse
  *
@@ -139,20 +152,29 @@ fun InfoHero(
                         scaleY = zoom
                         alpha = 1f - scroll * BACKDROP_HANDOFF
                     }
-                    .blur(BACKDROP_BLUR)
             )
         }
 
         // Ends on `surface`, not on black: the hero has to hand over to the page
         // body without a visible seam, and the sheet's own container is `surface`.
+        //
+        // Weighted for artwork that is **sharp**. This scrim used to be written for
+        // a blurred backdrop and was far too light for a sharp one: the top stop was
+        // fully transparent, so the poster's own lettering and faces - the very
+        // things the blur had been there to remove - sat directly under the title
+        // lockup and fought every glyph in it. The blur is gone (see the KDoc on
+        // this function) so the legibility work moves here, where it costs nothing
+        // and can be read: top-weighted enough to sit under the artwork, strong at
+        // the bottom where the lockup and its chips are drawn.
         Box(
             modifier = Modifier
                 .matchParentSize()
                 .background(
                     Brush.verticalGradient(
-                        0f to Color.Transparent,
-                        0.42f to Color.Black.copy(alpha = 0.30f),
-                        0.76f to Color.Black.copy(alpha = 0.62f),
+                        0f to Color.Black.copy(alpha = 0.10f),
+                        0.30f to Color.Black.copy(alpha = 0.22f),
+                        0.58f to Color.Black.copy(alpha = 0.52f),
+                        0.82f to Color.Black.copy(alpha = 0.74f),
                         1f to surface
                     )
                 )
@@ -481,8 +503,13 @@ private const val PARALLAX_ZOOM = 0.16f
  * Heavy enough that no letterform in the artwork competes with the title, light
  * enough that the show's palette still reads. See the contrast note on
  * `ProfileActivityCard.COVER_BLUR_RADIUS` - this is the same trade at hero scale.
+ *
+ * Not applied. The hero shows its artwork sharp now, so the blur is gone and the
+ * legibility it bought is done by the scrim instead - see the note on that gradient.
+ * The reasoning is kept here rather than deleted silently, because the blur was a
+ * deliberate answer to sharp artwork competing with the title, and the next person
+ * to weaken that scrim will be re-solving the same problem.
  */
-private val BACKDROP_BLUR = 26.dp
 
 /**
  * How much of the backdrop is gone once the hero has fully collapsed.

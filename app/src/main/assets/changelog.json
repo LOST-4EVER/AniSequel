@@ -54,6 +54,22 @@
         {
           "title": "Crew portraits stop pretending to be buttons",
           "detail": "The crew portraits squashed when you touched them and then did nothing, which reads as a broken control rather than a decoration. They are still a row of artwork - the positions each person held are printed under them - but they no longer invite a tap that goes nowhere."
+        },
+        {
+          "title": "The title page shows its artwork clearly",
+          "detail": "The artwork behind the title was blurred, which turned a poster into a smear of colour and made the page look worse the better the artwork was. It is now shown sharp, and the darkening behind the title was deepened to keep every word readable over it."
+        },
+        {
+          "title": "Your profile groups the people you have pinned",
+          "detail": "Favourite Characters and Favourite Staff were two separate headings above two identical rows of portraits, which reads as two kinds of thing rather than as one list of people. They are one row under one heading now, a crew member without a listed job shows how many people pinned them instead of the word Staff, and an actor who appears both as a character voice and as staff appears once rather than twice."
+        },
+        {
+          "title": "Opening your own profile from the dashboard works again",
+          "detail": "Tapping your avatar, or the profile button on the demo dashboard, did nothing at all: the profile is registered as a route with an optional tab argument, and the avatar navigated to that route without the argument, which matches no screen. It now lands on your profile as intended."
+        },
+        {
+          "title": "Each profile remembers its own tab",
+          "detail": "Opening somebody elses profile from the Social tab landed you on whichever tab you had left your own profile on, because the tab was saved without knowing which profile it belonged to. Every profile now keeps its own tab, and a rotation still returns you to it."
         }
       ]
     },
