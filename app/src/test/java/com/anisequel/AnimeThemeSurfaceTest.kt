@@ -136,7 +136,14 @@ class AnimeThemeSurfaceTest {
         val brand = DynamicThemeBuilder.createDynamicSchemes(Color(0xFF7FA9D4)).second
         val tinted = DynamicThemeBuilder.createDynamicSchemes(Color(0xFFD64B4B), tintSurfaces = true).second
 
-        surfaceRoles(brand).zip(surfaceRoles(tinted)).forEach { (role, brandColor), (_, tintedColor) ->
+        // `zip` hands back a Pair of Pairs, so this destructures the *one* parameter
+        // `forEach` takes into its two halves. Writing it as two parameters -
+        // `{ (a, b), (c, d) -> }` - reads as a two-arg lambda that `forEach` has no
+        // room for, and the compiler says so.
+        surfaceRoles(brand).zip(surfaceRoles(tinted)).forEach { (brandRole, tintedRole) ->
+            val role = brandRole.first
+            val brandColor = brandRole.second
+            val tintedColor = tintedRole.second
             val brandHsl = hslOf(brandColor)
             val tintedHsl = hslOf(tintedColor)
 

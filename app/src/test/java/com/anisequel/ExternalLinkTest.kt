@@ -1,11 +1,11 @@
 package com.anisequel
 
-import com.anisequel.ui.components.OpenExternalUrl
 import com.anisequel.ui.components.openExternalUrlOrCopy
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
+import java.io.File
 import java.io.File
 
 /**
