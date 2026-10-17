@@ -116,19 +116,20 @@ fun SettingsScreen(
         AnimatedContent(
             targetState = selectedTab,
             transitionSpec = {
-                (
-                    fadeIn(animationSpec = ExpressiveMotion.FastEffects) +
-                        scaleIn(
-                            animationSpec = ExpressiveMotion.FastSpatial,
-                            initialScale = 0.94f
-                        )
-                ) togetherWith (
+                // No parentheses around the two halves: `+` binds tighter than the
+                // `togetherWith` infix function, so this parses as
+                // `(fadeIn + scaleIn) togetherWith (fadeOut + scaleOut)` and detekt
+                // flags the brackets as noise (which is what CodeFactor caught here).
+                fadeIn(animationSpec = ExpressiveMotion.FastEffects) +
+                    scaleIn(
+                        animationSpec = ExpressiveMotion.FastSpatial,
+                        initialScale = 0.94f
+                    ) togetherWith
                     fadeOut(animationSpec = ExpressiveMotion.FastEffects) +
-                        scaleOut(
-                            animationSpec = ExpressiveMotion.FastSpatial,
-                            targetScale = 1.04f
-                        )
-                )
+                    scaleOut(
+                        animationSpec = ExpressiveMotion.FastSpatial,
+                        targetScale = 1.04f
+                    )
             },
             label = "settings_tab_transition",
             modifier = Modifier
