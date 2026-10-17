@@ -169,12 +169,16 @@ private fun ListRefreshCard(refreshIntervalPreferences: RefreshIntervalPreferenc
         // card grows a button the moment a chip is chosen. A bare `if` did that by
         // appearing fully drawn on the next frame and shoving the card's bottom edge
         // down instantly; the spring expansion makes the row the thing that moves.
+        // `FastSpatialSize` rather than the `Int` token: `expandVertically` is typed
+        // on `FiniteAnimationSpec<IntSize>`, because what it animates is the row's
+        // measured height rather than a count. The `Int` token looks like the closer
+        // match and does not compile.
         AnimatedVisibility(
             visible = interval != RefreshInterval.DEFAULT,
             enter = fadeIn(animationSpec = ExpressiveMotion.FastEffects) +
-                expandVertically(animationSpec = ExpressiveMotion.FastSpatialInt),
+                expandVertically(animationSpec = ExpressiveMotion.FastSpatialSize),
             exit = fadeOut(animationSpec = ExpressiveMotion.FastEffects) +
-                shrinkVertically(animationSpec = ExpressiveMotion.FastSpatialInt)
+                shrinkVertically(animationSpec = ExpressiveMotion.FastSpatialSize)
         ) {
             Column {
                 Spacer(modifier = Modifier.height(16.dp))

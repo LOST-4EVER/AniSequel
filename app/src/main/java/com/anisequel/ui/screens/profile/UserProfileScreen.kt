@@ -508,12 +508,16 @@ private fun ProfileTabsContent(
         // own measured height on the spatial spring, so the content beneath it travels
         // rather than jumping, and the spinner fades in alongside it rather than
         // popping into existence.
+        // `FastSpatialSize`, not the `Int` token: `expandVertically` is typed on
+        // `FiniteAnimationSpec<IntSize>` (it animates a measured height, not a
+        // count), and the two are not interchangeable - the compiler rejects the
+        // `Int` one outright.
         AnimatedVisibility(
             visible = state.isRefreshing,
             enter = fadeIn(animationSpec = ExpressiveMotion.FastEffects) +
-                expandVertically(animationSpec = ExpressiveMotion.FastSpatialInt),
+                expandVertically(animationSpec = ExpressiveMotion.FastSpatialSize),
             exit = fadeOut(animationSpec = ExpressiveMotion.FastEffects) +
-                shrinkVertically(animationSpec = ExpressiveMotion.FastSpatialInt)
+                shrinkVertically(animationSpec = ExpressiveMotion.FastSpatialSize)
         ) {
             ProfileRefreshBar()
         }
