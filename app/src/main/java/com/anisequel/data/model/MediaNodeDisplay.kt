@@ -585,7 +585,10 @@ private val TAG_PATTERN = Regex("<[^>]*>")
  */
 private val SOURCE_ATTRIBUTION = Regex(
     """^[ \t]*\((?:Source|Sources):[^)]*\)[ \t]*$""",
-    RegexOption.MULTILINE or RegexOption.IGNORE_CASE
+    // `setOf`, not `a or b`: `RegexOption` is a plain enum and has no `or` operator.
+    // The set overload is the one that takes more than one flag, and it is easy to
+    // reach for the bitwise spelling out of habit -- CI rejected it.
+    setOf(RegexOption.MULTILINE, RegexOption.IGNORE_CASE)
 )
 
 /** Runs of whitespace left behind once the tags are gone. */
