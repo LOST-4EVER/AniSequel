@@ -136,7 +136,7 @@ class AnimeThemeSurfaceTest {
         val brand = DynamicThemeBuilder.createDynamicSchemes(Color(0xFF7FA9D4)).second
         val tinted = DynamicThemeBuilder.createDynamicSchemes(Color(0xFFD64B4B), tintSurfaces = true).second
 
-        surfaceRoles(brand).zip(surfaceRoles(tinted)).forEach { ((role, brandColor), (_, tintedColor)) ->
+        surfaceRoles(brand).zip(surfaceRoles(tinted)).forEach { (role, brandColor), (_, tintedColor) ->
             val brandHsl = hslOf(brandColor)
             val tintedHsl = hslOf(tintedColor)
 
