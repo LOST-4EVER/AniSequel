@@ -6,7 +6,6 @@ import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import java.io.File
-import java.io.File
 
 /**
  * A link in somebody else's bio that the device cannot open used to do nothing at all.
