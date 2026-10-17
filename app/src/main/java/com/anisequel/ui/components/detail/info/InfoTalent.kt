@@ -134,6 +134,12 @@ private fun CharacterCard(edge: MediaCharacterEdge) {
     val actor = edge.voiceActors?.firstOrNull()
     val placeholder = MaterialTheme.colorScheme.surfaceContainerHighest
     val url = character?.siteUrl
+    // Read here rather than inside the `clickable` lambda. That lambda is a plain
+    // one, not a composable, so a `LocalContext.current` read in its body has no
+    // composition to read from and the compiler rejects it - "invocations can only
+    // happen from the context of a @Composable function". The value is hoisted,
+    // which is the only place it can legally be read.
+    val context = LocalContext.current
 
     Surface(
         shape = MaterialTheme.shapes.large,
@@ -150,7 +156,7 @@ private fun CharacterCard(edge: MediaCharacterEdge) {
                 if (url != null) {
                     Modifier
                         .bouncyPress(pressedScale = 0.98f)
-                        .clickable { openExternalUrl(LocalContext.current, url) }
+                        .clickable { openExternalUrl(context, url) }
                 } else {
                     Modifier
                 }

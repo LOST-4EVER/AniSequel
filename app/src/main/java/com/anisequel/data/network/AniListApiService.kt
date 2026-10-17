@@ -12,7 +12,6 @@ import com.anisequel.data.model.MediaCoverPage
 import com.anisequel.data.model.MediaListCollectionData
 import com.anisequel.data.model.MediaListEntryData
 import com.anisequel.data.model.MediaDetailData
-import com.anisequel.data.model.MediaNode
 import com.anisequel.data.model.SaveActivityReplyData
 import com.anisequel.data.model.SaveMediaListEntryData
 import com.anisequel.data.model.StudioData
@@ -158,7 +157,7 @@ interface AniListApiService {
 
     /** Likes or un-likes a comment on an activity. Requires a session. */
     @POST("/")
-    @Headers("Content-Type: application/json", "Accept": "application/json")
+    @Headers("Content-Type: application/json", "Accept: application/json")
     suspend fun toggleActivityReplyLike(
         @Body request: GraphQLRequest
     ): GraphQLResponse<ToggleLikeData>
