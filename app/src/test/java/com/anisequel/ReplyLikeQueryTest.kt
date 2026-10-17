@@ -1,6 +1,5 @@
 package com.anisequel
 
-import com.anisequel.data.network.AniListApiService
 import com.anisequel.data.network.GraphQLQueries
 import com.anisequel.data.repository.AniListRepository
 import com.anisequel.data.repository.AniListRepositoryImpl
