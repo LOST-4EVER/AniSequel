@@ -156,6 +156,13 @@ interface AniListApiService {
         @Body request: GraphQLRequest
     ): GraphQLResponse<ToggleLikeData>
 
+    /** Likes or un-likes a comment on an activity. Requires a session. */
+    @POST("/")
+    @Headers("Content-Type: application/json", "Accept": "application/json")
+    suspend fun toggleActivityReplyLike(
+        @Body request: GraphQLRequest
+    ): GraphQLResponse<ToggleLikeData>
+
     /** Posts a comment on an activity. Requires a session. */
     @POST("/")
     @Headers("Content-Type: application/json", "Accept: application/json")
