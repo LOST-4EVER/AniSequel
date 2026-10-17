@@ -42,7 +42,10 @@ import java.io.File
 class CastAndSpoilerTest {
 
     private val charactersBlock = GraphQLQueries.getMediaDetailQuery("ANIME")
-        .substringAfter("characters(sort: [ROLE, RELEVANCE, ID]")
+        // `substringAfter("characters(")` and not the whole argument list: taking the
+        // full `characters(sort: [...])` as the marker *consumes* the sort, so the
+        // block below would no longer contain the thing the next test asserts on.
+        .substringAfter("characters(")
         .substringBefore("staff(sort: [RELEVANCE")
 
     @Test
@@ -231,16 +234,33 @@ class CastAndSpoilerTest {
     fun `revealed spoiler text is not a close button`() {
         val source = spoilerSource()
 
-        val chip = source.substringAfter("private fun SpoilerChip(")
+        // The whole block used to carry the click handler, so a tap anywhere on the
+        // revealed text closed it - and a link inside a spoiler was swallowed by it.
         assertFalse(
-            "the chip's click handler must not be on the surface — only the chip is " +
-                "the control",
-            source.contains("clickable { revealed = !revealed }") ||
-                chip.contains("onClick = onToggle")
+            "nothing outside SpoilerChip may take the toggle - the revealed text has " +
+                "to behave like any other paragraph:\n$source",
+            source.contains("clickable { revealed = !revealed }")
         )
+
+        // And the chip is where the click lands.
+        val chip = source.substringAfter("private fun SpoilerChip(")
         assertTrue(
             "the chip itself is the click target",
             chip.contains(".clickable(onClick = onToggle)")
+        )
+
+        // The revealed body is a plain `Text` inside a plain `Surface` - no clickable
+        // anywhere in `RenderSpoilerBlock` itself. Bounded by that function's own
+        // declaration, not by the file: `RenderImage` and `RenderVideo` sit above it
+        // and legitimately have clicks, so a wider window asserts the opposite of
+        // what it says.
+        val renderer = source
+            .substringAfter("fun RenderSpoilerBlock(")
+            .substringBefore("private fun SpoilerChip(")
+        assertFalse(
+            "nothing in RenderSpoilerBlock may take a tap - the revealed text has to " +
+                "behave like any other paragraph:\n$renderer",
+            renderer.contains("clickable")
         )
     }
 

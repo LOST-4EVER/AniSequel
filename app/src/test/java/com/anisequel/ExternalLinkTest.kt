@@ -133,7 +133,7 @@ class ExternalLinkTest {
         assertTrue(
             "the character card opens AniList's own page, which always has a scheme " +
                 "an app handles",
-            infoTalent.contains("openExternalUrl(LocalContext.current, url)")
+            infoTalent.contains("openExternalUrl(context, url)")
         )
         assertFalse(
             "so it must not be the copy fallback",
